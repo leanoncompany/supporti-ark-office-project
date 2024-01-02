@@ -1,0 +1,101 @@
+{
+  "name": "@leanoncompany/supporti-ark-office-project",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": "https://github.com/leanoncompany/supporti-ark-office-project",
+  "version": "0.0.1",
+  "author": "Leanoncompany Team",
+  "type": "module",
+  "license": "ISC",
+  "private": false,
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.2",
+    "@mui/material": "^5.11.0",
+    "@mui/x-date-pickers": "^5.0.15",
+    "@leanoncompany/supporti-react-ui": "^0.0.1",
+    "@leanoncompany/supporti-utility": "^0.0.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/howler": "^2.2.7",
+    "@types/jest": "^27.5.1",
+    "@types/next": "^9.0.0",
+    "@types/node": "^16.11.36",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-router": "^5.1.18",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/uuid": "^8.3.4",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "howler": "^2.2.3",
+    "moment": "^2.29.4",
+    "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-date-range": "^1.4.0",
+    "react-dom": "18.2.0",
+    "react-quill": "^2.0.0",
+    "react-redux": "^8.0.2",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "react-time-picker": "^6.5.2",
+    "redux": "^4.2.0",
+    "swiper": "^9.0.0",
+    "tsc": "^2.0.4",
+    "use-sound": "^4.0.1",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.4"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "./node_modules/typescript/bin/tsc",
+    "typecheck": "./node_modules/typescript/bin/tsc",
+    "prepack": "./node_modules/typescript/bin/tsc"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@rollup/plugin-commonjs": "^23.0.7",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@simbathesailor/use-what-changed": "^2.0.0",
+    "@types/babel__core": "^7.1.20",
+    "@types/http-proxy-middleware": "^1.0.0",
+    "@types/moment": "^2.13.0",
+    "@types/react-date-range": "^1.4.4",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "rollup": "^3.7.5",
+    "rollup-plugin-dts": "^5.0.0",
+    "typescript": "^4.9.5",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "prepublishOnly": "npm run typecheck"
+}

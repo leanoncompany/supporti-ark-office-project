@@ -23,7 +23,7 @@ import MultiFileUploader from '../../ui/local/input/MultiFileUploader';
 export class InputRenderer {
   public regexManager = new RegexManager();
 
-  public render = (data: IData, wrappedDataDict: IWrappedDataDict, disableEdit?: boolean) => {
+  public render = (data: IData, wrappedDataDict: IWrappedDataDict, disableEdit?: boolean, pageRole?: string) => {
     const wrappedDatas: IWrappedData[] = [];
 
     Object.keys(wrappedDataDict).map((key) => {
@@ -137,17 +137,21 @@ export class InputRenderer {
             break;
 
           case 'password':
-            ui = (
-              <PasswordInput
-                commonTextAreaConfigs={commonTextAreaConfigs}
-                passwordInputStatus={wrappedDatas[0].inputStatus}
-                setPasswordInputStatus={defaultSetInputStatus}
-                passwordConfirm={wrappedDatas[0].extendedStates?.['passwordConfirm'].state}
-                setPasswordConfirm={wrappedDatas[0].extendedStates?.['passwordConfirm'].setter}
-                passwordConfirmInputStatus={wrappedDatas[0].extendedStates?.['passwordConfirmInputStatus'].state}
-                setPasswordConfirmInputStatus={wrappedDatas[0].extendedStates?.['passwordConfirmInputStatus'].setter}
-              />
-            );
+            if (pageRole === 'write') {
+              ui = (
+                <PasswordInput
+                  commonTextAreaConfigs={commonTextAreaConfigs}
+                  passwordInputStatus={wrappedDatas[0].inputStatus}
+                  setPasswordInputStatus={defaultSetInputStatus}
+                  passwordConfirm={wrappedDatas[0].extendedStates?.['passwordConfirm'].state}
+                  setPasswordConfirm={wrappedDatas[0].extendedStates?.['passwordConfirm'].setter}
+                  passwordConfirmInputStatus={wrappedDatas[0].extendedStates?.['passwordConfirmInputStatus'].state}
+                  setPasswordConfirmInputStatus={wrappedDatas[0].extendedStates?.['passwordConfirmInputStatus'].setter}
+                />
+              );
+            } else {
+              ui = <Typography></Typography>;
+            }
 
             break;
 

@@ -58,25 +58,24 @@ const BaseForm = (props: IBaseFormProps) => {
           <Typography variant={'h6'} fontWeight={500}>
             {props.label !== undefined ? props.label : `${labelTail} ${labelSuffix}`}
           </Typography>
-
+          {/* disableEdit 이면 둘다 불가 disableUpdate 면 수정불가 생성가능 하게 수정.. */}
           {/* Buttons */}
           <Box display={props.disableEdit == true ? 'none' : 'flex'} alignItems={'center'}>
             {/* Update Button */}
             <Box>
-              {props.disableUpdate !== true && (
-                <UpdateButton
-                  pid={props.pid}
-                  pageRole={props.pageRole}
-                  modelIdKey={props.modelIdKey}
-                  dataList={props.dataList}
-                  createCallback={props.createCallback}
-                  updateCallback={props.updateCallback}
-                  wrappedDataDict={wrappedDataDict}
-                  buttonType={buttonType}
-                  validationCallback={props.validationCallback}
-                  disableNavigateAfterAction={props.disableNavigateAfterAction}
-                />
-              )}
+              <UpdateButton
+                pid={props.pid}
+                pageRole={props.pageRole}
+                modelIdKey={props.modelIdKey}
+                dataList={props.dataList}
+                createCallback={props.createCallback}
+                updateCallback={props.updateCallback}
+                wrappedDataDict={wrappedDataDict}
+                buttonType={buttonType}
+                validationCallback={props.validationCallback}
+                disableNavigateAfterAction={props.disableNavigateAfterAction}
+                disableUpdate={props.disableUpdate}
+              />
             </Box>
 
             {/* Delete button */}
@@ -108,7 +107,13 @@ const BaseForm = (props: IBaseFormProps) => {
                     {...data.grid}
                     key={JSON.stringify(data.keys)}
                     sx={data.gridStyleCallback !== undefined ? data.gridStyleCallback(wrappedDataDict) : undefined}>
-                    {inputRenderer.render(data, wrappedDataDict, props.disableEdit, props.pageRole || pageRole)}
+                    {inputRenderer.render(
+                      data,
+                      wrappedDataDict,
+                      props.disableEdit,
+                      props.pageRole || pageRole,
+                      props.disableUpdate
+                    )}
                   </Grid>
                 );
               })}

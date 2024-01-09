@@ -30,7 +30,7 @@ export class ControllerABC extends Communicator {
         .replace(/^_/, '') // 문자열 시작이 "_"일 경우 제거
         .toLowerCase()}`;
 
-      this.getModelConfig();
+      // this.getModelConfig();
     }
   }
 

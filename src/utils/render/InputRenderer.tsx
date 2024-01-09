@@ -23,7 +23,13 @@ import MultiFileUploader from '../../ui/local/input/MultiFileUploader';
 export class InputRenderer {
   public regexManager = new RegexManager();
 
-  public render = (data: IData, wrappedDataDict: IWrappedDataDict, disableEdit?: boolean, pageRole?: string) => {
+  public render = (
+    data: IData,
+    wrappedDataDict: IWrappedDataDict,
+    disableEdit?: boolean,
+    pageRole?: string,
+    disableUpdate?: boolean
+  ) => {
     const wrappedDatas: IWrappedData[] = [];
 
     Object.keys(wrappedDataDict).map((key) => {
@@ -36,7 +42,16 @@ export class InputRenderer {
     const defaultSetInputStatus = wrappedDatas[0].setInputStatus;
     const defaultSetter = wrappedDatas[0].setter;
     const subSetter = wrappedDatas[1]?.setter;
-    const disabled = data.disabled !== undefined ? data.disabled : disableEdit;
+    const disabled =
+      data.disabled !== undefined
+        ? data.disabled
+        : disableEdit !== undefined
+        ? disableEdit
+        : disableUpdate !== undefined
+        ? pageRole === 'write'
+          ? false
+          : disableUpdate
+        : disableUpdate;
 
     switch (data.ui) {
       case 'textarea':

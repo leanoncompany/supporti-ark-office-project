@@ -34,7 +34,6 @@ interface IBaseListProps {
   disableTotal?: boolean;
   disableWriteBtn?: boolean;
   disableOnClick?: boolean;
-
   modelIdKey: string;
   filterList?: {
     label: string;
@@ -55,9 +54,7 @@ interface IBaseListProps {
   ) => React.ReactElement;
   useBackendFiltering?: boolean;
   customControllerButton?: React.ReactElement;
-
   useNumber?: boolean;
-
   minWidth?: string;
   contentPerPage?: number;
 }

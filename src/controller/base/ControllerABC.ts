@@ -29,7 +29,6 @@ export class ControllerABC extends Communicator {
         .replace(/([A-Z])/g, '_$1')
         .replace(/^_/, '') // 문자열 시작이 "_"일 경우 제거
         .toLowerCase()}`;
-
       // this.getModelConfig();
     }
   }
@@ -297,15 +296,29 @@ export class ControllerABC extends Communicator {
     returnPromise?: boolean
   ) {
     if (this.mergedPath !== undefined) {
-      return this.putData(
-        {
-          FIND_OPTION_KEY_LIST: this.setArgs(args, 'DELETE', 'FIND_OPTION_KEY_LIST'),
-        },
-        `${this.mergedPath}/delete`,
-        successCallback,
-        failCallback,
-        returnPromise
-      );
+      if (this.modelConfig === undefined) {
+        return this.getModelConfig().then(() => {
+          return this.putData(
+            {
+              FIND_OPTION_KEY_LIST: this.setArgs(args, 'DELETE', 'FIND_OPTION_KEY_LIST'),
+            },
+            `${this.mergedPath}/delete`,
+            successCallback,
+            failCallback,
+            returnPromise
+          );
+        });
+      } else {
+        return this.putData(
+          {
+            FIND_OPTION_KEY_LIST: this.setArgs(args, 'DELETE', 'FIND_OPTION_KEY_LIST'),
+          },
+          `${this.mergedPath}/delete`,
+          successCallback,
+          failCallback,
+          returnPromise
+        );
+      }
     } else {
       throw new Error('Merged path is undefined');
     }

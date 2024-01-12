@@ -22,6 +22,9 @@ interface IDependentListProps {
   };
   disableWriteBtn?: boolean;
   disablePeriodSetter?: boolean;
+  customFilter?: string;
+  setCustomFilter?: React.Dispatch<any>;
+  customFilterRender?: (filter?: string, setFilter?: React.Dispatch<any>) => React.ReactElement;
 }
 
 const DependentList = (props: IDependentListProps) => {
@@ -114,6 +117,9 @@ const DependentList = (props: IDependentListProps) => {
                 }`
               );
             }}
+            customFilter={props.customFilter}
+            setCustomFilter={props.setCustomFilter}
+            customFilterRender={props.customFilterRender}
           />
         </Box>
       )}

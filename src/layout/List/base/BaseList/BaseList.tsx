@@ -57,6 +57,9 @@ interface IBaseListProps {
   useNumber?: boolean;
   minWidth?: string;
   contentPerPage?: number;
+  customFilter?: any;
+  setCustomFilter?: React.Dispatch<any>;
+  customFilterRender?: (filter?: string, setFilter?: React.Dispatch<any>) => React.ReactElement;
 }
 
 const BaseList = (props: IBaseListProps) => {
@@ -133,11 +136,6 @@ const BaseList = (props: IBaseListProps) => {
       params.PERIOD_START = startDate;
       params.PERIOD_END = endDate;
       params.PERIOD_TARGET_KEY = 'CREATED_AT';
-    }
-
-    if (props.disablePeriodSetter !== true && params.PERIOD_TARGET_KEY !== undefined) {
-      params.PERIOD_START = startDate;
-      params.PERIOD_END = endDate;
     }
 
     if (props.disablePagination !== true && props.useBackendFiltering == true) {
@@ -242,9 +240,17 @@ const BaseList = (props: IBaseListProps) => {
     },
     (() => {
       if (props.useBackendFiltering == true) {
-        return [selectedPage, startDate, endDate, router.asPath];
+        if (props.customFilter !== undefined) {
+          return [selectedPage, startDate, endDate, router.asPath, props.customFilter];
+        } else {
+          return [selectedPage, startDate, endDate, router.asPath];
+        }
       } else {
-        return [startDate, endDate, router.asPath];
+        if (props.customFilter !== undefined) {
+          return [startDate, endDate, router.asPath, props.customFilter];
+        } else {
+          return [startDate, endDate, router.asPath];
+        }
       }
     })()
   );
@@ -278,6 +284,11 @@ const BaseList = (props: IBaseListProps) => {
           />
         </Box>
       )}
+      {props.customFilterRender !== undefined &&
+        props.customFilter !== undefined &&
+        props.setCustomFilter !== undefined &&
+        props.customFilterRender(props.customFilter, props.setCustomFilter)}
+
       <List
         minWidth={props.minWidth !== undefined ? props.minWidth : undefined}
         allData={props.allData !== undefined && props.setAllData !== undefined ? props.allData : allData}

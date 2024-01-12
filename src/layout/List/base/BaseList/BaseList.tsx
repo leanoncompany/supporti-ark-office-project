@@ -135,6 +135,11 @@ const BaseList = (props: IBaseListProps) => {
       params.PERIOD_TARGET_KEY = 'CREATED_AT';
     }
 
+    if (props.disablePeriodSetter !== true && params.PERIOD_TARGET_KEY !== undefined) {
+      params.PERIOD_START = startDate;
+      params.PERIOD_END = endDate;
+    }
+
     if (props.disablePagination !== true && props.useBackendFiltering == true) {
       params.PAGE = selectedPage - 1;
       params.LIMIT = props.contentPerPage || 10;

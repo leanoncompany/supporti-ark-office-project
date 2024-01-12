@@ -22,7 +22,7 @@ interface IDependentListProps {
   };
   disableWriteBtn?: boolean;
   disablePeriodSetter?: boolean;
-  customFilter?: string;
+  customFilter?: any;
   setCustomFilter?: React.Dispatch<any>;
   customFilterRender?: (filter?: string, setFilter?: React.Dispatch<any>) => React.ReactElement;
 }

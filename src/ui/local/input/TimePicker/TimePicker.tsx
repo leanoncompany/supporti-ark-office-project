@@ -4,12 +4,14 @@ import { InputCore, ModalCore, TextTypeInput } from '@leanoncompany/supporti-rea
 import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import ReactTimePicker from 'react-time-picker';
+import DateTimePicker from 'react-datetime-picker';
 
 interface ITimePickerProps extends IInputCore_EXTENDED {
   value: any;
   setValue: React.Dispatch<React.SetStateAction<any>>;
   setInputStatus?: React.Dispatch<React.SetStateAction<any>>;
   disabled?: boolean;
+  type?: 'datetimepicker' | 'timepicker';
 }
 
 const TimePicker = (props: ITimePickerProps) => {
@@ -17,9 +19,6 @@ const TimePicker = (props: ITimePickerProps) => {
   const theme = useTheme();
 
   //* States
-  /**
-   * 모달
-   */
 
   return (
     <Box>
@@ -27,20 +26,35 @@ const TimePicker = (props: ITimePickerProps) => {
         labelConfig={props.labelConfig}
         inputCaptionConfig={props.inputCaptionConfig}
         inputStatus={props.inputStatus}>
-        <ReactTimePicker
-          disableClock={true}
-          clearIcon={null}
-          onChange={(item) => {
-            props.setValue(item);
-
-            if (props.setInputStatus !== undefined) {
-              props.setInputStatus({
-                status: 'default',
-              });
-            }
-          }}
-          value={props.value}
-        />
+        {props.type === 'timepicker' ? (
+          <ReactTimePicker
+            onChange={(item) => {
+              props.setValue(item);
+              if (props.setInputStatus !== undefined) {
+                props.setInputStatus({
+                  status: 'default',
+                });
+              }
+            }}
+            value={props.value}
+            disableClock={true}
+            clearIcon={null}
+          />
+        ) : (
+          <DateTimePicker
+            disableClock={true}
+            clearIcon={null}
+            onChange={(item) => {
+              props.setValue(item);
+              if (props.setInputStatus !== undefined) {
+                props.setInputStatus({
+                  status: 'default',
+                });
+              }
+            }}
+            value={props.value}
+          />
+        )}
       </InputCore>
     </Box>
   );

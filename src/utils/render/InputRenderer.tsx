@@ -426,6 +426,34 @@ export class InputRenderer {
 
         break;
 
+      case 'dateTimePicker':
+        ui =
+          defaultSetter !== undefined ? (
+            <TimePicker
+              inputStatus={wrappedDatas[0].inputStatus}
+              labelConfig={{
+                position: 'outer',
+                label: data.label,
+              }}
+              inputCaptionConfig={Object.assign(
+                { status: wrappedDatas[0].inputStatus },
+                {
+                  requiredMessage: '옵션을 선택해주세요.',
+                },
+                data.captionMessages
+              )}
+              setInputStatus={defaultSetInputStatus}
+              value={wrappedDatas[0].state}
+              setValue={defaultSetter}
+              disabled={disabled}
+              type={'datetimepicker'}
+            />
+          ) : (
+            <Typography color="red">Need default setter</Typography>
+          );
+
+        break;
+
       case 'timePicker':
         ui =
           defaultSetter !== undefined ? (
@@ -446,6 +474,7 @@ export class InputRenderer {
               value={wrappedDatas[0].state}
               setValue={defaultSetter}
               disabled={disabled}
+              type={'timepicker'}
             />
           ) : (
             <Typography color="red">Need default setter</Typography>

@@ -41,6 +41,7 @@ export interface IData {
   uploadImageCallback?: TUploadImageCallback;
   gridStyleCallback?: (wrappedDataDict: { [key: string]: IWrappedData }) => SxProps<Theme>;
   directInput?: boolean;
+  timePickerType?: 'datetimepicker' | 'timepicker';
 }
 
 export interface IWrappedData {

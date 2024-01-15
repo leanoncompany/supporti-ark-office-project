@@ -27,6 +27,7 @@ interface IDependentListProps {
   customFilterRender?: (filter?: string, setFilter?: React.Dispatch<any>) => React.ReactElement;
   setAllData?: React.Dispatch<any>;
   allData?: any;
+  disableRoute?: boolean;
 }
 
 const DependentList = (props: IDependentListProps) => {
@@ -124,6 +125,7 @@ const DependentList = (props: IDependentListProps) => {
             customFilterRender={props.customFilterRender}
             allData={props.allData}
             setAllData={props.setAllData}
+            disableRoute={props.disableRoute}
           />
         </Box>
       )}

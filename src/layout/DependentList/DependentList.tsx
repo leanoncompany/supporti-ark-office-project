@@ -25,6 +25,8 @@ interface IDependentListProps {
   customFilter?: any;
   setCustomFilter?: React.Dispatch<any>;
   customFilterRender?: (filter?: string, setFilter?: React.Dispatch<any>) => React.ReactElement;
+  setAllData?: React.Dispatch<any>;
+  allData?: any;
 }
 
 const DependentList = (props: IDependentListProps) => {
@@ -120,6 +122,8 @@ const DependentList = (props: IDependentListProps) => {
             customFilter={props.customFilter}
             setCustomFilter={props.setCustomFilter}
             customFilterRender={props.customFilterRender}
+            allData={props.allData}
+            setAllData={props.setAllData}
           />
         </Box>
       )}

@@ -40,6 +40,7 @@ export interface IData {
   disabled?: boolean;
   uploadImageCallback?: TUploadImageCallback;
   gridStyleCallback?: (wrappedDataDict: { [key: string]: IWrappedData }) => SxProps<Theme>;
+  directInput?: boolean;
 }
 
 export interface IWrappedData {

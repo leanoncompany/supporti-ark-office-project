@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, Button } from '@mui/material';
-import { DeletableBadge, InputCore, SelectTypeInput } from '@leanoncompany/supporti-react-ui';
+import { DeletableBadge, InputCore, SelectTypeInput, TextTypeInput } from '@leanoncompany/supporti-react-ui';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SaveIcon from '@mui/icons-material/Save';
@@ -11,6 +11,7 @@ interface ITagEditorProps extends IInputCore_EXTENDED {
   value: any;
   setValue: React.Dispatch<React.SetStateAction<any>>;
   selectableItems?: { value: string; label: string }[];
+  directInput?: boolean;
 }
 
 const TagEditor = (props: ITagEditorProps) => {
@@ -103,19 +104,34 @@ const TagEditor = (props: ITagEditorProps) => {
                 <Box>
                   <Grid container spacing={2} alignItems={'flex-end'}>
                     <Grid item xs={12} md={8}>
-                      <SelectTypeInput
-                        labelConfig={{
-                          position: 'outer',
-                          label: '태그 선택 후 추가',
-                        }}
-                        placeholder="태그를 선택 후 추가해주세요."
-                        fullWidth
-                        value={label}
-                        setValue={setLabel}
-                        selectableList={props.selectableItems !== undefined ? props.selectableItems : []}
-                        selectDataValueKey={'value'}
-                        selectDataLabelKey={'label'}
-                      />
+                      {props.directInput !== undefined && props.directInput == true ? (
+                        <TextTypeInput
+                          labelConfig={{
+                            position: 'outer',
+                            label: '직접 입력 후 추가',
+                          }}
+                          placeholder="직접 입력 후 추가해주세요."
+                          fullWidth
+                          value={label}
+                          setValue={setLabel}
+                          regexManager={regexManager}
+                          regexKey={'tag'}
+                        />
+                      ) : (
+                        <SelectTypeInput
+                          labelConfig={{
+                            position: 'outer',
+                            label: '태그 선택 후 추가',
+                          }}
+                          placeholder="태그를 선택 후 추가해주세요."
+                          fullWidth
+                          value={label}
+                          setValue={setLabel}
+                          selectableList={props.selectableItems !== undefined ? props.selectableItems : []}
+                          selectDataValueKey={'value'}
+                          selectDataLabelKey={'label'}
+                        />
+                      )}
                     </Grid>
 
                     <Grid item xs={12} md={4}>

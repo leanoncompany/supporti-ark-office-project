@@ -315,6 +315,7 @@ export class InputRenderer {
               value={wrappedDatas[0].state}
               setValue={defaultSetter}
               selectableItems={data.selectableItems}
+              directInput={data.directInput}
             />
           ) : (
             <Typography color="red">Need default setter</Typography>

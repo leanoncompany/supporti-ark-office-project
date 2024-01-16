@@ -10,7 +10,7 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 interface ISearchSelectorProps extends IInputCore_EXTENDED {
   value: any;
   setValue: React.Dispatch<React.SetStateAction<any>>;
-  selectableItems?: { value: string; label: string }[];
+  selectableItems?: { value: any; label: string }[];
   searchableItems?: { [key: string]: any }[];
   renderCallback?: (item: any, isSelected: boolean) => JSX.Element;
   preventSetValueChangeOnReset?: boolean;

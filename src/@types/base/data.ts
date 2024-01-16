@@ -22,7 +22,7 @@ export interface IData {
     lg?: number;
   };
   initialValue?: any;
-  selectableItems?: { value: string; label: string }[];
+  selectableItems?: { value: any; label: string }[];
   callbacks?: {
     doubleCheckUserName?: (
       args: { USER_NAME: string; ID?: string },
@@ -42,6 +42,7 @@ export interface IData {
   gridStyleCallback?: (wrappedDataDict: { [key: string]: IWrappedData }) => SxProps<Theme>;
   directInput?: boolean;
   timePickerType?: 'datetimepicker' | 'timepicker';
+  useAutoSelector?: boolean;
 }
 
 export interface IWrappedData {

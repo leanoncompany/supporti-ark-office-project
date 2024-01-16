@@ -19,7 +19,7 @@ export interface ISearchArea {
   }[];
   filterList?: {
     label: string;
-    value: string | number;
+    value: any;
   }[];
   setFilter?: React.Dispatch<React.SetStateAction<any>>;
   filter?: string | number;

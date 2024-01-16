@@ -6,12 +6,14 @@ import SaveIcon from '@mui/icons-material/Save';
 import React, { useEffect, useState, useRef } from 'react';
 import { RegexManager } from '@leanoncompany/supporti-utility';
 import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
+import AutoCompleteSelector from '../AutoCompleteSelector';
 
 interface ITagEditorProps extends IInputCore_EXTENDED {
   value: any;
   setValue: React.Dispatch<React.SetStateAction<any>>;
-  selectableItems?: { value: string; label: string }[];
+  selectableItems?: { value: any; label: string }[];
   directInput?: boolean;
+  autoSelector?: boolean;
 }
 
 const TagEditor = (props: ITagEditorProps) => {
@@ -20,8 +22,8 @@ const TagEditor = (props: ITagEditorProps) => {
 
   //* States
   const isInitiated = useRef<boolean>(false);
-  const [label, setLabel] = useState<string | undefined>(undefined);
-  const [labelList, setLabelList] = useState<string[] | undefined>(undefined);
+  const [label, setLabel] = useState<any>(undefined);
+  const [labelList, setLabelList] = useState<any[] | undefined>(undefined);
 
   //* Functions
 
@@ -41,6 +43,12 @@ const TagEditor = (props: ITagEditorProps) => {
       props.setValue(labelList);
     }
   }, [labelList]);
+
+  const autoSelectorDataFormatterCallback = (value: any) => {
+    const formattedData = props.selectableItems?.find((item) => item.value == value);
+
+    return formattedData?.label;
+  };
 
   return (
     <Box>
@@ -86,7 +94,11 @@ const TagEditor = (props: ITagEditorProps) => {
                         }}
                         mr={1}>
                         <DeletableBadge
-                          badgeKey={optionElement}
+                          badgeKey={
+                            props.autoSelector !== undefined && props.autoSelector === true
+                              ? (autoSelectorDataFormatterCallback(optionElement) as string)
+                              : optionElement
+                          }
                           deleteCallback={() => {
                             const clonedList = [...labelList];
                             clonedList.splice(index, 1);
@@ -116,6 +128,18 @@ const TagEditor = (props: ITagEditorProps) => {
                           setValue={setLabel}
                           regexManager={regexManager}
                           regexKey={'tag'}
+                        />
+                      ) : props.autoSelector !== undefined && props.autoSelector === true ? (
+                        <AutoCompleteSelector
+                          placeholder={'선택해주세요.'}
+                          selectableItems={props.selectableItems}
+                          inputStatus={props.inputStatus}
+                          labelConfig={{
+                            position: 'outer',
+                            label: '입력 및 선택 후 추가',
+                          }}
+                          value={label}
+                          setValue={setLabel}
                         />
                       ) : (
                         <SelectTypeInput

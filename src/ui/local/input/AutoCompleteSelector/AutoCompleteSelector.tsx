@@ -19,6 +19,7 @@ interface IAutoCompleteSelectorProps extends IInputCore_EXTENDED {
     failCallback?: (err: any) => void
   ) => void;
   receivedSelectableDataFormatterCallback?: (value: any) => any;
+  selectableItems?: { value: any; label: string }[];
   disabled?: boolean;
 }
 
@@ -27,7 +28,7 @@ const AutoCompleteSelector = (props: IAutoCompleteSelectorProps) => {
   /**
    * 선택 가능한 지역 리스트
    */
-  const [selectableDataList, setSelectableDataCenterList] = useState<{ label: string; value: string }[]>([]);
+  const [selectableDataList, setSelectableDataCenterList] = useState<{ label: string; value: any }[]>([]);
 
   //* Hooks
   /**
@@ -36,7 +37,9 @@ const AutoCompleteSelector = (props: IAutoCompleteSelectorProps) => {
   useEffect(() => {
     const receivedSelectableDataFormatterCallback = props.receivedSelectableDataFormatterCallback;
 
-    if (props.getAllCallback !== undefined && receivedSelectableDataFormatterCallback !== undefined) {
+    if (props.selectableItems !== undefined) {
+      setSelectableDataCenterList(props.selectableItems);
+    } else if (props.getAllCallback !== undefined && receivedSelectableDataFormatterCallback !== undefined) {
       props.getAllCallback(
         {},
         (res) => {

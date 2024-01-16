@@ -10,7 +10,7 @@ import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
 interface IKeyLabelEditorProps extends IInputCore_EXTENDED {
   value: any;
   setValue: React.Dispatch<React.SetStateAction<any>>;
-  selectableItems?: { value: string; label: string }[];
+  selectableItems?: { value: any; label: string }[];
   useData?: boolean;
 }
 

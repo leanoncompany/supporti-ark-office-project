@@ -316,6 +316,7 @@ export class InputRenderer {
               setValue={defaultSetter}
               selectableItems={data.selectableItems}
               directInput={data.directInput}
+              autoSelector={data.useAutoSelector}
             />
           ) : (
             <Typography color="red">Need default setter</Typography>

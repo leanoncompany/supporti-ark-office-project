@@ -65,6 +65,9 @@ const SignIn = (props: ISignIn) => {
                 maxAge: props.tokenExpireHours * 3600,
               });
 
+              props.additionalSignInSuccessCallback !== undefined &&
+                props.additionalSignInSuccessCallback(response.data.result);
+
               window.location.href = props.signInSuccessLink !== undefined ? props.signInSuccessLink : '/';
 
               alert('로그인 성공하셨습니다.');

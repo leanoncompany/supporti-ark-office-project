@@ -18,6 +18,7 @@ export interface ISignIn {
   };
   signInSuccessLink?: string;
   signInCallback?: (args: { [key: string]: any }) => void;
+  additionalSignInSuccessCallback?: (args: { [key: string]: any }) => void;
 }
 
 // export interface ISignUp {

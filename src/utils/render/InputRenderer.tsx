@@ -1,24 +1,27 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
-import { IUserInputStatus, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import { RegexManager } from '@leanoncompany/supporti-utility';
-import React, { useState } from 'react';
-import { IData, IWrappedData, IWrappedDataDict } from '../../@types/base/data';
-import CategorySelector from '../../ui/local/input/CategorySelector';
-import MultiImageUploader from '../../ui/local/input/MultiImageUploader';
-import OptionEditor from '../../ui/local/input/OptionEditor/OptionEditor';
-import TagEditor from '../../ui/local/input/TagEditor';
-import StarRate from '../../ui/local/input/StarRate/StarRate';
-import Select from '../../ui/local/input/Select/Select';
-import Address from '../../ui/local/input/AddressPicker/AddressPicker';
-import Switch from '../../ui/local/input/Switch/Switch';
-import Shortcut from '../../ui/local/utils/Shortcut/Shortcut';
-import RegistBankAccount from '../../layout/RegistBankAccount';
-import KeyLabelEditor from '../../ui/local/input/KeyLabelEditor';
-import { PasswordInput } from '../../ui/local/input/PasswordInput';
-import DatePicker from '../../ui/local/input/DatePicker/DatePicker';
-import AutoCompleteSelector from '../../ui/local/input/AutoCompleteSelector';
-import TimePicker from '../../ui/local/input/TimePicker/TimePicker';
-import MultiFileUploader from '../../ui/local/input/MultiFileUploader';
+import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  IUserInputStatus,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import { RegexManager } from "@leanoncompany/supporti-utility";
+import React, { useState } from "react";
+import { IData, IWrappedData, IWrappedDataDict } from "../../@types/base/data";
+import CategorySelector from "../../ui/local/input/CategorySelector";
+import MultiImageUploader from "../../ui/local/input/MultiImageUploader";
+import OptionEditor from "../../ui/local/input/OptionEditor/OptionEditor";
+import TagEditor from "../../ui/local/input/TagEditor";
+import StarRate from "../../ui/local/input/StarRate/StarRate";
+import Select from "../../ui/local/input/Select/Select";
+import Address from "../../ui/local/input/AddressPicker/AddressPicker";
+import Switch from "../../ui/local/input/Switch/Switch";
+import Shortcut from "../../ui/local/utils/Shortcut/Shortcut";
+import RegistBankAccount from "../../layout/RegistBankAccount";
+import KeyLabelEditor from "../../ui/local/input/KeyLabelEditor";
+import { PasswordInput } from "../../ui/local/input/PasswordInput";
+import DatePicker from "../../ui/local/input/DatePicker/DatePicker";
+import AutoCompleteSelector from "../../ui/local/input/AutoCompleteSelector";
+import TimePicker from "../../ui/local/input/TimePicker/TimePicker";
+import MultiFileUploader from "../../ui/local/input/MultiFileUploader";
 
 export class InputRenderer {
   public regexManager = new RegexManager();
@@ -48,24 +51,28 @@ export class InputRenderer {
         : disableEdit !== undefined
         ? disableEdit
         : disableUpdate !== undefined
-        ? pageRole === 'write'
+        ? pageRole === "write"
           ? false
           : disableUpdate
         : disableUpdate;
 
     switch (data.ui) {
-      case 'textarea':
+      case "textarea":
         const commonTextAreaConfigs = {
           disabled: disabled,
           labelConfig: {
-            position: 'outer',
+            position: "outer",
             label: data.label,
+            typograhpyVariant: "body1",
           },
           rows: data.rows,
           multiline: data.rows !== undefined ? true : false,
           fullWidth: true,
           maxLength: data.maxLength,
-          placeholder: data.placeholder !== undefined ? data.placeholder : `${data.label}(을)를 입력해주세요.`,
+          placeholder:
+            data.placeholder !== undefined
+              ? data.placeholder
+              : `${data.label}(을)를 입력해주세요.`,
           value:
             data.valueFormatterCallback !== undefined
               ? data.valueFormatterCallback(wrappedDatas[0].state)
@@ -82,7 +89,7 @@ export class InputRenderer {
             if (args.event.target.value.length > 0) {
               if (defaultSetInputStatus !== undefined) {
                 defaultSetInputStatus({
-                  status: 'default',
+                  status: "default",
                 });
               }
             }
@@ -90,11 +97,11 @@ export class InputRenderer {
         };
 
         switch (data.type) {
-          case 'username':
+          case "username":
             ui = (
               <TextTypeInput
                 {...commonTextAreaConfigs}
-                adornmentPosition={'end'}
+                adornmentPosition={"end"}
                 adornmentElement={
                   <Button
                     variant="text"
@@ -108,23 +115,30 @@ export class InputRenderer {
                           },
                           (response: any) => {
                             if (response.data.result == true) {
-                              wrappedDatas[0].extendedStates?.['doubleCheckPassed'].setter(true);
+                              wrappedDatas[0].extendedStates?.[
+                                "doubleCheckPassed"
+                              ].setter(true);
 
                               if (defaultSetInputStatus !== undefined) {
                                 defaultSetInputStatus({
-                                  status: 'passed',
+                                  status: "passed",
                                 });
                               }
                             } else {
-                              alert('이미 사용중인 아이디입니다.');
+                              alert("이미 사용중인 아이디입니다.");
                             }
                           }
                         );
                       } else {
-                        alert('콜백이 선언되어 있지 않습니다.');
+                        alert("콜백이 선언되어 있지 않습니다.");
                       }
-                    }}>
-                    <Typography variant="subtitle2" sx={{ textDecoration: 'underline' }} color={'black'}>
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ textDecoration: "underline" }}
+                      color={"black"}
+                    >
                       중복확인
                     </Typography>
                   </Button>
@@ -132,36 +146,51 @@ export class InputRenderer {
                 inputCaptionConfig={Object.assign(
                   { status: wrappedDatas[0].inputStatus },
                   {
-                    errorMessage: '최소 5자, 최대 19자 알파벳과 숫자의 조합만 가능합니다.',
-                    requiredMessage: '아이디 중복 확인을 해주세요.',
-                    passedMessage: '사용 가능한 아이디입니다.',
+                    errorMessage:
+                      "최소 5자, 최대 19자 알파벳과 숫자의 조합만 가능합니다.",
+                    requiredMessage: "아이디 중복 확인을 해주세요.",
+                    passedMessage: "사용 가능한 아이디입니다.",
                   }
                 )}
                 onChangeCallback={(args: any) => {
                   if (defaultSetInputStatus !== undefined) {
                     defaultSetInputStatus({
-                      status: 'default',
+                      status: "default",
                     });
                   }
 
-                  wrappedDatas[0].extendedStates?.['doubleCheckPassed'].setter(false);
+                  wrappedDatas[0].extendedStates?.["doubleCheckPassed"].setter(
+                    false
+                  );
                 }}
               />
             );
 
             break;
 
-          case 'password':
-            if (pageRole === 'write') {
+          case "password":
+            if (pageRole === "write") {
               ui = (
                 <PasswordInput
                   commonTextAreaConfigs={commonTextAreaConfigs}
                   passwordInputStatus={wrappedDatas[0].inputStatus}
                   setPasswordInputStatus={defaultSetInputStatus}
-                  passwordConfirm={wrappedDatas[0].extendedStates?.['passwordConfirm'].state}
-                  setPasswordConfirm={wrappedDatas[0].extendedStates?.['passwordConfirm'].setter}
-                  passwordConfirmInputStatus={wrappedDatas[0].extendedStates?.['passwordConfirmInputStatus'].state}
-                  setPasswordConfirmInputStatus={wrappedDatas[0].extendedStates?.['passwordConfirmInputStatus'].setter}
+                  passwordConfirm={
+                    wrappedDatas[0].extendedStates?.["passwordConfirm"].state
+                  }
+                  setPasswordConfirm={
+                    wrappedDatas[0].extendedStates?.["passwordConfirm"].setter
+                  }
+                  passwordConfirmInputStatus={
+                    wrappedDatas[0].extendedStates?.[
+                      "passwordConfirmInputStatus"
+                    ].state
+                  }
+                  setPasswordConfirmInputStatus={
+                    wrappedDatas[0].extendedStates?.[
+                      "passwordConfirmInputStatus"
+                    ].setter
+                  }
                 />
               );
             } else {
@@ -170,22 +199,22 @@ export class InputRenderer {
 
             break;
 
-          case 'number':
+          case "number":
             ui = (
               <TextTypeInput
                 {...commonTextAreaConfigs}
                 onChangeCallback={(args: any) => {
                   if (defaultSetInputStatus !== undefined) {
                     defaultSetInputStatus({
-                      status: 'default',
+                      status: "default",
                     });
                   }
 
                   if (defaultSetter !== undefined) {
                     const targetString = args.event.target.value
-                      .replace(/[^-\d.]|\.(?=.*\.)/g, '')
-                      .replace(/-{2,}/g, '-')
-                      .replace(/(?<=.)-+/g, '');
+                      .replace(/[^-\d.]|\.(?=.*\.)/g, "")
+                      .replace(/-{2,}/g, "-")
+                      .replace(/(?<=.)-+/g, "");
 
                     defaultSetter(targetString);
                   }
@@ -201,7 +230,7 @@ export class InputRenderer {
 
         break;
 
-      case 'fileUpload':
+      case "fileUpload":
         switch (data.type) {
           default:
             ui =
@@ -211,7 +240,7 @@ export class InputRenderer {
                     disabled={disableEdit || disabled}
                     inputStatus={wrappedDatas[0].inputStatus}
                     labelConfig={{
-                      position: 'outer',
+                      position: "outer",
                       label: data.label,
                     }}
                     inputCaptionConfig={Object.assign(
@@ -219,13 +248,15 @@ export class InputRenderer {
                         status: wrappedDatas[0].inputStatus,
                       },
                       {
-                        requiredMessage: '파일을 1개 이상 선택해주세요.',
+                        requiredMessage: "파일을 1개 이상 선택해주세요.",
                       },
                       data.captionMessages
                     )}
                     fileList={wrappedDatas[0].state}
                     setFileList={defaultSetter}
-                    maxLength={data.maxLength !== undefined ? data.maxLength : 20}
+                    maxLength={
+                      data.maxLength !== undefined ? data.maxLength : 20
+                    }
                   />
                 </Box>
               ) : (
@@ -235,7 +266,7 @@ export class InputRenderer {
 
         break;
 
-      case 'imageUpload':
+      case "imageUpload":
         switch (data.type) {
           default:
             ui =
@@ -246,7 +277,7 @@ export class InputRenderer {
                     disabled={disableEdit || disabled}
                     inputStatus={wrappedDatas[0].inputStatus}
                     labelConfig={{
-                      position: 'outer',
+                      position: "outer",
                       label: data.label,
                     }}
                     inputCaptionConfig={Object.assign(
@@ -254,14 +285,16 @@ export class InputRenderer {
                         status: wrappedDatas[0].inputStatus,
                       },
                       {
-                        requiredMessage: '이미지를 1개 이상 선택해주세요.',
+                        requiredMessage: "이미지를 1개 이상 선택해주세요.",
                       },
                       data.captionMessages
                     )}
                     imagePreviewUrlList={wrappedDatas[0].state}
                     setImagePreviewUrlList={defaultSetter}
-                    label={'이미지'}
-                    numOfUploader={data.maxLength !== undefined ? data.maxLength : 20}
+                    label={"이미지"}
+                    numOfUploader={
+                      data.maxLength !== undefined ? data.maxLength : 20
+                    }
                   />
                 </Box>
               ) : (
@@ -271,19 +304,19 @@ export class InputRenderer {
 
         break;
 
-      case 'optionEditor':
+      case "optionEditor":
         ui =
           defaultSetter !== undefined ? (
             <OptionEditor
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '옵션을 선택해주세요.',
+                  requiredMessage: "옵션을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -296,19 +329,19 @@ export class InputRenderer {
 
         break;
 
-      case 'tagEditor':
+      case "tagEditor":
         ui =
           defaultSetter !== undefined ? (
             <TagEditor
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '태그를 선택해주세요.',
+                  requiredMessage: "태그를 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -323,19 +356,19 @@ export class InputRenderer {
           );
         break;
 
-      case 'categorySelector':
+      case "categorySelector":
         ui =
           defaultSetter !== undefined && subSetter ? (
             <CategorySelector
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '카테고리를 선택해주세요.',
+                  requiredMessage: "카테고리를 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -349,19 +382,19 @@ export class InputRenderer {
           );
         break;
 
-      case 'rating':
+      case "rating":
         ui =
           defaultSetter !== undefined ? (
             <StarRate
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '평점을 선택해주세요.',
+                  requiredMessage: "평점을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -373,20 +406,20 @@ export class InputRenderer {
           );
         break;
 
-      case 'select':
+      case "select":
         ui =
           defaultSetter !== undefined ? (
             <Select
               disabled={disabled}
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '값을 선택해주세요.',
+                  requiredMessage: "값을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -400,19 +433,19 @@ export class InputRenderer {
 
         break;
 
-      case 'datePicker':
+      case "datePicker":
         ui =
           defaultSetter !== undefined ? (
             <DatePicker
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '옵션을 선택해주세요.',
+                  requiredMessage: "옵션을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -427,19 +460,19 @@ export class InputRenderer {
 
         break;
 
-      case 'dateTimePicker':
+      case "dateTimePicker":
         ui =
           defaultSetter !== undefined ? (
             <TimePicker
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '옵션을 선택해주세요.',
+                  requiredMessage: "옵션을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -447,7 +480,7 @@ export class InputRenderer {
               value={wrappedDatas[0].state}
               setValue={defaultSetter}
               disabled={disabled}
-              type={'datetimepicker'}
+              type={"datetimepicker"}
             />
           ) : (
             <Typography color="red">Need default setter</Typography>
@@ -455,19 +488,19 @@ export class InputRenderer {
 
         break;
 
-      case 'timePicker':
+      case "timePicker":
         ui =
           defaultSetter !== undefined ? (
             <TimePicker
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '옵션을 선택해주세요.',
+                  requiredMessage: "옵션을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -475,7 +508,7 @@ export class InputRenderer {
               value={wrappedDatas[0].state}
               setValue={defaultSetter}
               disabled={disabled}
-              type={'timepicker'}
+              type={"timepicker"}
             />
           ) : (
             <Typography color="red">Need default setter</Typography>
@@ -483,22 +516,24 @@ export class InputRenderer {
 
         break;
 
-      case 'autoCompleteSelector':
+      case "autoCompleteSelector":
         ui =
           defaultSetter !== undefined ? (
             <AutoCompleteSelector
               placeholder={data.placeholder}
               getAllCallback={data.callbacks?.getAllCallback}
-              receivedSelectableDataFormatterCallback={data.callbacks?.receivedSelectableDataFormatterCallback}
+              receivedSelectableDataFormatterCallback={
+                data.callbacks?.receivedSelectableDataFormatterCallback
+              }
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
                 {
-                  requiredMessage: '옵션을 선택해주세요.',
+                  requiredMessage: "옵션을 선택해주세요.",
                 },
                 data.captionMessages
               )}
@@ -512,32 +547,34 @@ export class InputRenderer {
 
         break;
 
-      case 'custom':
+      case "custom":
         ui =
           data.customRenderCallback !== undefined ? (
             data.customRenderCallback(wrappedDataDict)
           ) : (
-            <Typography color="red">Need default customRenderCallback</Typography>
+            <Typography color="red">
+              Need default customRenderCallback
+            </Typography>
           );
 
         break;
 
-      case 'keyLabelEditor':
+      case "keyLabelEditor":
         switch (data.type) {
-          case 'useData':
+          case "useData":
             ui =
               defaultSetter !== undefined ? (
                 <KeyLabelEditor
                   useData={true}
                   inputStatus={wrappedDatas[0].inputStatus}
                   labelConfig={{
-                    position: 'outer',
+                    position: "outer",
                     label: data.label,
                   }}
                   inputCaptionConfig={Object.assign(
                     { status: wrappedDatas[0].inputStatus },
                     {
-                      requiredMessage: '값을 입력해주세요.',
+                      requiredMessage: "값을 입력해주세요.",
                     },
                     data.captionMessages
                   )}
@@ -555,13 +592,14 @@ export class InputRenderer {
                 <KeyLabelEditor
                   inputStatus={wrappedDatas[0].inputStatus}
                   labelConfig={{
-                    position: 'outer',
+                    position: "outer",
                     label: data.label,
+                    typograhpyVariant: "body1",
                   }}
                   inputCaptionConfig={Object.assign(
                     { status: wrappedDatas[0].inputStatus },
                     {
-                      requiredMessage: '값을 입력해주세요.',
+                      requiredMessage: "값을 입력해주세요.",
                     },
                     data.captionMessages
                   )}
@@ -576,7 +614,7 @@ export class InputRenderer {
 
         break;
 
-      case 'address':
+      case "address":
         // eslint-disable-next-line @typescript-eslint/no-redeclare
 
         const thirdSetter = wrappedDatas[2].setter;
@@ -610,17 +648,21 @@ export class InputRenderer {
           );
         break;
 
-      case 'switch':
+      case "switch":
         ui =
           defaultSetter !== undefined ? (
             <Switch
               disabled={disabled}
               inputStatus={wrappedDatas[0].inputStatus}
               labelConfig={{
-                position: 'outer',
+                position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
-              inputCaptionConfig={Object.assign({ status: wrappedDatas[0].inputStatus }, data.captionMessages)}
+              inputCaptionConfig={Object.assign(
+                { status: wrappedDatas[0].inputStatus },
+                data.captionMessages
+              )}
               value={wrappedDatas[0].state}
               setValue={defaultSetter}
             />
@@ -630,11 +672,17 @@ export class InputRenderer {
 
         break;
 
-      case 'shortcut':
-        ui = <Shortcut value={wrappedDatas[0].state} label={data.label} link={data.link} />;
+      case "shortcut":
+        ui = (
+          <Shortcut
+            value={wrappedDatas[0].state}
+            label={data.label}
+            link={data.link}
+          />
+        );
         break;
 
-      case 'bankSelector':
+      case "bankSelector":
         ui =
           defaultSetter !== undefined && subSetter !== undefined ? (
             <RegistBankAccount
@@ -644,7 +692,9 @@ export class InputRenderer {
               setBankAccount={subSetter}
               bankAccountInputStatus={wrappedDatas[0].inputStatus}
               setBankAccountInputStatus={defaultSetInputStatus}
-              disabled={data.disabled !== undefined ? data.disabled : disableEdit}
+              disabled={
+                data.disabled !== undefined ? data.disabled : disableEdit
+              }
             />
           ) : (
             <Typography color="red">Need default and sub setter</Typography>

@@ -4,7 +4,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "repository": "https://github.com/leanoncompany/supporti-ark-office-project",
-  "version": "0.0.344",
+  "version": "0.0.35",
   "author": "Leanoncompany Team",
   "type": "module",
   "license": "ISC",

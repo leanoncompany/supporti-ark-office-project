@@ -1,12 +1,20 @@
-import { Box, Button, Grid, IconButton, Modal, Typography, useTheme } from '@mui/material';
-import React from 'react';
-import ImageUploader from '../ImageUploader';
-import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
-import { InputCore } from '@leanoncompany/supporti-react-ui';
-import { TUploadImageCallback } from '../ImageUploader/ImageUploader';
-import DownloadIcon from '@mui/icons-material/Download';
-import FileUploadController from '../../../../controller/default/FileUploadController';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  Modal,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React from "react";
+import ImageUploader from "../ImageUploader";
+import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
+import { InputCore } from "@leanoncompany/supporti-react-ui";
+import { TUploadImageCallback } from "../ImageUploader/ImageUploader";
+import DownloadIcon from "@mui/icons-material/Download";
+import FileUploadController from "../../../../controller/default/FileUploadController";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 interface IMultiFileUploader extends IInputCore_EXTENDED {
   disabled?: boolean;
@@ -44,7 +52,8 @@ const MultiFileUploader = (props: IMultiFileUploader) => {
       <InputCore
         labelConfig={props.labelConfig}
         inputCaptionConfig={props.inputCaptionConfig}
-        inputStatus={props.inputStatus}>
+        inputStatus={props.inputStatus}
+      >
         <Box>
           {/* 업로드 완료 파일 리스트 */}
           <Box>
@@ -52,49 +61,60 @@ const MultiFileUploader = (props: IMultiFileUploader) => {
               <Box
                 key={index}
                 borderRadius={1}
-                boxShadow={'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;'}
+                boxShadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"}
                 mb={1.5}
                 p={1.5}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'space-between'}>
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+              >
                 {/* 파일명 */}
                 <Box>
-                  <Typography variant={'h6'} fontWeight={'bold'}>
+                  <Typography variant={"h6"} fontWeight={"bold"}>
                     {attachedFile.FILE_NAME}
                   </Typography>
                 </Box>
 
                 {/* 컨트롤러 버튼 */}
-                <Box display={'flex'}>
+                <Box display={"flex"}>
                   {/* 파일 다운로드 버튼 */}
-                  <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                  <Box
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                  >
                     <IconButton
-                      color={'primary'}
+                      color={"primary"}
                       onClick={() => {
                         window.open(attachedFile.FILE_URL);
-                      }}>
+                      }}
+                    >
                       <DownloadIcon />
                     </IconButton>
-                    <Box mt={'-10px'}>
-                      <Typography variant={'caption'}>다운로드</Typography>
+                    <Box mt={"-10px"}>
+                      <Typography variant={"caption"}>다운로드</Typography>
                     </Box>
                   </Box>
                   {/* 삭제 버튼 */}
-                  <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                  <Box
+                    display={props.disabled === true ? "none" : "flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                  >
                     <IconButton
                       disabled={props.disabled}
-                      color={'primary'}
+                      color={"primary"}
                       onClick={() => {
                         const clonedList = [...props.fileList];
                         clonedList.splice(index, 1);
 
                         props.setFileList(clonedList);
-                      }}>
+                      }}
+                    >
                       <DeleteForeverRoundedIcon />
                     </IconButton>
-                    <Box mt={'-10px'}>
-                      <Typography variant={'caption'}>삭제</Typography>
+                    <Box mt={"-10px"}>
+                      <Typography variant={"caption"}>삭제</Typography>
                     </Box>
                   </Box>
                 </Box>
@@ -103,7 +123,7 @@ const MultiFileUploader = (props: IMultiFileUploader) => {
           </Box>
 
           {/* 업로드 버튼 */}
-          <Box>
+          <Box display={props.disabled === true ? "none" : "block"}>
             <Button
               fullWidth
               disabled={(() => {
@@ -121,7 +141,7 @@ const MultiFileUploader = (props: IMultiFileUploader) => {
                   }
                 }
               })()}
-              variant={'outlined'}
+              variant={"outlined"}
               onClick={(e) => {
                 if (props.disabled != true) {
                   if (e.target !== e.currentTarget) return;
@@ -129,18 +149,23 @@ const MultiFileUploader = (props: IMultiFileUploader) => {
                     inputRef.current.click();
                   }
                 }
-              }}>
+              }}
+            >
               업로드
             </Button>
 
             <input
               style={{
-                display: 'none',
+                display: "none",
               }}
               ref={inputRef}
               type="file"
               onChange={(e) => {
-                fileUploadController.uploadFile(e, props.setFileList, props.fileList);
+                fileUploadController.uploadFile(
+                  e,
+                  props.setFileList,
+                  props.fileList
+                );
               }}
             />
           </Box>

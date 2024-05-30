@@ -339,11 +339,11 @@ const SignUp = (props: ISignUp) => {
             </Typography>
           </Box>
           {renderTextTypeInput({
-            placeholder: "아이디를 입력해주세요(6자 이상, 숫자,소문자 영문 )",
+            placeholder: "아이디를 입력해주세요",
             errorMessage: "올바른 아이디를 입력해주세요(6자 이상, 숫자,영문 )",
             requiredMessage: "이미 사용중인 아이디입니다.",
             passedMessage: "사용 가능한 아이디입니다.",
-            label: "아이디",
+            label: "아이디(6자 이상, 숫자,소문자 영문)",
             value: userName,
             setValue: setUserName,
             inputStatus: userNameInputStatus,
@@ -362,11 +362,10 @@ const SignUp = (props: ISignUp) => {
             ),
           })}
           {renderTextTypeInput({
-            placeholder:
-              "비밀번호를 입력해주세요(8~16자의 영문 대소문자, 숫자, 특수문자 조합)",
+            placeholder: "비밀번호를 입력해주세요",
             errorMessage: "올바른 비밀번호를 입력해주세요",
             requiredMessage: "비밀번호를 입력하셔야합니다.",
-            label: "비밀번호",
+            label: "비밀번호(8~16자의 영문 대소문자, 숫자, 특수문자 조합)",
             value: password,
             setValue: setPassword,
             inputStatus: passwordInputStatus,

@@ -1,4 +1,4 @@
-import { IData, IWrappedData } from '../../base/data';
+import { IData, IWrappedData } from "../../base/data";
 
 export interface IUpdateButtonProps {
   data?: { [key: string]: any };
@@ -7,7 +7,7 @@ export interface IUpdateButtonProps {
   injectedData?: { [key: string]: any };
   dependentModelIdKey?: string | string[];
   modelIdKey: string;
-  buttonType?: 'icon' | 'text';
+  buttonType?: "icon" | "text";
   createCallback?: (
     args: { [key: string]: any },
     successCallback?: (response: any) => void,
@@ -18,7 +18,9 @@ export interface IUpdateButtonProps {
     successCallback?: (response: any) => void,
     failCallback?: (err: any) => void
   ) => void;
-  validationCallback?: (wrappedDataDict: { [key: string]: IWrappedData }) => Promise<boolean>;
+  validationCallback?: (wrappedDataDict: {
+    [key: string]: IWrappedData;
+  }) => Promise<boolean>;
   dataList: IData[];
   wrappedDataDict: { [key: string]: IWrappedData };
   disableNavigateAfterAction?: boolean;
@@ -31,8 +33,9 @@ export interface IDeleteButtonProps {
   pageRole?: string;
   injectedData?: { [key: string]: any };
   modelIdKey: string;
-  buttonType?: 'icon' | 'text';
+  buttonType?: "icon" | "text";
   pid?: string | string[];
+  disableDelete?: boolean;
   deleteCallback?: (
     args: { [key: string]: any },
     successCallback?: (response: any) => void,

@@ -44,6 +44,7 @@ export interface ISignIn {
 export interface ISignUp {
   controller?: any;
   additionalInputs?: React.ReactElement;
+  additionalSetValue?: (value?: any) => void;
   useRecommender?: boolean;
   useBankAccount?: boolean;
   usePhone: boolean;

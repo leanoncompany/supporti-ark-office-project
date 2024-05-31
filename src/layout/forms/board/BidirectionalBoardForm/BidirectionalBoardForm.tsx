@@ -54,19 +54,6 @@ const BidirectionalBoardForm = (props: IBidirectionalBoardFormProps) => {
       },
     },
     {
-      keys: ["IMAGE_LIST"],
-      ui: "imageUpload",
-      isOptional: true,
-      label: "이미지",
-      captionMessages: {
-        requiredMessage: "이미지를 골라야합니다",
-      },
-      grid: {
-        xs: 12,
-        md: 6,
-      },
-    },
-    {
       keys: ["QUESTIONER"],
       ui: "textarea",
       label: "질문자",

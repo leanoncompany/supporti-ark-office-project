@@ -365,7 +365,7 @@ const SignUp = (props: ISignUp) => {
             placeholder: "비밀번호를 입력해주세요",
             errorMessage: "올바른 비밀번호를 입력해주세요",
             requiredMessage: "비밀번호를 입력하셔야합니다.",
-            label: "비밀번호 (8~16자의 영문 대소문자, 숫자, 특수문자 조합)",
+            label: "비밀번호 (6자 이상, 숫자,소문자 영문)",
             value: password,
             setValue: setPassword,
             inputStatus: passwordInputStatus,

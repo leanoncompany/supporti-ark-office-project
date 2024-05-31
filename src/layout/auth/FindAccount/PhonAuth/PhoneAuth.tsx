@@ -134,16 +134,29 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
     ) {
       props.setPhoneNumberInputStatus({ status: "error" });
     } else {
-      setActiveTimer(false);
-      setAuthRemainedTime(180000);
+      //중복 체크 후 인증번호 요청
+      authController.isPhoneNumberUsed(
+        { PHONE_NUMBER: props.phoneNumber },
+        (response) => {
+          if (response.data.result === true) {
+            setActiveTimer(false);
+            setAuthRemainedTime(180000);
 
-      authController.sendPhoneAuth(
-        { TARGET_PHONE_NUMBER: props.phoneNumber },
-        (response: any) => {
-          setEncryptedAuthCode(response.data.result);
-          setActiveTimer(true);
+            authController.sendPhoneAuth(
+              { TARGET_PHONE_NUMBER: props.phoneNumber },
+              (response: any) => {
+                setEncryptedAuthCode(response.data.result);
+                setActiveTimer(true);
+              },
+              (err: any) => {
+                console.log(err);
+              }
+            );
+          } else {
+            alert("이미 사용중인 휴대폰 번호입니다.");
+          }
         },
-        (err: any) => {
+        (err) => {
           console.log(err);
         }
       );

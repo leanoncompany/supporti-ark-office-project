@@ -3,8 +3,11 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "repository": "https://github.com/leanoncompany/supporti-ark-office-project",
-  "version": "0.0.411",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanoncompany/supporti-ark-office-project.git"
+  },
+  "version": "0.0.412",
   "author": "Leanoncompany Team",
   "type": "module",
   "license": "ISC",
@@ -99,5 +102,10 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   },
-  "prepublishOnly": "npm run typecheck"
+  "prepublishOnly": "npm run typecheck",
+  "bugs": {
+    "url": "https://github.com/leanoncompany/supporti-ark-office-project/issues"
+  },
+  "homepage": "https://github.com/leanoncompany/supporti-ark-office-project#readme",
+  "description": ""
 }

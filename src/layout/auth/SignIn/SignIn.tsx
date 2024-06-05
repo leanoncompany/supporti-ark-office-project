@@ -165,7 +165,7 @@ const SignIn = (props: ISignIn) => {
               </Button>
             )}
 
-            {props.signUp !== undefined && (
+            {/* {props.signUp !== undefined && ( */}
               <Button
                 variant="text"
                 onClick={() => {
@@ -182,7 +182,7 @@ const SignIn = (props: ISignIn) => {
                   회원가입
                 </Typography>
               </Button>
-            )}
+            {/* )} */}
           </Box>
           <Box width={'100%'} mt={1}>
             <Button variant={'contained'} fullWidth onClick={() => handleLogin()}>

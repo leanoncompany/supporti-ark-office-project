@@ -279,6 +279,7 @@ export class InputRenderer {
                     labelConfig={{
                       position: "outer",
                       label: data.label,
+                      typograhpyVariant: "body2"
                     }}
                     inputCaptionConfig={Object.assign(
                       {

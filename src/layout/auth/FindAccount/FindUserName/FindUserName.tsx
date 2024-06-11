@@ -242,6 +242,7 @@ const FindUserName = (props: IFindUserName) => {
 										? props.setBtnColor
 										: undefined
 								}
+								useDuplicate={false}
 							/>
 						</Grid>
 

@@ -3,11 +3,8 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leanoncompany/supporti-ark-office-project.git"
-  },
-  "version": "0.0.412",
+  "repository": "https://github.com/leanoncompany/supporti-ark-office-project",
+  "version": "0.0.414",
   "author": "Leanoncompany Team",
   "type": "module",
   "license": "ISC",

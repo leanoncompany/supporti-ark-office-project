@@ -9,18 +9,14 @@ import {
   ButtonProps,
   Theme,
   SxProps,
-} from "@mui/material";
-import {
-  CSSSelectorObjectOrCssVariables,
-  SystemCssProperties,
-  SystemStyleObject,
-} from "@mui/system";
+} from '@mui/material';
+import { CSSSelectorObjectOrCssVariables, SystemCssProperties, SystemStyleObject } from '@mui/system';
 
-import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
-import { RegexManager } from "@leanoncompany/supporti-utility";
-import React from "react";
-import AuthController from "../../../../controller/default/AuthController";
-import Timer from "./Timer";
+import { TextTypeInput } from '@leanoncompany/supporti-react-ui';
+import { RegexManager } from '@leanoncompany/supporti-utility';
+import React from 'react';
+import AuthController from '../../../../controller/default/AuthController';
+import Timer from './Timer';
 
 // type Props = {};
 
@@ -33,10 +29,8 @@ interface IPhoneAuthSection {
       status: string;
     }>
   >;
-  authorizeStatus: "default" | "sended" | "success";
-  setAuthorizeStatus: React.Dispatch<
-    React.SetStateAction<"default" | "sended" | "success">
-  >;
+  authorizeStatus: 'default' | 'sended' | 'success';
+  setAuthorizeStatus: React.Dispatch<React.SetStateAction<'default' | 'sended' | 'success'>>;
   setVerifyInputStatus: React.Dispatch<
     React.SetStateAction<{
       status: string;
@@ -56,33 +50,29 @@ interface IPhoneAuthSection {
     | SystemCssProperties<Theme>
     | CSSSelectorObjectOrCssVariables<Theme>
     | ((theme: Theme) => SystemStyleObject<Theme>)
-    | readonly (
-        | boolean
-        | SystemStyleObject<Theme>
-        | ((theme: Theme) => SystemStyleObject<Theme>)
-      )[]
+    | readonly (boolean | SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<Theme>))[]
     | null
     | undefined;
   labelBoxStyle?: BoxProps;
 
   typographyVariant?:
-    | "button"
-    | "caption"
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
-    | "subtitle1"
-    | "subtitle2"
-    | "body1"
-    | "body2"
-    | "overline"
-    | "inherit";
+    | 'button'
+    | 'caption'
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'subtitle1'
+    | 'subtitle2'
+    | 'body1'
+    | 'body2'
+    | 'overline'
+    | 'inherit';
   typographyFontWeight?: string;
 
-  textTypeInputVariant?: "standard" | "filled" | "outlined" | undefined;
+  textTypeInputVariant?: 'standard' | 'filled' | 'outlined' | undefined;
 
   // 인증번호 보내기 버튼 스타일
   sendVerifyCodeButtonStyle?: SxProps<Theme>;
@@ -99,6 +89,7 @@ interface IPhoneAuthSection {
   setBtnColor?: React.Dispatch<React.SetStateAction<boolean>>;
 
   userName?: string;
+  useDuplicate?: boolean;
 }
 
 const PhoneAuth = (props: IPhoneAuthSection) => {
@@ -118,8 +109,8 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
   /**
    * 인증번호 정보 관련 상태값
    */
-  const [authCode, setAuthCode] = React.useState<string>("");
-  const [encryptedAuthCode, setEncryptedAuthCode] = React.useState<string>("");
+  const [authCode, setAuthCode] = React.useState<string>('');
+  const [encryptedAuthCode, setEncryptedAuthCode] = React.useState<string>('');
 
   const [authRemainedTime, setAuthRemainedTime] = React.useState<number>(0);
 
@@ -128,17 +119,32 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
    * 인증 요청 함수
    */
   const sendAuthNumber = () => {
-    if (
-      /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(props.phoneNumber) ===
-      false
-    ) {
-      props.setPhoneNumberInputStatus({ status: "error" });
+    if (/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(props.phoneNumber) === false) {
+      props.setPhoneNumberInputStatus({ status: 'error' });
     } else {
       //중복 체크 후 인증번호 요청
       authController.isPhoneNumberUsed(
         { PHONE_NUMBER: props.phoneNumber },
         (response) => {
-          if (response.data.result === true) {
+          if (props.useDuplicate) {
+            if (response.data.result === true) {
+              setActiveTimer(false);
+              setAuthRemainedTime(180000);
+
+              authController.sendPhoneAuth(
+                { TARGET_PHONE_NUMBER: props.phoneNumber },
+                (response: any) => {
+                  setEncryptedAuthCode(response.data.result);
+                  setActiveTimer(true);
+                },
+                (err: any) => {
+                  console.log(err);
+                }
+              );
+            } else {
+              alert('이미 사용중인 휴대폰 번호입니다.');
+            }
+          } else {
             setActiveTimer(false);
             setAuthRemainedTime(180000);
 
@@ -152,8 +158,6 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
                 console.log(err);
               }
             );
-          } else {
-            alert("이미 사용중인 휴대폰 번호입니다.");
           }
         },
         (err) => {
@@ -168,10 +172,10 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
    */
   const resendAuthNumber = () => {
     //* Reset auth status
-    props.setAuthorizeStatus("default");
+    props.setAuthorizeStatus('default');
 
     setTimeout(() => {
-      props.setAuthorizeStatus("sended");
+      props.setAuthorizeStatus('sended');
     }, 1000);
   };
 
@@ -183,13 +187,13 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
       { AUTH_CODE: authCode, ENCRYPTED_AUTH_CODE: encryptedAuthCode },
       (response: any) => {
         if (response.data.result === true) {
-          props.setAuthorizeStatus("success");
+          props.setAuthorizeStatus('success');
           props.setVerifyInputStatus({
-            status: "passed",
+            status: 'passed',
           });
         } else if (response.data.result !== true) {
           props.setVerifyInputStatus({
-            status: "error",
+            status: 'error',
           });
         }
       },
@@ -204,7 +208,7 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
    * 메세지 전송을 위한 훅
    */
   React.useEffect(() => {
-    if (props.authorizeStatus === "sended") {
+    if (props.authorizeStatus === 'sended') {
       sendAuthNumber();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,17 +218,9 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
   React.useEffect(() => {
     if (props.setBtnColor !== undefined) {
       if (props.userName !== undefined) {
-        if (
-          props.phoneNumber.length > 0 &&
-          authCode.length > 0 &&
-          props.userName.length > 0
-        ) {
+        if (props.phoneNumber.length > 0 && authCode.length > 0 && props.userName.length > 0) {
           props.setBtnColor(true);
-        } else if (
-          props.phoneNumber.length === 0 ||
-          authCode.length === 0 ||
-          props.userName.length === 0
-        ) {
+        } else if (props.phoneNumber.length === 0 || authCode.length === 0 || props.userName.length === 0) {
           props.setBtnColor(false);
         }
       } else {
@@ -239,20 +235,14 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
   }, [props.phoneNumber, authCode]);
 
   return (
-    <Box
-      sx={
-        props.containerStyle !== undefined
-          ? { ...props.containerStyle }
-          : { my: 1 }
-      }
-    >
+    <Box sx={props.containerStyle !== undefined ? { ...props.containerStyle } : { my: 1 }}>
       <Box
-        display={"flex"}
-        flexDirection={"column"}
+        display={'flex'}
+        flexDirection={'column'}
         sx={props.boxStyle !== undefined ? { ...props.boxStyle } : { my: 1 }}
       >
         <Box
-          display={props.phoneNumberLabel !== undefined ? "flex" : "none"}
+          display={props.phoneNumberLabel !== undefined ? 'flex' : 'none'}
           sx={
             props.labelBoxStyle !== undefined
               ? {
@@ -261,14 +251,9 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
               : {}
           }
         >
-          <Typography
-            variant={props.typographyVariant}
-            fontWeight={props.typographyFontWeight}
-          >
-            {props.phoneNumberLabel !== undefined
-              ? props.phoneNumberLabel
-              : "전화번호"}{" "}
-            {props.required === true ? "*" : ""}
+          <Typography variant={props.typographyVariant} fontWeight={props.typographyFontWeight}>
+            {props.phoneNumberLabel !== undefined ? props.phoneNumberLabel : '전화번호'}{' '}
+            {props.required === true ? '*' : ''}
           </Typography>
         </Box>
         <TextTypeInput
@@ -276,9 +261,9 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
             props.phoneNumberLabel !== undefined
               ? props.phoneNumberLabel
               : {
-                  position: "outer",
-                  label: "전화번호",
-                  typograhpyVariant: "body1",
+                  position: 'outer',
+                  label: '전화번호',
+                  typograhpyVariant: 'body1',
                 }
           }
           fullWidth
@@ -286,73 +271,53 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
           placeholder={
             props.phoneNumberPlaceholder !== undefined
               ? props.phoneNumberPlaceholder
-              : "핸드폰 번호를 입력해주세요(숫자만)"
+              : '핸드폰 번호를 입력해주세요(숫자만)'
           }
           value={props.phoneNumber}
           setValue={props.setPhoneNumber}
-          adornmentPosition={"end"}
-          variant={
-            props.textTypeInputVariant !== undefined
-              ? props.textTypeInputVariant
-              : undefined
-          }
-          textFieldStyle={
-            props.textFieldStyle !== undefined ? props.textFieldStyle : {}
-          }
+          adornmentPosition={'end'}
+          variant={props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined}
+          textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
           adornmentElement={
             <Button
               variant="text"
-              onClick={
-                encryptedAuthCode.length !== 0
-                  ? resendAuthNumber
-                  : sendAuthNumber
-              }
-              sx={
-                props.sendVerifyCodeButtonStyle !== undefined
-                  ? { ...props.sendVerifyCodeButtonStyle }
-                  : {}
-              }
+              onClick={encryptedAuthCode.length !== 0 ? resendAuthNumber : sendAuthNumber}
+              sx={props.sendVerifyCodeButtonStyle !== undefined ? { ...props.sendVerifyCodeButtonStyle } : {}}
             >
               {props.sendVerifyCodeButtonText !== undefined ? (
                 props.sendVerifyCodeButtonText
               ) : (
-                <Typography
-                  variant="subtitle2"
-                  sx={{ textDecoration: "underline" }}
-                  color={"black"}
-                >
-                  {encryptedAuthCode.length !== 0 ? "재요청" : "인증요청"}
+                <Typography variant="subtitle2" sx={{ textDecoration: 'underline' }} color={'black'}>
+                  {encryptedAuthCode.length !== 0 ? '재요청' : '인증요청'}
                 </Typography>
               )}
             </Button>
           }
           inputCaptionConfig={{
             status: props.phoneNumberInputStatus,
-            errorMessage: "올바른 전화번호를 입력해주세요",
+            errorMessage: '올바른 전화번호를 입력해주세요',
           }}
           onChangeCallback={(args: any) => {
             if (args.event.target.value.length > 0) {
               props.setPhoneNumberInputStatus({
-                status: "default",
+                status: 'default',
               });
             }
-            props.setPhoneNumber(
-              regexManager.filterNotNumber(args.event.target.value)
-            );
+            props.setPhoneNumber(regexManager.filterNotNumber(args.event.target.value));
 
-            props.setAuthorizeStatus("default");
+            props.setAuthorizeStatus('default');
             props.setVerifyInputStatus({
-              status: "default",
+              status: 'default',
             });
 
-            setAuthCode("");
+            setAuthCode('');
           }}
         />
       </Box>
 
       <Box
-        display={"flex"}
-        flexDirection={"column"}
+        display={'flex'}
+        flexDirection={'column'}
         sx={props.boxStyle !== undefined ? { ...props.boxStyle } : { my: 1 }}
       >
         {props.phoneNumberLabel !== undefined ? (
@@ -365,49 +330,35 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
                 : {}
             }
           >
-            <Typography
-              variant={props.typographyVariant}
-              fontWeight={props.typographyFontWeight}
-            >
-              인증번호 {props.required === true ? "*" : ""}
+            <Typography variant={props.typographyVariant} fontWeight={props.typographyFontWeight}>
+              인증번호 {props.required === true ? '*' : ''}
             </Typography>
           </Box>
         ) : (
           <Box mb={1}>
-            <Typography variant={"body1"}>인증번호</Typography>
+            <Typography variant={'body1'}>인증번호</Typography>
           </Box>
         )}
 
-        <Grid container spacing={1} alignItems={"flex-start"}>
-          <Grid
-            item
-            md={props.disableButton !== true ? 9 : 12}
-            xs={8}
-            flexDirection={"column"}
-          >
+        <Grid container spacing={1} alignItems={'flex-start'}>
+          <Grid item md={props.disableButton !== true ? 9 : 12} xs={8} flexDirection={'column'}>
             <TextTypeInput
               fullWidth
               maxLength={4}
-              placeholder={"인증번호 입력"}
+              placeholder={'인증번호 입력'}
               setValue={setAuthCode}
-              variant={
-                props.textTypeInputVariant !== undefined
-                  ? props.textTypeInputVariant
-                  : undefined
-              }
-              textFieldStyle={
-                props.textFieldStyle !== undefined ? props.textFieldStyle : {}
-              }
+              variant={props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined}
+              textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
               value={authCode}
               inputCaptionConfig={{
                 status: props.verifyInputStatus,
-                errorMessage: "올바른 인증번호를 입력해주세요",
-                passedMessage: "인증되었습니다.",
+                errorMessage: '올바른 인증번호를 입력해주세요',
+                passedMessage: '인증되었습니다.',
               }}
-              adornmentPosition={"end"}
+              adornmentPosition={'end'}
               adornmentElement={
                 <Box
-                  display={encryptedAuthCode.length !== 0 ? "block" : "block"}
+                  display={encryptedAuthCode.length !== 0 ? 'block' : 'block'}
                   sx={{
                     borderRadius: 5,
                     backgroundColor: theme.palette.primary.main,
@@ -425,32 +376,28 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
               }
               onChangeCallback={(args: any) => {
                 props.setVerifyInputStatus({
-                  status: "default",
+                  status: 'default',
                 });
               }}
             />
           </Grid>
 
-          <Grid
-            item
-            md={props.disableButton !== true ? 3 : 0}
-            xs={props.disableButton !== true ? 4 : 0}
-          >
+          <Grid item md={props.disableButton !== true ? 3 : 0} xs={props.disableButton !== true ? 4 : 0}>
             {props.disableButton !== true && (
               <Button
                 onClick={() => {
                   validateAuthCode();
                 }}
                 fullWidth
-                variant={"outlined"}
-                color={"primary"}
+                variant={'outlined'}
+                color={'primary'}
                 sx={
                   props.buttonStyle !== undefined
                     ? { ...props.buttonStyle }
                     : {
-                        height: "44px",
-                        width: "100%",
-                        display: "flex",
+                        height: '44px',
+                        width: '100%',
+                        display: 'flex',
                       }
                 }
               >

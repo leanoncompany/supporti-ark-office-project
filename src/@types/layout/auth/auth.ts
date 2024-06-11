@@ -48,6 +48,7 @@ export interface ISignUp {
   useRecommender?: boolean;
   useBankAccount?: boolean;
   usePhone: boolean;
+  // useDuplicate?: boolean;
   data?: {
     // isRequired: boolean;
     placeholder: string;

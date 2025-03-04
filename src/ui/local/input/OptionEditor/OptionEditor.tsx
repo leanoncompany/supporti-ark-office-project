@@ -1,11 +1,24 @@
-import { Box, Typography, IconButton, Grid, TextField, Button } from '@mui/material';
-import { DeletableBadge, InputCore, IUserInputStatus, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import CloseIcon from '@mui/icons-material/Close';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import React, { useEffect, useState, useRef } from 'react';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import { RegexManager } from '@leanoncompany/supporti-utility';
-import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
+import {
+  Box,
+  Typography,
+  IconButton,
+  Grid,
+  TextField,
+  Button,
+} from "@mui/material";
+import {
+  DeletableBadge,
+  InputCore,
+  IUserInputStatus,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import CloseIcon from "@mui/icons-material/Close";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import React, { useEffect, useState, useRef } from "react";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import { RegexManager } from "@leanoncompany/supporti-utility";
+import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IOptionEditorProps extends IInputCore_EXTENDED {
   value: any;
@@ -27,10 +40,11 @@ const OptionEditor = (props: IOptionEditorProps) => {
       }[]
     | undefined
   >(undefined);
-  const [optionName, setOptionName] = useState<string>('');
-  const [optionNameInputStatus, setOptionNameInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [optionName, setOptionName] = useState<string>("");
+  const [optionNameInputStatus, setOptionNameInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
   //* Functions
   const addOption = () => {
@@ -39,7 +53,7 @@ const OptionEditor = (props: IOptionEditorProps) => {
 
     if (optionName.length == 0) {
       isValidated = false;
-      setOptionNameInputStatus({ status: 'required' });
+      setOptionNameInputStatus({ status: "required" });
     }
 
     if (isValidated == true && optionList !== undefined) {
@@ -49,15 +63,15 @@ const OptionEditor = (props: IOptionEditorProps) => {
       clonedList.push({
         optionKey: targetOptionName,
         selectableOptions: [],
-        currentValue: '',
-        currentPrice: '',
+        currentValue: "",
+        currentPrice: "",
       });
 
       setOptionList(clonedList);
 
-      setOptionName('');
+      setOptionName("");
       setOptionNameInputStatus({
-        status: 'default',
+        status: "default",
       });
     }
   };
@@ -65,12 +79,13 @@ const OptionEditor = (props: IOptionEditorProps) => {
   //* Hooks
   useEffect(() => {
     if (isInitiated.current == false) {
-      const targetValue = typeof props.value == 'string' ? JSON.parse(props.value) : props.value;
+      const targetValue =
+        typeof props.value == "string" ? JSON.parse(props.value) : props.value;
 
       setOptionList(
         targetValue.map((optionElement: any) => {
           return Object.assign(optionElement, {
-            currentValue: '',
+            currentValue: "",
           });
         })
       );
@@ -97,8 +112,9 @@ const OptionEditor = (props: IOptionEditorProps) => {
       <InputCore
         labelConfig={props.labelConfig}
         inputCaptionConfig={props.inputCaptionConfig}
-        inputStatus={props.inputStatus}>
-        <Box mb={1} p={1.75} borderRadius={1.5} sx={{ background: '#e6e6e6' }}>
+        inputStatus={props.inputStatus}
+      >
+        <Box mb={1} p={1.75} borderRadius={1.5} sx={{ background: "#e6e6e6" }}>
           {optionList !== undefined &&
             optionList.map((targetOption, optionIndex) => (
               <Box
@@ -106,9 +122,17 @@ const OptionEditor = (props: IOptionEditorProps) => {
                 mb={optionIndex === optionList.length - 1 ? 0 : 1}
                 p={1.5}
                 borderRadius={1.5}
-                sx={{ background: '#fff' }}>
-                <Box mb={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-                  <Typography variant={'caption'}>{targetOption.optionKey}</Typography>
+                sx={{ background: "#fff" }}
+              >
+                <Box
+                  mb={1}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
+                >
+                  <Typography variant={"caption"}>
+                    {targetOption.optionKey}
+                  </Typography>
 
                   <IconButton
                     onClick={() => {
@@ -116,13 +140,14 @@ const OptionEditor = (props: IOptionEditorProps) => {
                       clonedList.splice(optionIndex, 1);
 
                       setOptionList(clonedList);
-                    }}>
+                    }}
+                  >
                     <CloseIcon />
                   </IconButton>
                 </Box>
 
-                <Grid container spacing={2} alignItems="flex-end">
-                  <Grid item xs={12} sm={6}>
+                <Grid2 container spacing={2} alignItems="flex-end">
+                  <Grid2 item xs={12} sm={6}>
                     <Box
                       borderRadius={3}
                       sx={{
@@ -130,61 +155,71 @@ const OptionEditor = (props: IOptionEditorProps) => {
                         pl: 2,
                         pr: 2,
                         pb: 1,
-                        position: 'relative',
-                        background: 'rgb(242, 242, 243)',
-                        height: '100%',
-                        width: '80%',
-                        minHeight: '64px',
-                      }}>
+                        position: "relative",
+                        background: "rgb(242, 242, 243)",
+                        height: "100%",
+                        width: "80%",
+                        minHeight: "64px",
+                      }}
+                    >
                       {targetOption.selectableOptions.length == 0 ? (
                         <Box
                           sx={{
-                            position: 'absolute;',
-                            top: '50%;',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%);',
-                          }}>
+                            position: "absolute;",
+                            top: "50%;",
+                            left: "50%",
+                            transform: "translate(-50%, -50%);",
+                          }}
+                        >
                           <Typography
                             variant="body1"
                             sx={{
-                              color: '#9f9f9f',
-                            }}>
+                              color: "#9f9f9f",
+                            }}
+                          >
                             Empty
                           </Typography>
                         </Box>
                       ) : (
                         <Box>
-                          {targetOption.selectableOptions.map((optionElement, index) => (
-                            <Box
-                              key={index}
-                              sx={{
-                                display: 'inline',
-                              }}
-                              mr={1}>
-                              <DeletableBadge
-                                badgeKey={`${optionElement.key} / +${optionElement.additionalPrice}`}
-                                deleteCallback={() => {
-                                  const clonedList = [...optionList];
-                                  clonedList[optionIndex].selectableOptions.splice(index, 1);
-
-                                  setOptionList(clonedList);
+                          {targetOption.selectableOptions.map(
+                            (optionElement, index) => (
+                              <Box
+                                key={index}
+                                sx={{
+                                  display: "inline",
                                 }}
-                              />
-                            </Box>
-                          ))}
+                                mr={1}
+                              >
+                                <DeletableBadge
+                                  badgeKey={`${optionElement.key} / +${optionElement.additionalPrice}`}
+                                  deleteCallback={() => {
+                                    const clonedList = [...optionList];
+                                    clonedList[
+                                      optionIndex
+                                    ].selectableOptions.splice(index, 1);
+
+                                    setOptionList(clonedList);
+                                  }}
+                                />
+                              </Box>
+                            )
+                          )}
                         </Box>
                       )}
                     </Box>
-                  </Grid>
+                  </Grid2>
 
-                  <Grid item xs={12} sm={6}>
+                  <Grid2 item xs={12} sm={6}>
                     <Box>
-                      <Grid container spacing={2} alignItems={'flex-end'}>
-                        <Grid item xs={12} md={8}>
-                          <Grid container spacing={1}>
-                            <Grid item xs={6}>
+                      <Grid2 container spacing={2} alignItems={"flex-end"}>
+                        <Grid2 item xs={12} md={8}>
+                          <Grid2 container spacing={1}>
+                            <Grid2 item xs={6}>
                               <Box mb={1}>
-                                <Typography variant={'caption'}>선택 가능한 옵션명</Typography>
+                                <Typography variant={"caption"}>
+                                  선택 가능한 옵션명
+                                </Typography>
                               </Box>
                               <TextField
                                 placeholder="선택 가능한 옵션명"
@@ -192,16 +227,19 @@ const OptionEditor = (props: IOptionEditorProps) => {
                                 onChange={(e) => {
                                   const clonedList = [...optionList];
 
-                                  clonedList[optionIndex].currentValue = e.target.value;
+                                  clonedList[optionIndex].currentValue =
+                                    e.target.value;
 
                                   setOptionList(clonedList);
                                 }}
                               />
-                            </Grid>
+                            </Grid2>
 
-                            <Grid item xs={6}>
+                            <Grid2 item xs={6}>
                               <Box mb={1}>
-                                <Typography variant={'caption'}>추가 금액</Typography>
+                                <Typography variant={"caption"}>
+                                  추가 금액
+                                </Typography>
                               </Box>
                               <TextField
                                 placeholder="추가 금액"
@@ -209,21 +247,24 @@ const OptionEditor = (props: IOptionEditorProps) => {
                                 onChange={(e) => {
                                   const clonedList = [...optionList];
 
-                                  clonedList[optionIndex].currentPrice = regexManager.filterNotNumber(e.target.value);
+                                  clonedList[optionIndex].currentPrice =
+                                    regexManager.filterNotNumber(
+                                      e.target.value
+                                    );
 
                                   setOptionList(clonedList);
                                 }}
                               />
-                            </Grid>
-                          </Grid>
-                        </Grid>
+                            </Grid2>
+                          </Grid2>
+                        </Grid2>
 
-                        <Grid item xs={12} md={4}>
+                        <Grid2 item xs={12} md={4}>
                           <Button
                             fullWidth
                             sx={{
-                              height: '100%',
-                              minHeight: '53px',
+                              height: "100%",
+                              minHeight: "53px",
                             }}
                             disabled={targetOption.currentValue.length == 0}
                             variant="contained"
@@ -231,34 +272,40 @@ const OptionEditor = (props: IOptionEditorProps) => {
                               let isAlreadyIn = false;
 
                               for (const selectedOption of targetOption.selectableOptions) {
-                                if (selectedOption.key == targetOption.currentValue) {
+                                if (
+                                  selectedOption.key ==
+                                  targetOption.currentValue
+                                ) {
                                   isAlreadyIn = true;
                                   break;
                                 }
                               }
 
                               if (isAlreadyIn) {
-                                alert('같은 값은 추가할 수 없습니다!');
+                                alert("같은 값은 추가할 수 없습니다!");
                               } else {
                                 const clonedList = [...optionList];
                                 clonedList[optionIndex].selectableOptions.push({
                                   key: targetOption.currentValue,
                                   additionalPrice:
-                                    targetOption.currentPrice.length == 0 ? 0 : Number(targetOption.currentPrice),
+                                    targetOption.currentPrice.length == 0
+                                      ? 0
+                                      : Number(targetOption.currentPrice),
                                 });
-                                clonedList[optionIndex].currentValue = '';
-                                clonedList[optionIndex].currentPrice = '';
+                                clonedList[optionIndex].currentValue = "";
+                                clonedList[optionIndex].currentPrice = "";
 
                                 setOptionList(clonedList);
                               }
-                            }}>
+                            }}
+                          >
                             <AddCircleIcon />
                           </Button>
-                        </Grid>
-                      </Grid>
+                        </Grid2>
+                      </Grid2>
                     </Box>
-                  </Grid>
-                </Grid>
+                  </Grid2>
+                </Grid2>
               </Box>
             ))}
 
@@ -266,45 +313,47 @@ const OptionEditor = (props: IOptionEditorProps) => {
             mt={optionList !== undefined ? (optionList.length > 0 ? 1 : 0) : 0}
             p={1.5}
             borderRadius={1.5}
-            sx={{ background: '#fff' }}>
-            <Grid container spacing={1.5} alignItems={'flex-end'}>
-              <Grid item xs={12} md={9}>
+            sx={{ background: "#fff" }}
+          >
+            <Grid2 container spacing={1.5} alignItems={"flex-end"}>
+              <Grid2 item xs={12} md={9}>
                 <TextTypeInput
                   labelConfig={{
-                    position: 'outer',
-                    label: '옵션 추가',
+                    position: "outer",
+                    label: "옵션 추가",
                   }}
                   fullWidth
                   maxLength={40}
-                  placeholder={'옵션명을 입력해주세요.'}
+                  placeholder={"옵션명을 입력해주세요."}
                   value={optionName}
                   setValue={setOptionName}
                   inputCaptionConfig={{
                     status: optionNameInputStatus,
-                    requiredMessage: '옵션명을 입력해야 합니다',
+                    requiredMessage: "옵션명을 입력해야 합니다",
                   }}
                   onChangeCallback={(args: any) => {
                     setOptionNameInputStatus({
-                      status: 'default',
+                      status: "default",
                     });
                   }}
                 />
-              </Grid>
+              </Grid2>
 
-              <Grid item xs={12} md={3}>
+              <Grid2 item xs={12} md={3}>
                 <Button
                   disabled={optionName.length == 0}
                   fullWidth
                   sx={{
-                    height: '100%',
-                    minHeight: '53px',
+                    height: "100%",
+                    minHeight: "53px",
                   }}
                   variant="contained"
-                  onClick={addOption}>
+                  onClick={addOption}
+                >
                   <PlaylistAddIcon />
                 </Button>
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </Box>
         </Box>
       </InputCore>

@@ -8,6 +8,7 @@ import usePageRole from "../../../../hooks/pages/usePageRole";
 import { IBaseFormProps } from "../../../../@types/layout/forms/base";
 import { IWrappedData } from "../../../../@types/base/data";
 import usePageLabel from "../../../../hooks/data/usePageLabel";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 const BaseForm = (props: IBaseFormProps) => {
   //* Modules
@@ -63,7 +64,7 @@ const BaseForm = (props: IBaseFormProps) => {
           alignItems={"center"}
         >
           {/* Label */}
-          <Typography variant={"h6"} fontWeight={500}>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             {props.label !== undefined
               ? props.label
               : `${labelTail} ${labelSuffix}`}
@@ -71,7 +72,7 @@ const BaseForm = (props: IBaseFormProps) => {
           {/* disableEdit 이면 둘다 불가 disableUpdate 면 수정불가 생성가능 하게 수정.. */}
           {/* Buttons */}
           <Box
-            display={props.disableEdit == true ? "none" : "flex"}
+            display={props.disableEdit === true ? "none" : "flex"}
             alignItems={"center"}
           >
             {/* Update Button */}
@@ -111,11 +112,11 @@ const BaseForm = (props: IBaseFormProps) => {
 
         {/* Contents */}
         <Box>
-          <Grid container spacing={1.5} alignItems={"flex-end"}>
+          <Grid2 container spacing={1.5} alignItems={"flex-end"}>
             {Object.keys(wrappedDataDict).length != 0 &&
               props.dataList.map((data) => {
                 return (
-                  <Grid
+                  <Grid2
                     item
                     {...data.grid}
                     key={JSON.stringify(data.keys)}
@@ -132,13 +133,13 @@ const BaseForm = (props: IBaseFormProps) => {
                       props.pageRole || pageRole,
                       props.disableUpdate
                     )}
-                  </Grid>
+                  </Grid2>
                 );
               })}
 
             {/* 커스텀 랜더링 */}
             {props.injectedComponent}
-          </Grid>
+          </Grid2>
         </Box>
       </Box>
     </Box>

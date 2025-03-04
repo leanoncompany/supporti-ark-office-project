@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import DeleteButton from "../../../../ui/local/utils/DeleteButton";
 import UpdateButton from "../../../../ui/local/utils/UpdateButton";
@@ -8,6 +8,7 @@ import usePageRole from "../../../../hooks/pages/usePageRole";
 import { IDependentFormProps } from "../../../../@types/layout/forms/base";
 import useDependentDataControl from "../../../../hooks/data/useDependentDataControl";
 import usePageLabel from "../../../../hooks/data/usePageLabel";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 const DependentForm = (props: IDependentFormProps) => {
   //* Modules
@@ -57,7 +58,7 @@ const DependentForm = (props: IDependentFormProps) => {
           alignItems={"center"}
         >
           {/* Label */}
-          <Typography variant={"h6"} fontWeight={500}>
+          <Typography variant={"h6"}>
             {props.label !== undefined
               ? props.label
               : `${labelTail} ${labelSuffix}`}
@@ -100,20 +101,20 @@ const DependentForm = (props: IDependentFormProps) => {
 
         {/* Contents */}
         <Box>
-          <Grid container spacing={1.5} alignItems={"flex-end"}>
+          <Grid2 container spacing={1.5} alignItems={"flex-end"}>
             {Object.keys(wrappedDataDict).length != 0 &&
               props.dataList.map((data) => {
                 return (
-                  <Grid item {...data.grid} key={JSON.stringify(data.keys)}>
+                  <Grid2 item {...data.grid} key={JSON.stringify(data.keys)}>
                     {inputRenderer.render(
                       data,
                       wrappedDataDict,
                       props.disableEdit
                     )}
-                  </Grid>
+                  </Grid2>
                 );
               })}
-          </Grid>
+          </Grid2>
         </Box>
       </Box>
     </Box>

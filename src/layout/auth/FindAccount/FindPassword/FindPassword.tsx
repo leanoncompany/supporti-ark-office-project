@@ -1,50 +1,44 @@
-import { Box, BoxProps, Button, Grid, SxProps, Theme, Typography } from '@mui/material';
-import { TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import moment from 'moment';
-// import { RegexManager } from '@leanoncompany/supporti-utility';
-// import moment from 'moment';
-import React, { cloneElement, Dispatch, useEffect, useState } from 'react';
-import { isConstructorDeclaration } from 'typescript';
-import AuthController from '../../../../controller/default/AuthController';
-import PhoneAuth from '../PhonAuth';
-import { CSSSelectorObjectOrCssVariables, SystemCssProperties, SystemStyleObject } from '@mui/system';
+import { Box, BoxProps, Button, Theme, Typography } from "@mui/material";
+import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
+import moment from "moment";
+import React, { cloneElement, Dispatch, useEffect, useState } from "react";
+import AuthController from "../../../../controller/default/AuthController";
+import PhoneAuth from "../PhonAuth";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import { SxProps } from "@mui/material/styles";
 
 type Props = {
   setShowTab: Dispatch<React.SetStateAction<boolean>>;
   findIdResult: { label: string; value: string }[];
-  setFindIdResult: Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;
+  setFindIdResult: Dispatch<
+    React.SetStateAction<{ label: string; value: string }[]>
+  >;
   passwordStep: number;
   setPasswordStep: Dispatch<React.SetStateAction<number>>;
   userType?: string;
 
-  textFieldStyle?:
-    | SystemCssProperties<Theme>
-    | CSSSelectorObjectOrCssVariables<Theme>
-    | ((theme: Theme) => SystemStyleObject<Theme>)
-    | readonly (boolean | SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<Theme>))[]
-    | null
-    | undefined;
+  textFieldStyle?: SxProps<Theme>;
 
   thirdText?: React.ReactElement;
 
-  textTypeInputVariant?: 'standard' | 'filled' | 'outlined' | undefined;
+  textTypeInputVariant?: "standard" | "filled" | "outlined" | undefined;
   goToLogin?: React.ReactElement;
   typographyFontWeight?: string;
   typographyVariant?:
-    | 'button'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2'
-    | 'overline'
-    | 'inherit';
+    | "button"
+    | "caption"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "subtitle1"
+    | "subtitle2"
+    | "body1"
+    | "body2"
+    | "overline"
+    | "inherit";
   boxStyle?: BoxProps;
   labelBoxStyle?: BoxProps;
   // 인증번호 보내기 버튼 스타일
@@ -94,36 +88,38 @@ const FindPassword = (props: Props) => {
    * 이름 전화번호 인증번호코드 state
    */
 
-  const [userName, setUserName] = useState<string>('');
+  const [userName, setUserName] = useState<string>("");
   const [userNameInputStatus, setUserNameInputStatus] = useState<{
     status: string;
   }>({
-    status: 'default',
+    status: "default",
   });
 
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [phoneNumberInputStatus, setPhoneNumberInputStatus] = useState<{
     status: string;
-  }>({ status: 'default' });
+  }>({ status: "default" });
 
   const [verifyCodeInputStatus, setVerifyCodeInputStatus] = useState<{
     status: string;
-  }>({ status: 'default' });
+  }>({ status: "default" });
 
-  const [authorizeStatus, setAuthorizeStatus] = React.useState<'default' | 'sended' | 'success'>('default');
+  const [authorizeStatus, setAuthorizeStatus] = React.useState<
+    "default" | "sended" | "success"
+  >("default");
 
   /**
    * 바꿀 패스워드
    */
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword] = useState<string>("");
   const [passwordInputStatus, setPasswordInputStatus] = useState<{
     status: string;
-  }>({ status: 'default' });
+  }>({ status: "default" });
 
-  const [checkPassword, setCheckPassword] = useState<string>('');
+  const [checkPassword, setCheckPassword] = useState<string>("");
   const [checkPasswordInputStatus, setCheckPasswordInputStatus] = useState<{
     status: string;
-  }>({ status: 'default' });
+  }>({ status: "default" });
 
   /**
    * 유효성 함수 두개
@@ -138,41 +134,50 @@ const FindPassword = (props: Props) => {
 
     if (userNameRegex.test(userName) === false) {
       isValidate = false;
-      setUserNameInputStatus({ status: 'error' });
+      setUserNameInputStatus({ status: "error" });
     }
 
-    if (/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(phoneNumber) === false) {
+    if (
+      /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(phoneNumber) === false
+    ) {
       isValidate = false;
-      setPhoneNumberInputStatus({ status: 'error' });
+      setPhoneNumberInputStatus({ status: "error" });
     }
-    if (authorizeStatus !== 'success') {
+    if (authorizeStatus !== "success") {
       isValidate = false;
-      setVerifyCodeInputStatus({ status: 'error' });
+      setVerifyCodeInputStatus({ status: "error" });
     }
 
     if (isValidate) {
-      authController.validationFindPassword({ USER_NAME: userName, PHONE_NUMBER: phoneNumber }, (response) => {
-        if (response.data.result === true) {
-          props.setPasswordStep(props.passwordStep + 1);
-        } else {
-          alert('일치하는 회원이 존재하지 않습니다.');
+      authController.validationFindPassword(
+        { USER_NAME: userName, PHONE_NUMBER: phoneNumber },
+        (response) => {
+          if (response.data.result === true) {
+            props.setPasswordStep(props.passwordStep + 1);
+          } else {
+            alert("일치하는 회원이 존재하지 않습니다.");
+          }
         }
-      });
+      );
     }
   };
 
   const regexPassword = () => {
     let isValidate = true;
 
-    if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(password) === false) {
+    if (
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
+        password
+      ) === false
+    ) {
       isValidate = false;
-      setPasswordInputStatus({ status: 'error' });
+      setPasswordInputStatus({ status: "error" });
     }
 
     // 비밀번호, 비밀번호 확인 같은지
     if (password !== checkPassword) {
       isValidate = false;
-      setCheckPasswordInputStatus({ status: 'required' });
+      setCheckPasswordInputStatus({ status: "required" });
     }
 
     if (isValidate) {
@@ -184,17 +189,19 @@ const FindPassword = (props: Props) => {
         },
         (response: any) => {
           if (response.data.status === 500) {
-            alert('존재하지 않는 회원입니다.');
+            alert("존재하지 않는 회원입니다.");
           } else if (response.data.status === 200) {
             let cloneList = [...props.findIdResult];
-            cloneList[0].value = moment(response.data.result.CREATED_AT).format('YYYY.MM.DD');
+            cloneList[0].value = moment(response.data.result.CREATED_AT).format(
+              "YYYY.MM.DD"
+            );
             cloneList[1].value = response.data.result.USER_NAME;
             props.setFindIdResult(cloneList);
             props.setShowTab(false);
           }
         },
         (err: any) => {
-          alert('존재하지 않는 회원입니다.');
+          alert("존재하지 않는 회원입니다.");
         }
       );
     }
@@ -216,55 +223,68 @@ const FindPassword = (props: Props) => {
     <React.Fragment>
       {props.passwordStep === 0 ? (
         <Box mt={3}>
-          <Grid container>
-            <Grid
+          <Grid2 container>
+            <Grid2
               item
               md={12}
               xs={12}
-              display={props.emailLabel !== undefined ? 'flex' : 'none'}
+              display={props.emailLabel !== undefined ? "flex" : "none"}
               sx={
                 props.labelBoxStyle !== undefined
                   ? {
                       ...props.labelBoxStyle,
                     }
                   : {}
-              }>
-              <Typography variant={props.typographyVariant} fontWeight={props.typographyFontWeight}>
+              }
+            >
+              <Typography
+                variant={props.typographyVariant}
+                sx={{
+                  fontWeight: props.typographyFontWeight,
+                }}
+              >
                 {props.emailLabel}
               </Typography>
-            </Grid>
-            <Grid item md={12} xs={12} mb={1.5}>
+            </Grid2>
+            <Grid2 item md={12} xs={12} mb={1.5}>
               <TextTypeInput
                 labelConfig={
                   props.emailLabel === undefined
                     ? {
-                        position: 'outer',
-                        label: '아이디',
+                        position: "outer",
+                        label: "아이디",
                       }
                     : {}
                 }
                 fullWidth
-                textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
-                variant={props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined}
+                textFieldStyle={
+                  props.textFieldStyle !== undefined ? props.textFieldStyle : {}
+                }
+                variant={
+                  props.textTypeInputVariant !== undefined
+                    ? props.textTypeInputVariant
+                    : undefined
+                }
                 maxLength={20}
-                placeholder={'아이디를 입력해주세요.'}
+                placeholder={"아이디를 입력해주세요."}
                 value={userName}
                 setValue={setUserName}
                 inputCaptionConfig={{
                   status: userNameInputStatus,
-                  errorMessage: '최소 5자, 최대 19자 알파벳과 숫자의 조합만 가능합니다.',
-                  requiredMessage: '아이디 중복 확인을 해주세요.',
+                  errorMessage:
+                    "최소 5자, 최대 19자 알파벳과 숫자의 조합만 가능합니다.",
+                  requiredMessage: "아이디 중복 확인을 해주세요.",
                 }}
                 onChangeCallback={(args: any) => {
                   if (args.event.target.value.length > 0) {
                     setUserNameInputStatus({
-                      status: 'default',
+                      status: "default",
                     });
                   }
                 }}
               />
-            </Grid>
-            <Grid item md={12} xs={12}>
+            </Grid2>
+            <Grid2 item md={12} xs={12}>
               <PhoneAuth
                 verifyInputStatus={verifyCodeInputStatus}
                 setVerifyInputStatus={setVerifyCodeInputStatus}
@@ -274,30 +294,75 @@ const FindPassword = (props: Props) => {
                 setPhoneNumber={setPhoneNumber}
                 phoneNumberInputStatus={phoneNumberInputStatus}
                 setPhoneNumberInputStatus={setPhoneNumberInputStatus}
-                textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
-                textTypeInputVariant={props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined}
-                typographyFontWeight={props.typographyFontWeight !== undefined ? props.typographyFontWeight : undefined}
-                typographyVariant={props.typographyVariant !== undefined ? props.typographyVariant : undefined}
-                boxStyle={props.boxStyle !== undefined ? props.boxStyle : undefined}
-                labelBoxStyle={props.labelBoxStyle !== undefined ? props.labelBoxStyle : undefined}
-                sendVerifyCodeButtonStyle={
-                  props.sendVerifyCodeButtonStyle !== undefined ? props.sendVerifyCodeButtonStyle : undefined
+                textFieldStyle={props.textFieldStyle}
+                textTypeInputVariant={
+                  props.textTypeInputVariant !== undefined
+                    ? props.textTypeInputVariant
+                    : undefined
                 }
-                buttonStyle={props.buttonStyle !== undefined ? props.buttonStyle : undefined}
-                disableButton={props.disableButton !== undefined ? props.disableButton : undefined}
-                phoneNumberLabel={props.phoneNumberLabel !== undefined ? props.phoneNumberLabel : undefined}
+                typographyFontWeight={
+                  props.typographyFontWeight !== undefined
+                    ? props.typographyFontWeight
+                    : undefined
+                }
+                typographyVariant={
+                  props.typographyVariant !== undefined
+                    ? props.typographyVariant
+                    : undefined
+                }
+                boxStyle={
+                  props.boxStyle !== undefined ? props.boxStyle : undefined
+                }
+                labelBoxStyle={
+                  props.labelBoxStyle !== undefined
+                    ? props.labelBoxStyle
+                    : undefined
+                }
+                sendVerifyCodeButtonStyle={
+                  props.sendVerifyCodeButtonStyle !== undefined
+                    ? props.sendVerifyCodeButtonStyle
+                    : undefined
+                }
+                buttonStyle={
+                  props.buttonStyle !== undefined
+                    ? props.buttonStyle
+                    : undefined
+                }
+                disableButton={
+                  props.disableButton !== undefined
+                    ? props.disableButton
+                    : undefined
+                }
+                phoneNumberLabel={
+                  props.phoneNumberLabel !== undefined
+                    ? props.phoneNumberLabel
+                    : undefined
+                }
                 sendVerifyCodeButtonText={
-                  props.sendVerifyCodeButtonText !== undefined ? props.sendVerifyCodeButtonText : undefined
+                  props.sendVerifyCodeButtonText !== undefined
+                    ? props.sendVerifyCodeButtonText
+                    : undefined
                 }
                 phoneNumberPlaceholder={
-                  props.phoneNumberPlaceholder !== undefined ? props.phoneNumberPlaceholder : undefined
+                  props.phoneNumberPlaceholder !== undefined
+                    ? props.phoneNumberPlaceholder
+                    : undefined
                 }
-                setBtnColor={props.setBtnColor !== undefined ? props.setBtnColor : undefined}
+                setBtnColor={
+                  props.setBtnColor !== undefined
+                    ? props.setBtnColor
+                    : undefined
+                }
                 userName={userName}
               />
-            </Grid>
+            </Grid2>
             {props.thirdText !== undefined && props.thirdText}
-            <Grid item md={12} xs={12} mt={props.thirdText !== undefined ? 0 : 5}>
+            <Grid2
+              item
+              md={12}
+              xs={12}
+              mt={props.thirdText !== undefined ? 0 : 5}
+            >
               {props.passwordConfirmBtn !== undefined ? (
                 cloneElement(props.passwordConfirmBtn, {
                   onClick: () => {
@@ -308,34 +373,48 @@ const FindPassword = (props: Props) => {
                 <Button
                   // width={"100%"}
                   fullWidth
-                  color={'primary'}
+                  color={"primary"}
                   variant="contained"
                   sx={{
                     marginBottom: 2,
                   }}
                   onClick={() => {
                     regexUserNamePhoneNumberVerifyCode();
-                  }}>
-                  {props.findBtnText !== undefined ? props.findBtnText : '비밀번호 찾기'}
+                  }}
+                >
+                  {props.findBtnText !== undefined
+                    ? props.findBtnText
+                    : "비밀번호 찾기"}
                 </Button>
               )}
-            </Grid>
+            </Grid2>
             {props.goToLogin !== undefined && props.goToLogin}
-          </Grid>
+          </Grid2>
         </Box>
       ) : (
-        <Grid container mt={3}>
-          <Grid
+        <Grid2 container mt={3}>
+          <Grid2
             item
             md={12}
             xs={12}
-            mb={props.passwordChangeMarginBottom !== undefined ? props.passwordChangeMarginBottom : 1.5}
+            mb={
+              props.passwordChangeMarginBottom !== undefined
+                ? props.passwordChangeMarginBottom
+                : 1.5
+            }
             sx={{
-              display: props.newPasswordLabel !== undefined ? 'flex' : 'block',
-              flexDirection: props.newPasswordLabel !== undefined ? 'column' : undefined,
-            }}>
+              display: props.newPasswordLabel !== undefined ? "flex" : "block",
+              flexDirection:
+                props.newPasswordLabel !== undefined ? "column" : undefined,
+            }}
+          >
             {props.newPasswordLabel !== undefined && (
-              <Typography variant={props.typographyVariant} fontWeight={props.typographyFontWeight}>
+              <Typography
+                variant={props.typographyVariant}
+                sx={{
+                  fontWeight: props.typographyFontWeight,
+                }}
+              >
                 {props.newPasswordLabel}
               </Typography>
             )}
@@ -343,45 +422,68 @@ const FindPassword = (props: Props) => {
               labelConfig={
                 props.newPasswordLabel === undefined
                   ? {
-                      position: 'outer',
-                      label: '새 비밀번호',
+                      position: "outer",
+                      label: "새 비밀번호",
                     }
                   : {}
               }
               fullWidth
               value={password}
               setValue={setPassword}
-              textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
-              variant={props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined}
-              type={'password'}
+              textFieldStyle={
+                props.textFieldStyle !== undefined ? props.textFieldStyle : {}
+              }
+              variant={
+                props.textTypeInputVariant !== undefined
+                  ? props.textTypeInputVariant
+                  : undefined
+              }
+              type={"password"}
               maxLength={20}
               placeholder={
-                props.newPasswordPlaceholder !== undefined ? props.newPasswordPlaceholder : '비밀번호를 입력해주세요.'
+                props.newPasswordPlaceholder !== undefined
+                  ? props.newPasswordPlaceholder
+                  : "비밀번호를 입력해주세요."
               }
               inputCaptionConfig={{
                 status: passwordInputStatus,
-                errorMessage: '최소 10자, 최대 20자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자가 필요합니다.',
+                errorMessage:
+                  "최소 10자, 최대 20자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자가 필요합니다.",
               }}
               onChangeCallback={(args: any) => {
                 if (args.event.target.value.length > 0) {
                   setPasswordInputStatus({
-                    status: 'default',
+                    status: "default",
                   });
                 }
               }}
             />
-          </Grid>
-          <Grid
+          </Grid2>
+          <Grid2
             item
             md={12}
             xs={12}
-            mb={props.passwordChangeMarginBottom !== undefined ? props.passwordChangeMarginBottom : 0}
+            mb={
+              props.passwordChangeMarginBottom !== undefined
+                ? props.passwordChangeMarginBottom
+                : 0
+            }
             sx={{
-              display: props.newPasswordCheckLabel !== undefined ? 'flex' : 'block',
-              flexDirection: props.newPasswordCheckLabel !== undefined ? 'column' : undefined,
-            }}>
+              display:
+                props.newPasswordCheckLabel !== undefined ? "flex" : "block",
+              flexDirection:
+                props.newPasswordCheckLabel !== undefined
+                  ? "column"
+                  : undefined,
+            }}
+          >
             {props.newPasswordCheckLabel !== undefined && (
-              <Typography variant={props.typographyVariant} fontWeight={props.typographyFontWeight}>
+              <Typography
+                variant={props.typographyVariant}
+                sx={{
+                  fontWeight: props.typographyFontWeight,
+                }}
+              >
                 {props.newPasswordCheckLabel}
               </Typography>
             )}
@@ -389,39 +491,46 @@ const FindPassword = (props: Props) => {
               labelConfig={
                 props.newPasswordCheckLabel === undefined
                   ? {
-                      position: 'outer',
-                      label: '새 비밀번호 확인',
+                      position: "outer",
+                      label: "새 비밀번호 확인",
                     }
                   : {}
               }
               fullWidth
               maxLength={20}
-              type={'password'}
-              textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
-              variant={props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined}
+              type={"password"}
+              textFieldStyle={
+                props.textFieldStyle !== undefined ? props.textFieldStyle : {}
+              }
+              variant={
+                props.textTypeInputVariant !== undefined
+                  ? props.textTypeInputVariant
+                  : undefined
+              }
               placeholder={
                 props.newPasswordCheckPlaceholder !== undefined
                   ? props.newPasswordCheckPlaceholder
-                  : '비밀번호를 입력해주세요.'
+                  : "비밀번호를 입력해주세요."
               }
               setValue={setCheckPassword}
               value={checkPassword}
               inputCaptionConfig={{
                 status: checkPasswordInputStatus,
-                errorMessage: '알파벳 소문자, 숫자, 특수문자를 한개이상 포함하여 5 ~ 20글자여야 합니다 (한글 X)',
-                requiredMessage: '비밀번호가 일치하지 않습니다',
+                errorMessage:
+                  "알파벳 소문자, 숫자, 특수문자를 한개이상 포함하여 5 ~ 20글자여야 합니다 (한글 X)",
+                requiredMessage: "비밀번호가 일치하지 않습니다",
               }}
               onChangeCallback={(args: any) => {
                 if (args.event.target.value.length > 0) {
                   setCheckPasswordInputStatus({
-                    status: 'default',
+                    status: "default",
                   });
                 }
               }}
             />
-          </Grid>
+          </Grid2>
           {props.fourthText !== undefined && props.fourthText}
-          <Grid item md={12} xs={12}>
+          <Grid2 item md={12} xs={12}>
             {props.passwordChangeBtn !== undefined ? (
               cloneElement(props.passwordChangeBtn, {
                 onClick: () => {
@@ -431,7 +540,7 @@ const FindPassword = (props: Props) => {
             ) : (
               <Button
                 fullWidth
-                color={'primary'}
+                color={"primary"}
                 variant="contained"
                 sx={
                   props.findBtnStyle !== undefined
@@ -443,13 +552,14 @@ const FindPassword = (props: Props) => {
                 }
                 onClick={() => {
                   regexPassword();
-                }}>
+                }}
+              >
                 변경하기
               </Button>
             )}
-          </Grid>
+          </Grid2>
           {props.goToLogin !== undefined && props.goToLogin}
-        </Grid>
+        </Grid2>
       )}
     </React.Fragment>
   );

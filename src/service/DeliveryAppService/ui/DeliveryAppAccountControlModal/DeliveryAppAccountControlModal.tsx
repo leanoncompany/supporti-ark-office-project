@@ -5,7 +5,6 @@ import {
   CircularProgress,
   Fade,
   FormControlLabel,
-  Grid,
   IconButton,
   Modal,
   Pagination,
@@ -14,24 +13,29 @@ import {
   ToggleButtonGroup,
   Typography,
   useTheme,
-} from '@mui/material';
-import { IData, IWrappedData } from '../../../../@types/base/data';
-import DefaultController from '../../../../controller/default/DefaultController';
-import DataUtil from '../../../../utils/data/DataUtil';
-import BaseForm from '../../../../layout/forms/base/BaseForm/BaseForm';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import Memory from '../../../../utils/data/Memory';
-import { InputCore, ModalCore, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import DeliveryDiningRoundedIcon from '@mui/icons-material/DeliveryDiningRounded';
-import BikeScooterRoundedIcon from '@mui/icons-material/BikeScooterRounded';
-import TwoWheelerRoundedIcon from '@mui/icons-material/TwoWheelerRounded';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import EmptyList from '../../../../ui/local/display/EmptyList';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+} from "@mui/material";
+import { IData, IWrappedData } from "../../../../@types/base/data";
+import DefaultController from "../../../../controller/default/DefaultController";
+import DataUtil from "../../../../utils/data/DataUtil";
+import BaseForm from "../../../../layout/forms/base/BaseForm/BaseForm";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import Memory from "../../../../utils/data/Memory";
+import {
+  InputCore,
+  ModalCore,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import DeliveryDiningRoundedIcon from "@mui/icons-material/DeliveryDiningRounded";
+import BikeScooterRoundedIcon from "@mui/icons-material/BikeScooterRounded";
+import TwoWheelerRoundedIcon from "@mui/icons-material/TwoWheelerRounded";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import EmptyList from "../../../../ui/local/display/EmptyList";
+import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IDeliveryAppAccountControlModalProps {
   memory: Memory;
@@ -46,13 +50,17 @@ interface IDeliveryAppAccountControlModalProps {
   setShopLoaderKey: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalProps) => {
+const DeliveryAppAccountControlModal = (
+  props: IDeliveryAppAccountControlModalProps
+) => {
   //* Modules
   const dataUtil = new DataUtil();
   const router = useRouter();
   const theme = useTheme();
-  const deliveryAppShopModelName = 'DeliveryAppShop';
-  const deliveryAppShopController = new DefaultController(deliveryAppShopModelName);
+  const deliveryAppShopModelName = "DeliveryAppShop";
+  const deliveryAppShopController = new DefaultController(
+    deliveryAppShopModelName
+  );
 
   //* States
   const [modalKey, setModalKey] = useState<number>(0);
@@ -65,27 +73,27 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
     icon: React.ReactElement;
   }[] = [
     {
-      label: '배달의 민족',
-      value: 'BAEMIN_REVIEW_REPLY_SERVICE',
+      label: "배달의 민족",
+      value: "BAEMIN_REVIEW_REPLY_SERVICE",
       icon: <DeliveryDiningRoundedIcon />,
     },
     {
-      label: '요기요',
-      value: 'YOGIYO_REVIEW_REPLY_SERVICE',
+      label: "요기요",
+      value: "YOGIYO_REVIEW_REPLY_SERVICE",
       icon: <BikeScooterRoundedIcon />,
     },
     {
-      label: '쿠팡 이츠',
-      value: 'COUPANG_EATS_REVIEW_REPLY_SERVICE',
+      label: "쿠팡 이츠",
+      value: "COUPANG_EATS_REVIEW_REPLY_SERVICE",
       icon: <TwoWheelerRoundedIcon />,
     },
   ];
 
   //* Controller
-  const modelName = 'DeliveryAppAccount';
+  const modelName = "DeliveryAppAccount";
   const controller = new DefaultController(modelName);
 
-  const botActionLogModelName = 'BotActionLog';
+  const botActionLogModelName = "BotActionLog";
   const botActionLogController = new DefaultController(botActionLogModelName);
 
   //* Let
@@ -107,17 +115,18 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
   /**
    * 계정 검증 대기 여부
    */
-  const [isWaitingValidation, setIsWaitingValidation] = useState<boolean>(false);
+  const [isWaitingValidation, setIsWaitingValidation] =
+    useState<boolean>(false);
 
   /**
    * 폼용 데이터 리스트
    */
   const dataList: IData[] = [
     {
-      keys: ['SHOP_PLATFORM_KEY'],
-      ui: 'custom',
-      label: '플랫폼',
-      initialValue: '',
+      keys: ["SHOP_PLATFORM_KEY"],
+      ui: "custom",
+      label: "플랫폼",
+      initialValue: "",
       grid: {
         xs: 12,
         md: 12,
@@ -127,74 +136,96 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
           <Box>
             <InputCore
               labelConfig={{
-                position: 'outer',
-                label: '플랫폼 선택',
+                position: "outer",
+                label: "플랫폼 선택",
               }}
               inputCaptionConfig={{
-                status: wrappedDataDict['SHOP_PLATFORM_KEY'].inputStatus,
-                requiredMessage: '플랫폼을 선택해주세요.',
+                status: wrappedDataDict["SHOP_PLATFORM_KEY"].inputStatus,
+                requiredMessage: "플랫폼을 선택해주세요.",
               }}
-              inputStatus={wrappedDataDict['SHOP_PLATFORM_KEY'].inputStatus}>
+              inputStatus={wrappedDataDict["SHOP_PLATFORM_KEY"].inputStatus}
+            >
               <ToggleButtonGroup
                 size="large"
-                value={wrappedDataDict['SHOP_PLATFORM_KEY'].state}
-                onChange={(event: React.MouseEvent<HTMLElement>, value: string | null) => {
+                value={wrappedDataDict["SHOP_PLATFORM_KEY"].state}
+                onChange={(
+                  event: React.MouseEvent<HTMLElement>,
+                  value: string | null
+                ) => {
                   if (value !== null) {
-                    const setterCallback = wrappedDataDict['SHOP_PLATFORM_KEY'].setter;
+                    const setterCallback =
+                      wrappedDataDict["SHOP_PLATFORM_KEY"].setter;
 
                     if (setterCallback !== undefined) {
                       setterCallback(value);
                     }
 
-                    const inputStatusSetterCallback = wrappedDataDict['SHOP_PLATFORM_KEY'].setInputStatus;
+                    const inputStatusSetterCallback =
+                      wrappedDataDict["SHOP_PLATFORM_KEY"].setInputStatus;
 
                     if (inputStatusSetterCallback !== undefined) {
                       inputStatusSetterCallback({
-                        status: 'default',
+                        status: "default",
                       });
                     }
                   }
                 }}
                 exclusive={true}
-                aria-label="Large sizes">
+                aria-label="Large sizes"
+              >
                 {selectablePlatformList.map((selectablePlatform) => (
                   <ToggleButton
                     value={selectablePlatform.value}
                     key={selectablePlatform.value}
                     sx={{
-                      display: 'block',
-                      width: '90px',
-                      height: '90px',
-                      '&.Mui-selected': {
+                      display: "block",
+                      width: "90px",
+                      height: "90px",
+                      "&.Mui-selected": {
                         backgroundColor: theme.palette.primary.main,
                       },
-                      '&:hover': {
+                      "&:hover": {
                         backgroundColor:
-                          selectablePlatform.value === wrappedDataDict['SHOP_PLATFORM_KEY'].state
+                          selectablePlatform.value ===
+                          wrappedDataDict["SHOP_PLATFORM_KEY"].state
                             ? `${theme.palette.primary.dark} !important`
-                            : '#e0e0e0',
+                            : "#e0e0e0",
                       },
-                    }}>
-                    <Box display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
-                      <Box display={'flex'} alignItems={'center'} justifyContent={'center'} mb={'12px'}>
+                    }}
+                  >
+                    <Box
+                      display={"flex"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                      flexDirection={"column"}
+                    >
+                      <Box
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        mb={"12px"}
+                      >
                         {React.cloneElement(selectablePlatform.icon, {
                           style: {
-                            fontSize: 'large',
+                            fontSize: "large",
                             color:
-                              selectablePlatform.value === wrappedDataDict['SHOP_PLATFORM_KEY'].state
-                                ? 'white'
-                                : theme.palette.grey['600'],
+                              selectablePlatform.value ===
+                              wrappedDataDict["SHOP_PLATFORM_KEY"].state
+                                ? "white"
+                                : theme.palette.grey["600"],
                           },
                         })}
                       </Box>
                       <Typography
-                        variant={'subtitle2'}
+                        variant={"subtitle2"}
                         sx={{
                           color:
-                            selectablePlatform.value === wrappedDataDict['SHOP_PLATFORM_KEY'].state
-                              ? '#ffffff'
+                            selectablePlatform.value ===
+                            wrappedDataDict["SHOP_PLATFORM_KEY"].state
+                              ? "#ffffff"
                               : theme.palette.grey[800],
-                        }}>
+                        }}
+                      >
                         {selectablePlatform.label}
                       </Typography>
                     </Box>
@@ -207,9 +238,9 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
       },
     },
     {
-      keys: ['SHOP_USER_NAME'],
-      ui: 'textarea',
-      label: '사장님 아이디',
+      keys: ["SHOP_USER_NAME"],
+      ui: "textarea",
+      label: "사장님 아이디",
       disabled: modelData !== undefined,
       grid: {
         xs: 12,
@@ -217,76 +248,77 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
       },
     },
     {
-      keys: ['SHOP_PASSWORD'],
-      ui: 'textarea',
-      type: 'password',
-      label: '사장님 비밀번호',
+      keys: ["SHOP_PASSWORD"],
+      ui: "textarea",
+      type: "password",
+      label: "사장님 비밀번호",
       grid: {
         xs: 12,
         md: 12,
       },
     },
     {
-      keys: ['DELAY_HOUR'],
-      ui: 'select',
-      label: '리뷰가 달린 후, 며칠 이후에 답글을 달까요? (당일 등록한 봇은 다음날부터 업로드 기능이 작동됩니다.',
+      keys: ["DELAY_HOUR"],
+      ui: "select",
+      label:
+        "리뷰가 달린 후, 며칠 이후에 답글을 달까요? (당일 등록한 봇은 다음날부터 업로드 기능이 작동됩니다.",
       grid: {
         xs: 12,
         md: 12,
       },
-      initialValue: '0',
+      initialValue: "0",
       selectableItems: [
         {
-          label: '즉시',
-          value: '0',
+          label: "즉시",
+          value: "0",
         },
         {
-          label: '1일 후',
-          value: '1',
+          label: "1일 후",
+          value: "1",
         },
         {
-          label: '2일 후',
-          value: '2',
+          label: "2일 후",
+          value: "2",
         },
         {
-          label: '3일 후',
-          value: '3',
+          label: "3일 후",
+          value: "3",
         },
         {
-          label: '4일 후',
-          value: '4',
+          label: "4일 후",
+          value: "4",
         },
         {
-          label: '5일 후',
-          value: '5',
+          label: "5일 후",
+          value: "5",
         },
         {
-          label: '6일 후',
-          value: '6',
+          label: "6일 후",
+          value: "6",
         },
         {
-          label: '7일 후',
-          value: '7',
+          label: "7일 후",
+          value: "7",
         },
       ],
     },
     {
-      keys: ['ACTIVATE_HOUR'],
-      label: '업로드 활동 시간',
-      ui: 'select',
+      keys: ["ACTIVATE_HOUR"],
+      label: "업로드 활동 시간",
+      ui: "select",
       grid: {
         xs: 12,
         md: 12,
       },
-      initialValue: '00~12',
+      initialValue: "00~12",
       selectableItems: [
         {
-          label: '00시 ~ 12시',
-          value: '00~12',
+          label: "00시 ~ 12시",
+          value: "00~12",
         },
         {
-          label: '12시 ~ 24시',
-          value: '12~24',
+          label: "12시 ~ 24시",
+          value: "12~24",
         },
       ],
     },
@@ -300,21 +332,23 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
     if (props.deliveryAppAcountId !== undefined) {
       controller.deleteItem(
         {
-          [dataUtil.getModelIdentificationCode(modelName)]: props.deliveryAppAcountId,
+          [dataUtil.getModelIdentificationCode(modelName)]:
+            props.deliveryAppAcountId,
         },
         (res) => {
-          alert('삭제가 완료되었습니다.');
+          alert("삭제가 완료되었습니다.");
 
           //* 리스트에서 삭제
           props.setDeliveryAppAcountList(
             props.deliveryAppAcountList.filter(
               (deliveryAppAcount) =>
-                deliveryAppAcount.DELIVERY_APP_ACCOUNT_IDENTIFICATION_CODE !== props.deliveryAppAcountId
+                deliveryAppAcount.DELIVERY_APP_ACCOUNT_IDENTIFICATION_CODE !==
+                props.deliveryAppAcountId
             )
           );
         },
         (err) => {
-          alert('삭제 중 오류가 발생했습니다.');
+          alert("삭제 중 오류가 발생했습니다.");
         }
       );
     }
@@ -333,34 +367,36 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
   const checkDuplicateAccount = (
     args: { [key: string]: any },
     successCallback: () => void,
-    role: 'create' | 'update'
+    role: "create" | "update"
   ) => {
     controller.getOneItemByKey(
       {
         SHOP_USER_NAME: args.SHOP_USER_NAME,
         SHOP_PASSWORD: args.SHOP_PASSWORD,
         SHOP_PLATFORM_KEY: args.SHOP_PLATFORM_KEY,
-        USE_YN: 'Y',
+        USE_YN: "Y",
       },
       (res) => {
         const account = res.data.result;
         let isDuplicated = false;
 
-        if (role === 'create') {
+        if (role === "create") {
           isDuplicated = account !== null;
-        } else if (role === 'update') {
+        } else if (role === "update") {
           isDuplicated =
-            account !== null && account.DELIVERY_APP_ACCOUNT_IDENTIFICATION_CODE !== props.deliveryAppAcountId;
+            account !== null &&
+            account.DELIVERY_APP_ACCOUNT_IDENTIFICATION_CODE !==
+              props.deliveryAppAcountId;
         }
 
         if (isDuplicated) {
-          alert('이미 해당 플랫폼 자동화에 등록된 아이디 및 비밀번호 입니다.');
+          alert("이미 해당 플랫폼 자동화에 등록된 아이디 및 비밀번호 입니다.");
         } else {
           successCallback();
         }
       },
       (err) => {
-        alert('중복 확인 중 오류가 발생했습니다.');
+        alert("중복 확인 중 오류가 발생했습니다.");
       }
     );
   };
@@ -369,23 +405,30 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
    * 소속 가게 클릭 시
    */
   const handleSelect = (item: any) => {
-    const confirmMessage = item.ACTIVATE_YN == 'Y' ? '가게를 비활성화 시킬까요?' : '가게를 활성화 시킬까요?';
+    const confirmMessage =
+      item.ACTIVATE_YN == "Y"
+        ? "가게를 비활성화 시킬까요?"
+        : "가게를 활성화 시킬까요?";
 
     if (confirm(confirmMessage)) {
       deliveryAppShopController.updateItem(
         {
-          DELIVERY_APP_SHOP_IDENTIFICATION_CODE: item.DELIVERY_APP_SHOP_IDENTIFICATION_CODE,
-          ACTIVATE_YN: item.ACTIVATE_YN == 'Y' ? 'N' : 'Y',
+          DELIVERY_APP_SHOP_IDENTIFICATION_CODE:
+            item.DELIVERY_APP_SHOP_IDENTIFICATION_CODE,
+          ACTIVATE_YN: item.ACTIVATE_YN == "Y" ? "N" : "Y",
         },
         (res) => {
-          alert('가게가 업데이트 되었습니다.');
+          alert("가게가 업데이트 되었습니다.");
 
           //* 리스트에서 업데이트
           const updatedShopList = shopList.map((shop) => {
-            if (shop.DELIVERY_APP_SHOP_IDENTIFICATION_CODE === item.DELIVERY_APP_SHOP_IDENTIFICATION_CODE) {
+            if (
+              shop.DELIVERY_APP_SHOP_IDENTIFICATION_CODE ===
+              item.DELIVERY_APP_SHOP_IDENTIFICATION_CODE
+            ) {
               return {
                 ...shop,
-                ACTIVATE_YN: item.ACTIVATE_YN == 'Y' ? 'N' : 'Y',
+                ACTIVATE_YN: item.ACTIVATE_YN == "Y" ? "N" : "Y",
               };
             } else {
               return shop;
@@ -396,7 +439,7 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
         },
         (err) => {
           console.log(err);
-          alert('가게 업데이트 중 오류가 발생했습니다.');
+          alert("가게 업데이트 중 오류가 발생했습니다.");
         }
       );
     }
@@ -406,7 +449,7 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
    * 소속 가게 선택 여부
    */
   const handleIsSelected = (item: any) => {
-    if (item.ACTIVATE_YN == 'Y') {
+    if (item.ACTIVATE_YN == "Y") {
       return true;
     } else {
       return false;
@@ -418,24 +461,24 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
    */
   const createCardData = (targetModelData: { [key: string]: IWrappedData }) => {
     //* 계정 상태 체크
-    let color = 'green';
-    let accountStatus = '정상';
+    let color = "green";
+    let accountStatus = "정상";
 
     if (shopList.length === 0) {
-      accountStatus = '소속 가게 없음 (매일 1회, 00시에 업데이트)';
-      color = 'grey';
+      accountStatus = "소속 가게 없음 (매일 1회, 00시에 업데이트)";
+      color = "grey";
     } else {
       let isActivatedShopExist = false;
 
       shopList.map((shop) => {
-        if (shop.ACTIVATE_YN == 'Y') {
+        if (shop.ACTIVATE_YN == "Y") {
           isActivatedShopExist = true;
         }
       });
 
       if (isActivatedShopExist === false) {
-        accountStatus = '활성화된 가게가 없음 (매일 1회, 00시에 업데이트)';
-        color = 'red';
+        accountStatus = "활성화된 가게가 없음 (매일 1회, 00시에 업데이트)";
+        color = "red";
       }
     }
 
@@ -447,19 +490,19 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
       md: number;
     }[] = [
       {
-        label: '플랫폼',
+        label: "플랫폼",
         value: getPlatformTypography(targetModelData.SHOP_PLATFORM_KEY.state),
         xs: 6,
         md: 4,
       },
       {
-        label: '아이디',
+        label: "아이디",
         value: targetModelData.SHOP_USER_NAME.state,
         xs: 6,
         md: 4,
       },
       {
-        label: '계정상태',
+        label: "계정상태",
         value: accountStatus,
         xs: 12,
         md: 4,
@@ -474,21 +517,24 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
    */
   const getPlatformTypography = (platformKey: string) => {
     switch (platformKey) {
-      case 'BAEMIN_REVIEW_REPLY_SERVICE':
-        return '배달의 민족';
-      case 'YOGIYO_REVIEW_REPLY_SERVICE':
-        return '요기요';
-      case 'COUPANG_EATS_REVIEW_REPLY_SERVICE':
-        return '쿠팡 이츠';
+      case "BAEMIN_REVIEW_REPLY_SERVICE":
+        return "배달의 민족";
+      case "YOGIYO_REVIEW_REPLY_SERVICE":
+        return "요기요";
+      case "COUPANG_EATS_REVIEW_REPLY_SERVICE":
+        return "쿠팡 이츠";
     }
 
-    return '알 수 없음';
+    return "알 수 없음";
   };
 
   /**
    * 검증 신청
    */
-  const validateAccount = (accountIdentificationCode: number, serviceKey: string) => {
+  const validateAccount = (
+    accountIdentificationCode: number,
+    serviceKey: string
+  ) => {
     props.setServiceMemberLoaderKey(props.serviceMemberLoaderKey + 1);
 
     controller.getData(
@@ -505,7 +551,7 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
             {
               BOT_ID: accountIdentificationCode,
               BOT_TYPE: serviceKey,
-              PERIOD_TARGET_KEY: 'CREATED_AT',
+              PERIOD_TARGET_KEY: "CREATED_AT",
               PERIOD_START: currentTime,
             },
             (res) => {
@@ -549,12 +595,12 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
               clearInterval(intervalId);
               setOpenModal(false);
               alert(
-                '검증 및 업데이트가 완료되었습니다. 약 3분 뒤 계정에 샵인샵 가게들이 노출됩니다. 업로드되지 않을 시, 계정 아이디와 비밀번호를 확인해주세요.'
+                "검증 및 업데이트가 완료되었습니다. 약 3분 뒤 계정에 샵인샵 가게들이 노출됩니다. 업로드되지 않을 시, 계정 아이디와 비밀번호를 확인해주세요."
               );
               props.setShopLoaderKey(props.shopLoaderKey + 1);
             },
             (err) => {
-              alert('검증 중 오류가 발생했습니다.');
+              alert("검증 중 오류가 발생했습니다.");
               setIsWaitingValidation(false);
               clearInterval(intervalId);
               setOpenModal(false);
@@ -563,7 +609,7 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
         }, 1500);
       },
       (err) => {
-        alert('검증 중 오류가 발생했습니다.');
+        alert("검증 중 오류가 발생했습니다.");
       }
     );
   };
@@ -608,8 +654,8 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
         <ModalCore
           modalWidth={
             {
-              xs: '360px',
-              md: '500px',
+              xs: "360px",
+              md: "500px",
             } as any
           }
           keepMounted={true}
@@ -619,38 +665,50 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
           disableOpen={true}
           modalButtonElement={
             <Box>
-              {props.deliveryAppAcountId !== undefined && modelData !== undefined ? (
+              {props.deliveryAppAcountId !== undefined &&
+              modelData !== undefined ? (
                 <Box pl={2} pt={1} pr={1} pb={0.75}>
                   {/* 계정 컨트롤 */}
-                  <Box display={'flex'} justifyContent={'flex-end'}>
-                    <Box display={'flex'} alignItems={'center'}>
+                  <Box display={"flex"} justifyContent={"flex-end"}>
+                    <Box display={"flex"} alignItems={"center"}>
                       {/* 업데이트 버튼 */}
-                      <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                      <Box
+                        display={"flex"}
+                        flexDirection={"column"}
+                        alignItems={"center"}
+                      >
                         <IconButton
-                          size={'small'}
-                          color={'primary'}
+                          size={"small"}
+                          color={"primary"}
                           onClick={async () => {
                             onClickOpenUpdateModalButton();
-                          }}>
+                          }}
+                        >
                           <EditRoundedIcon />
                         </IconButton>
-                        <Box mt={'-10px'}>
-                          <Typography variant={'caption'}>수정</Typography>
+                        <Box mt={"-10px"}>
+                          <Typography variant={"caption"}>수정</Typography>
                         </Box>
                       </Box>
 
                       {/* 삭제 버튼 */}
-                      <Box ml={1} display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                      <Box
+                        ml={1}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        alignItems={"center"}
+                      >
                         <IconButton
-                          size={'small'}
-                          color={'primary'}
+                          size={"small"}
+                          color={"primary"}
                           onClick={() => {
                             onClickDeleteButton();
-                          }}>
+                          }}
+                        >
                           <DeleteForeverRoundedIcon />
                         </IconButton>
-                        <Box mt={'-10px'}>
-                          <Typography variant={'caption'}>삭제</Typography>
+                        <Box mt={"-10px"}>
+                          <Typography variant={"caption"}>삭제</Typography>
                         </Box>
                       </Box>
                     </Box>
@@ -659,24 +717,29 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                   <Box>
                     {/* 가게 기본 정보 */}
                     <Box mb={1.5}>
-                      <Grid container spacing={1.5}>
+                      <Grid2 container spacing={1.5}>
                         {createCardData(modelData).map((cardData) => (
-                          <Grid item xs={cardData.xs} md={cardData.md}>
+                          <Grid2 item xs={cardData.xs} md={cardData.md}>
                             <TextTypeInput
                               fullWidth
                               labelConfig={{
                                 label: cardData.label,
-                                position: 'outer',
+                                position: "outer",
                               }}
                               value={cardData.value}
                             />
-                          </Grid>
+                          </Grid2>
                         ))}
-                      </Grid>
+                      </Grid2>
                     </Box>
                     {/* 하위 계정 리스트 */}
                     <Box mb={1}>
-                      <Typography mb={1} variant={'caption'}>
+                      <Typography
+                        variant={"caption"}
+                        sx={{
+                          mb: 1,
+                        }}
+                      >
                         소속 가게 리스트 (가게 클릭 시 상태 변경 가능)
                       </Typography>
                     </Box>
@@ -686,14 +749,15 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                       p={1.75}
                       borderRadius={1.5}
                       sx={{
-                        background: '#e6e6e6',
-                      }}>
+                        background: "#e6e6e6",
+                      }}
+                    >
                       {shopList.length === 0 ? (
                         <EmptyList />
                       ) : (
-                        <Grid container spacing={1.75}>
+                        <Grid2 container spacing={1.75}>
                           {shopList.map((shop, index) => (
-                            <Grid item xs={12} md={6}>
+                            <Grid2 item xs={12} md={6}>
                               <Box
                                 key={index}
                                 onClick={() => {
@@ -702,61 +766,88 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                                 p={1.5}
                                 borderRadius={1.5}
                                 sx={{
-                                  background: handleIsSelected(shop) ? theme.palette.primary.main : '#fff',
-                                  cursor: 'pointer',
-                                  '&::-webkit-scrollbar': {
-                                    height: '4px',
+                                  background: handleIsSelected(shop)
+                                    ? theme.palette.primary.main
+                                    : "#fff",
+                                  cursor: "pointer",
+                                  "&::-webkit-scrollbar": {
+                                    height: "4px",
                                   },
 
-                                  '&::-webkit-scrollbar-track': {
-                                    boxShadow: 'none',
-                                    background: 'transparent',
+                                  "&::-webkit-scrollbar-track": {
+                                    boxShadow: "none",
+                                    background: "transparent",
                                   },
 
-                                  '&::-webkit-scrollbar-thumb': {
-                                    background: '#DCDDE0',
-                                    borderRadius: '4px',
-                                    width: '6px',
-                                    height: '26px',
+                                  "&::-webkit-scrollbar-thumb": {
+                                    background: "#DCDDE0",
+                                    borderRadius: "4px",
+                                    width: "6px",
+                                    height: "26px",
                                   },
-                                }}>
-                                <Grid container alignItems={'center'} spacing={1.5}>
-                                  <Grid item xs={2.5}>
+                                }}
+                              >
+                                <Grid2
+                                  container
+                                  alignItems={"center"}
+                                  spacing={1.5}
+                                >
+                                  <Grid2 item xs={2.5}>
                                     <Box
-                                      width={'100%'}
-                                      height={'100%'}
-                                      display={'flex'}
-                                      alignItems={'center'}
-                                      justifyContent={'center'}>
+                                      width={"100%"}
+                                      height={"100%"}
+                                      display={"flex"}
+                                      alignItems={"center"}
+                                      justifyContent={"center"}
+                                    >
                                       <CheckCircleOutlineRoundedIcon
-                                        htmlColor={handleIsSelected(shop) ? 'white' : '#afafaf'}
+                                        htmlColor={
+                                          handleIsSelected(shop)
+                                            ? "white"
+                                            : "#afafaf"
+                                        }
                                         sx={{
-                                          fontSize: 'x-large',
+                                          fontSize: "x-large",
                                         }}
                                       />
                                     </Box>
-                                  </Grid>
+                                  </Grid2>
 
-                                  <Grid item xs={9.5}>
+                                  <Grid2 item xs={9.5}>
                                     <Box>
-                                      <Typography variant={'h6'} color={handleIsSelected(shop) ? 'white' : '#afafaf'}>
+                                      <Typography
+                                        variant={"h6"}
+                                        color={
+                                          handleIsSelected(shop)
+                                            ? "white"
+                                            : "#afafaf"
+                                        }
+                                      >
                                         {shop.SHOP_NAME}
                                       </Typography>
                                     </Box>
 
                                     <Box>
                                       <Typography
-                                        variant={'body1'}
-                                        color={handleIsSelected(shop) ? 'white' : '#afafaf'}>
-                                        자동화 서비스 : {shop.ACTIVATE_YN == 'Y' ? '활성화' : '비활성화'}
+                                        variant={"body1"}
+                                        color={
+                                          handleIsSelected(shop)
+                                            ? "white"
+                                            : "#afafaf"
+                                        }
+                                      >
+                                        자동화 서비스 :{" "}
+                                        {shop.ACTIVATE_YN == "Y"
+                                          ? "활성화"
+                                          : "비활성화"}
                                       </Typography>
                                     </Box>
-                                  </Grid>
-                                </Grid>
+                                  </Grid2>
+                                </Grid2>
                               </Box>
-                            </Grid>
+                            </Grid2>
                           ))}
-                        </Grid>
+                        </Grid2>
                       )}
                     </Box>
                   </Box>
@@ -766,22 +857,33 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                   {
                     //* 데이터 생성 버튼
                   }
-                  <Box display="flex" alignItems={'flex-end'} justifyContent="flex-end">
-                    <Box mt={-1.5} mb={1.5} display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                  <Box
+                    display="flex"
+                    alignItems={"flex-end"}
+                    justifyContent="flex-end"
+                  >
+                    <Box
+                      mt={-1.5}
+                      mb={1.5}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      alignItems={"center"}
+                    >
                       <IconButton
-                        size={'small'}
-                        color={'primary'}
+                        size={"small"}
+                        color={"primary"}
                         onClick={() => {
                           setOpenModal(true);
-                        }}>
+                        }}
+                      >
                         <AddCircleOutlineIcon
                           style={{
-                            fontSize: 'larger',
+                            fontSize: "larger",
                           }}
                         />
                       </IconButton>
-                      <Box mt={'-10px'}>
-                        <Typography variant={'caption'}>추가</Typography>
+                      <Box mt={"-10px"}>
+                        <Typography variant={"caption"}>추가</Typography>
                       </Box>
                     </Box>
                   </Box>
@@ -790,41 +892,59 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
             </Box>
           }
           titleElement={
-            <Typography variant={'h5'} fontWeight={'600'} textAlign={'center'}>
+            <Typography
+              variant={"h5"}
+              sx={{
+                fontWeight: "600",
+                textAlign: "center",
+              }}
+            >
               계정 관리
             </Typography>
-          }>
+          }
+        >
           <Box
-            position={'relative'}
+            position={"relative"}
             sx={{
-              width: '100%',
-              height: '100%',
-              overflowX: 'clip',
+              width: "100%",
+              height: "100%",
+              overflowX: "clip",
             }}
             mb={-1.5}
-            key={modalKey}>
+            key={modalKey}
+          >
             {/* 계정 검증 대기 박스 */}
             {isWaitingValidation && (
               <Box
-                width={'100%'}
-                height={'100%'}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                position={'absolute'}
+                width={"100%"}
+                height={"100%"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                position={"absolute"}
                 zIndex={10}
-                bgcolor={'rgba(255, 255, 255, 0.9)'}>
-                <Box display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
+                bgcolor={"rgba(255, 255, 255, 0.9)"}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  flexDirection={"column"}
+                >
                   <Box mb={1}>
                     <CircularProgress />
                   </Box>
 
                   <Box mb={0.5}>
-                    <Typography variant={'h5'}>계정 검증이 진행중입니다.</Typography>
+                    <Typography variant={"h5"}>
+                      계정 검증이 진행중입니다.
+                    </Typography>
                   </Box>
 
                   <Box>
-                    <Typography variant={'body1'}>잠시만 기다려주세요.</Typography>
+                    <Typography variant={"body1"}>
+                      잠시만 기다려주세요.
+                    </Typography>
                   </Box>
                 </Box>
               </Box>
@@ -838,9 +958,14 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                 mb: 0,
               }}
               pid={props.deliveryAppAcountId}
-              pageRole={props.deliveryAppAcountId !== undefined ? 'edit' : 'write'}
+              pageRole={
+                props.deliveryAppAcountId !== undefined ? "edit" : "write"
+              }
               setFetchedData={setModelData}
-              modelIdKey={dataUtil.convertToUpperCasedUnderbarSeparated(modelName) + '_IDENTIFICATION_CODE'}
+              modelIdKey={
+                dataUtil.convertToUpperCasedUnderbarSeparated(modelName) +
+                "_IDENTIFICATION_CODE"
+              }
               dataList={dataList}
               memory={props.memory}
               createCallback={(args, successCallback, failCallback) => {
@@ -849,10 +974,12 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                   args,
                   () => {
                     if (props.appMemberId !== undefined) {
-                      args['APP_MEMBER_IDENTIFICATION_CODE'] = props.appMemberId;
+                      args["APP_MEMBER_IDENTIFICATION_CODE"] =
+                        props.appMemberId;
                     }
 
-                    args['DELIVERY_APP_SERVICE_MEMBER_IDENTIFICATION_CODE'] = props.deliveryAppServiceMemberId;
+                    args["DELIVERY_APP_SERVICE_MEMBER_IDENTIFICATION_CODE"] =
+                      props.deliveryAppServiceMemberId;
 
                     controller.createItem.bind(controller)(
                       args,
@@ -860,9 +987,11 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                         //* 리스트에 데이터 추가
                         const deliveryAppAccountId =
                           res.data.result[
-                            dataUtil.convertToUpperCasedUnderbarSeparated(modelName) + '_IDENTIFICATION_CODE'
+                            dataUtil.convertToUpperCasedUnderbarSeparated(
+                              modelName
+                            ) + "_IDENTIFICATION_CODE"
                           ];
-                        const serviceKey = res.data.result['SHOP_PLATFORM_KEY'];
+                        const serviceKey = res.data.result["SHOP_PLATFORM_KEY"];
 
                         //* 데이터 검증 신청
                         validateAccount(deliveryAppAccountId, serviceKey);
@@ -870,7 +999,7 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                       failCallback
                     );
                   },
-                  'create'
+                  "create"
                 );
               }}
               updateCallback={(args, successCallback, failCallback) => {
@@ -881,7 +1010,8 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                     controller.updateItem.bind(controller)(
                       args,
                       () => {
-                        const deliveryAppAccountId = args.DELIVERY_APP_ACCOUNT_IDENTIFICATION_CODE;
+                        const deliveryAppAccountId =
+                          args.DELIVERY_APP_ACCOUNT_IDENTIFICATION_CODE;
                         const serviceKey = args.SHOP_PLATFORM_KEY;
 
                         //* 데이터 검증 신청
@@ -890,7 +1020,7 @@ const DeliveryAppAccountControlModal = (props: IDeliveryAppAccountControlModalPr
                       failCallback
                     );
                   },
-                  'create'
+                  "create"
                 );
               }}
               findOneCallback={controller.getOneItem.bind(controller)}

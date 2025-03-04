@@ -1,9 +1,10 @@
-import { Box, Grid, Modal, Typography, useTheme } from '@mui/material';
-import React from 'react';
-import ImageUploader from '../ImageUploader';
-import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
-import { InputCore } from '@leanoncompany/supporti-react-ui';
-import { TUploadImageCallback } from '../ImageUploader/ImageUploader';
+import { Box, Grid, Modal, Typography, useTheme } from "@mui/material";
+import React from "react";
+import ImageUploader from "../ImageUploader";
+import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
+import { InputCore } from "@leanoncompany/supporti-react-ui";
+import { TUploadImageCallback } from "../ImageUploader/ImageUploader";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IMuiltiImageUploader extends IInputCore_EXTENDED {
   disabled?: boolean;
@@ -22,9 +23,10 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
   const imageRef = React.useRef<any>(null);
 
   //* States
-  const [selectedImage, setSelectedImage] = React.useState<any>('');
+  const [selectedImage, setSelectedImage] = React.useState<any>("");
   const [imageModalOpen, setImageModalOpen] = React.useState<boolean>(false);
-  const [isModuleInitiated, setIsModuleInitiated] = React.useState<boolean>(false);
+  const [isModuleInitiated, setIsModuleInitiated] =
+    React.useState<boolean>(false);
   const [attachedFileList, setAttachedFileList] = React.useState<
     {
       file: any;
@@ -32,12 +34,12 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
     }[]
   >([]);
   const [imageModalViewStyle, setImageModalViewStyle] = React.useState<any>({
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: { md: 550, xs: 300 },
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     // border: "2px solid #000",
     boxShadow: 24,
     p: 4,
@@ -56,7 +58,7 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
       }
     }
 
-    return show ? 'block' : 'none';
+    return show ? "block" : "none";
   };
 
   //* Hooks
@@ -72,7 +74,7 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
     for (let i = 0; i < props.numOfUploader; i++) {
       tempAttachedFiles.push({
         file: null,
-        imagePreviewUrl: '',
+        imagePreviewUrl: "",
       });
     }
 
@@ -93,7 +95,7 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
       for (let i = 0; i < props.numOfUploader; i++) {
         tempAttachedFiles.push({
           file: null,
-          imagePreviewUrl: '',
+          imagePreviewUrl: "",
         });
       }
 
@@ -109,29 +111,29 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
    * 이미지 비활성화 시 클릭 때 확대 모달 스타일 조정 훅
    */
   React.useEffect(() => {
-    if (selectedImage !== '') {
+    if (selectedImage !== "") {
       if (imageRef.current !== null) {
         if (imageRef.current.clientWidth >= imageRef.current.clientHeight) {
           setImageModalViewStyle({
-            position: 'absolute' as 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: { md: '70vw', xs: '80vw' },
-            bgcolor: 'background.paper',
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: { md: "70vw", xs: "80vw" },
+            bgcolor: "background.paper",
             // border: "2px solid #000",
             boxShadow: 24,
             p: 4,
           });
         } else {
           setImageModalViewStyle({
-            position: 'absolute' as 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            height: { md: '70vh', xs: '80vh' },
-            maxHeight: '600px',
-            bgcolor: 'background.paper',
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            height: { md: "70vh", xs: "80vh" },
+            maxHeight: "600px",
+            bgcolor: "background.paper",
             // border: "2px solid #000",
             boxShadow: 24,
             p: 4,
@@ -146,17 +148,19 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
       <InputCore
         labelConfig={props.labelConfig}
         inputCaptionConfig={props.inputCaptionConfig}
-        inputStatus={props.inputStatus}>
+        inputStatus={props.inputStatus}
+      >
         <Box>
-          <Grid container spacing={1}>
+          <Grid2 container spacing={1}>
             {attachedFileList.map((attachedFile, index) => (
-              <Grid
+              <Grid2
                 key={index}
                 item
                 sx={{
                   display: setImageButtonDisplay(index),
-                  position: 'relative',
-                }}>
+                  position: "relative",
+                }}
+              >
                 <ImageUploader
                   attachedFileList={attachedFileList}
                   setAttachedFileList={setAttachedFileList}
@@ -170,33 +174,34 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
                 {
                   <Box
                     sx={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       left: 0,
-                      width: '100%',
-                      height: '100%',
-                      cursor: 'pointer',
+                      width: "100%",
+                      height: "100%",
+                      cursor: "pointer",
                     }}
                     flex={1}
-                    display={props.disabled === true ? 'block' : 'none'}
+                    display={props.disabled === true ? "block" : "none"}
                     onClick={() => {
                       setSelectedImage(attachedFile.imagePreviewUrl);
                       setImageModalOpen(true);
-                    }}></Box>
+                    }}
+                  ></Box>
                 }
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         </Box>
       </InputCore>
 
-      <Box sx={{ opacity: 0, position: 'absolute' }}>
+      <Box sx={{ opacity: 0, position: "absolute" }}>
         <img width={10} ref={imageRef} src={selectedImage} />
       </Box>
 
       <Modal open={imageModalOpen} onClose={handleImageModalClose}>
         <Box sx={imageModalViewStyle}>
-          <img style={{ height: '100%' }} src={selectedImage} />
+          <img style={{ height: "100%" }} src={selectedImage} />
         </Box>
       </Modal>
     </Box>

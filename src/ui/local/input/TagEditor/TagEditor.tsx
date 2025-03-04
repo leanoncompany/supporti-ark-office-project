@@ -1,12 +1,18 @@
-import { Box, Typography, Grid, Button } from '@mui/material';
-import { DeletableBadge, InputCore, SelectTypeInput, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import CloseIcon from '@mui/icons-material/Close';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import SaveIcon from '@mui/icons-material/Save';
-import React, { useEffect, useState, useRef } from 'react';
-import { RegexManager } from '@leanoncompany/supporti-utility';
-import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
-import AutoCompleteSelector from '../AutoCompleteSelector';
+import { Box, Typography, Grid, Button } from "@mui/material";
+import {
+  DeletableBadge,
+  InputCore,
+  SelectTypeInput,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import CloseIcon from "@mui/icons-material/Close";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SaveIcon from "@mui/icons-material/Save";
+import React, { useEffect, useState, useRef } from "react";
+import { RegexManager } from "@leanoncompany/supporti-utility";
+import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
+import AutoCompleteSelector from "../AutoCompleteSelector";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface ITagEditorProps extends IInputCore_EXTENDED {
   value: any;
@@ -30,7 +36,8 @@ const TagEditor = (props: ITagEditorProps) => {
   //* Hooks
   useEffect(() => {
     if (isInitiated.current == false) {
-      const targetValue = typeof props.value == 'string' ? JSON.parse(props.value) : props.value;
+      const targetValue =
+        typeof props.value == "string" ? JSON.parse(props.value) : props.value;
 
       setLabelList(targetValue);
 
@@ -45,7 +52,9 @@ const TagEditor = (props: ITagEditorProps) => {
   }, [labelList]);
 
   const autoSelectorDataFormatterCallback = (value: any) => {
-    const formattedData = props.selectableItems?.find((item) => item.value == value);
+    const formattedData = props.selectableItems?.find(
+      (item) => item.value == value
+    );
 
     return formattedData?.label;
   };
@@ -55,10 +64,16 @@ const TagEditor = (props: ITagEditorProps) => {
       <InputCore
         labelConfig={props.labelConfig}
         inputCaptionConfig={props.inputCaptionConfig}
-        inputStatus={props.inputStatus}>
+        inputStatus={props.inputStatus}
+      >
         {labelList !== undefined && (
-          <Box mb={1} p={1.75} borderRadius={1.5} sx={{ background: '#e6e6e6' }}>
-            <Box p={1.5} borderRadius={1.5} sx={{ background: '#fff' }}>
+          <Box
+            mb={1}
+            p={1.75}
+            borderRadius={1.5}
+            sx={{ background: "#e6e6e6" }}
+          >
+            <Box p={1.5} borderRadius={1.5} sx={{ background: "#fff" }}>
               <Box
                 borderRadius={3}
                 sx={{
@@ -66,21 +81,23 @@ const TagEditor = (props: ITagEditorProps) => {
                   pl: 2,
                   pr: 2,
                   pb: 1,
-                  position: 'relative',
-                  background: 'rgb(242, 242, 243)',
-                  height: '100%',
-                  width: '100%',
-                  minHeight: '64px',
-                }}>
+                  position: "relative",
+                  background: "rgb(242, 242, 243)",
+                  height: "100%",
+                  width: "100%",
+                  minHeight: "64px",
+                }}
+              >
                 {labelList.length == 0 ? (
                   <Box
                     sx={{
-                      position: 'absolute;',
-                      top: '50%;',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%);',
-                    }}>
-                    <Typography variant="body1" sx={{ color: '#9f9f9f' }}>
+                      position: "absolute;",
+                      top: "50%;",
+                      left: "50%",
+                      transform: "translate(-50%, -50%);",
+                    }}
+                  >
+                    <Typography variant="body1" sx={{ color: "#9f9f9f" }}>
                       Empty
                     </Typography>
                   </Box>
@@ -90,13 +107,17 @@ const TagEditor = (props: ITagEditorProps) => {
                       <Box
                         key={index}
                         sx={{
-                          display: 'inline',
+                          display: "inline",
                         }}
-                        mr={1}>
+                        mr={1}
+                      >
                         <DeletableBadge
                           badgeKey={
-                            props.autoSelector !== undefined && props.autoSelector === true
-                              ? (autoSelectorDataFormatterCallback(optionElement) as string)
+                            props.autoSelector !== undefined &&
+                            props.autoSelector === true
+                              ? (autoSelectorDataFormatterCallback(
+                                  optionElement
+                                ) as string)
                               : optionElement
                           }
                           deleteCallback={() => {
@@ -114,29 +135,31 @@ const TagEditor = (props: ITagEditorProps) => {
 
               <Box mt={1.5}>
                 <Box>
-                  <Grid container spacing={2} alignItems={'flex-end'}>
-                    <Grid item xs={12} md={8}>
-                      {props.directInput !== undefined && props.directInput == true ? (
+                  <Grid2 container spacing={2} alignItems={"flex-end"}>
+                    <Grid2 item xs={12} md={8}>
+                      {props.directInput !== undefined &&
+                      props.directInput == true ? (
                         <TextTypeInput
                           labelConfig={{
-                            position: 'outer',
-                            label: '직접 입력 후 추가',
+                            position: "outer",
+                            label: "직접 입력 후 추가",
                           }}
                           placeholder="직접 입력 후 추가해주세요."
                           fullWidth
                           value={label}
                           setValue={setLabel}
                           regexManager={regexManager}
-                          regexKey={'tag'}
+                          regexKey={"tag"}
                         />
-                      ) : props.autoSelector !== undefined && props.autoSelector === true ? (
+                      ) : props.autoSelector !== undefined &&
+                        props.autoSelector === true ? (
                         <AutoCompleteSelector
-                          placeholder={'선택해주세요.'}
+                          placeholder={"선택해주세요."}
                           selectableItems={props.selectableItems}
                           inputStatus={props.inputStatus}
                           labelConfig={{
-                            position: 'outer',
-                            label: '입력 및 선택 후 추가',
+                            position: "outer",
+                            label: "입력 및 선택 후 추가",
                           }}
                           value={label}
                           setValue={setLabel}
@@ -144,26 +167,30 @@ const TagEditor = (props: ITagEditorProps) => {
                       ) : (
                         <SelectTypeInput
                           labelConfig={{
-                            position: 'outer',
-                            label: '태그 선택 후 추가',
+                            position: "outer",
+                            label: "태그 선택 후 추가",
                           }}
                           placeholder="태그를 선택 후 추가해주세요."
                           fullWidth
                           value={label}
                           setValue={setLabel}
-                          selectableList={props.selectableItems !== undefined ? props.selectableItems : []}
-                          selectDataValueKey={'value'}
-                          selectDataLabelKey={'label'}
+                          selectableList={
+                            props.selectableItems !== undefined
+                              ? props.selectableItems
+                              : []
+                          }
+                          selectDataValueKey={"value"}
+                          selectDataLabelKey={"label"}
                         />
                       )}
-                    </Grid>
+                    </Grid2>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid2 item xs={12} md={4}>
                       <Button
                         fullWidth
                         sx={{
-                          height: '100%',
-                          minHeight: '53px',
+                          height: "100%",
+                          minHeight: "53px",
                         }}
                         disabled={label === undefined ? true : false}
                         variant="contained"
@@ -179,7 +206,7 @@ const TagEditor = (props: ITagEditorProps) => {
                             }
 
                             if (isAlreadyIn) {
-                              alert('같은 값은 추가할 수 없습니다!');
+                              alert("같은 값은 추가할 수 없습니다!");
                             } else {
                               const clonedList = [...labelList];
                               clonedList.push(label);
@@ -187,13 +214,14 @@ const TagEditor = (props: ITagEditorProps) => {
                               setLabelList(clonedList);
                             }
 
-                            setLabel('');
+                            setLabel("");
                           }
-                        }}>
+                        }}
+                      >
                         <AddCircleIcon />
                       </Button>
-                    </Grid>
-                  </Grid>
+                    </Grid2>
+                  </Grid2>
                 </Box>
               </Box>
             </Box>

@@ -1,11 +1,15 @@
-import { Grid, Typography, useTheme } from '@mui/material';
-import { Box } from '@mui/system';
-import { InputCore, IUserInputStatus, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import { RegexManager } from '@leanoncompany/supporti-utility';
-import React, { useState, useEffect } from 'react';
-import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
-import SearchArea from '../../../../layout/SearchArea';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import { Box, Typography, useTheme } from "@mui/material";
+import {
+  InputCore,
+  IUserInputStatus,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import { RegexManager } from "@leanoncompany/supporti-utility";
+import React, { useState, useEffect } from "react";
+import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
+import SearchArea from "../../../../layout/SearchArea";
+import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface ISearchSelectorProps extends IInputCore_EXTENDED {
   value: any;
@@ -22,11 +26,14 @@ const SearchSelector = (props: ISearchSelectorProps) => {
 
   //* States
   const [filterType, setFilterType] = useState<string | undefined>(undefined);
-  const [filteredItemList, setFilteredItemList] = useState<any[] | undefined>(undefined);
-  const [searchWord, setSearchWord] = useState<string>('');
-  const [searchWordInputStatus, setSearchWordInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [filteredItemList, setFilteredItemList] = useState<any[] | undefined>(
+    undefined
+  );
+  const [searchWord, setSearchWord] = useState<string>("");
+  const [searchWordInputStatus, setSearchWordInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
   //* Functions
   const handleIsSelected = (item: any) => {
@@ -65,9 +72,12 @@ const SearchSelector = (props: ISearchSelectorProps) => {
 
   //* Hooks
   useEffect(() => {
-    if (props.searchableItems !== undefined && props.selectableItems !== undefined) {
-      setSearchWord('');
-      setSearchWordInputStatus({ status: 'default' });
+    if (
+      props.searchableItems !== undefined &&
+      props.selectableItems !== undefined
+    ) {
+      setSearchWord("");
+      setSearchWordInputStatus({ status: "default" });
       setFilterType(props.selectableItems[0].value);
       setFilteredItemList([...props.searchableItems]);
 
@@ -87,17 +97,18 @@ const SearchSelector = (props: ISearchSelectorProps) => {
     <InputCore
       labelConfig={props.labelConfig}
       inputCaptionConfig={props.inputCaptionConfig}
-      inputStatus={props.inputStatus}>
-      <Box mb={1} p={1.75} borderRadius={1.5} sx={{ background: '#e6e6e6' }}>
-        <Box px={1.25} borderRadius={1} sx={{ background: '#fff' }} mb={1.5}>
+      inputStatus={props.inputStatus}
+    >
+      <Box mb={1} p={1.75} borderRadius={1.5} sx={{ background: "#e6e6e6" }}>
+        <Box px={1.25} borderRadius={1} sx={{ background: "#fff" }} mb={1.5}>
           <SearchArea
             textFieldWidth={{
-              xs: '160px',
-              md: '160px',
+              xs: "160px",
+              md: "160px",
             }}
             selectFieldWidth={{
-              xs: '75px',
-              md: '75px',
+              xs: "75px",
+              md: "75px",
             }}
             disableWriteBtn={true}
             searchWord={searchWord}
@@ -120,14 +131,15 @@ const SearchSelector = (props: ISearchSelectorProps) => {
               pl: 1.5,
               pr: 1.5,
               pb: 1.5,
-              position: 'relative',
-              background: 'rgb(242, 242, 243)',
-              height: '100%',
-              width: '100%',
-              minHeight: '64px',
-            }}>
+              position: "relative",
+              background: "rgb(242, 242, 243)",
+              height: "100%",
+              width: "100%",
+              minHeight: "64px",
+            }}
+          >
             {filteredItemList.length !== 0 ? (
-              <Box maxHeight={'170px'} sx={{ overflowY: 'auto' }}>
+              <Box maxHeight={"170px"} sx={{ overflowY: "auto" }}>
                 {filteredItemList.map((item, index) => (
                   <Box
                     key={index}
@@ -137,48 +149,54 @@ const SearchSelector = (props: ISearchSelectorProps) => {
                     p={1.5}
                     borderRadius={1.5}
                     sx={{
-                      background: handleIsSelected(item) ? theme.palette.primary.main : '#fff',
-                      cursor: 'pointer',
-                      '&::-webkit-scrollbar': {
-                        height: '4px',
+                      background: handleIsSelected(item)
+                        ? theme.palette.primary.main
+                        : "#fff",
+                      cursor: "pointer",
+                      "&::-webkit-scrollbar": {
+                        height: "4px",
                       },
 
-                      '&::-webkit-scrollbar-track': {
-                        boxShadow: 'none',
-                        background: 'transparent',
+                      "&::-webkit-scrollbar-track": {
+                        boxShadow: "none",
+                        background: "transparent",
                       },
 
-                      '&::-webkit-scrollbar-thumb': {
-                        background: '#DCDDE0',
-                        borderRadius: '4px',
-                        width: '6px',
-                        height: '26px',
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "#DCDDE0",
+                        borderRadius: "4px",
+                        width: "6px",
+                        height: "26px",
                       },
                     }}
-                    mb={index == filteredItemList.length - 1 ? 0 : 1}>
+                    mb={index == filteredItemList.length - 1 ? 0 : 1}
+                  >
                     {props.renderCallback !== undefined && (
                       <Box>
-                        <Grid container spacing={1.5}>
-                          <Grid item xs={2.5}>
+                        <Grid2 container spacing={1.5}>
+                          <Grid2 item xs={2.5}>
                             <Box
-                              width={'100%'}
-                              height={'100%'}
-                              display={'flex'}
-                              alignItems={'center'}
-                              justifyContent={'center'}>
+                              width={"100%"}
+                              height={"100%"}
+                              display={"flex"}
+                              alignItems={"center"}
+                              justifyContent={"center"}
+                            >
                               <CheckCircleOutlineRoundedIcon
-                                htmlColor={handleIsSelected(item) ? 'white' : '#afafaf'}
+                                htmlColor={
+                                  handleIsSelected(item) ? "white" : "#afafaf"
+                                }
                                 sx={{
-                                  fontSize: 'x-large',
+                                  fontSize: "x-large",
                                 }}
                               />
                             </Box>
-                          </Grid>
+                          </Grid2>
 
-                          <Grid item xs={9.5}>
+                          <Grid2 item xs={9.5}>
                             {props.renderCallback(item, handleIsSelected(item))}
-                          </Grid>
-                        </Grid>
+                          </Grid2>
+                        </Grid2>
                       </Box>
                     )}
                   </Box>
@@ -187,12 +205,13 @@ const SearchSelector = (props: ISearchSelectorProps) => {
             ) : (
               <Box
                 sx={{
-                  position: 'absolute;',
-                  top: '50%;',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%);',
-                }}>
-                <Typography variant="body1" sx={{ color: '#9f9f9f' }}>
+                  position: "absolute;",
+                  top: "50%;",
+                  left: "50%",
+                  transform: "translate(-50%, -50%);",
+                }}
+              >
+                <Typography variant="body1" sx={{ color: "#9f9f9f" }}>
                   Empty
                 </Typography>
               </Box>

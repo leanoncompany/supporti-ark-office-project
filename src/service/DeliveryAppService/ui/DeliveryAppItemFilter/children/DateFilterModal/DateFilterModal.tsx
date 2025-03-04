@@ -1,15 +1,24 @@
-import { Box, Button, CardContent, Fade, Grid, Modal, Typography, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import DefaultController from '../../../../../../controller/default/DefaultController';
-import { BadgeFilter } from '../../../../../../ui/local/input/BadgeFilter';
-import DataUtil from '../../../../../../utils/data/DataUtil';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { DateSelectPicker } from '../../../../../../ui/local/utils/DateSelectPicker';
-import { ModalCore } from '@leanoncompany/supporti-react-ui';
-import { DateRangePicker } from 'react-date-range';
-import moment from 'moment';
-import ko from 'date-fns/locale/ko';
+import {
+  Box,
+  Button,
+  CardContent,
+  Fade,
+  Grid,
+  Modal,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import DefaultController from "../../../../../../controller/default/DefaultController";
+import { BadgeFilter } from "../../../../../../ui/local/input/BadgeFilter";
+import DataUtil from "../../../../../../utils/data/DataUtil";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import { DateSelectPicker } from "../../../../../../ui/local/utils/DateSelectPicker";
+import { ModalCore } from "@leanoncompany/supporti-react-ui";
+import { DateRangePicker } from "react-date-range";
+import moment from "moment";
+import ko from "date-fns/locale/ko";
 
 interface IDateFilterModalProps {
   memory: any;
@@ -38,14 +47,17 @@ const DateFilterModal = (props: IDateFilterModalProps) => {
             startDate: (() => {
               const currentDate = new Date();
 
-              return moment(currentDate).subtract(1, 'weeks').startOf('day').toDate();
+              return moment(currentDate)
+                .subtract(1, "weeks")
+                .startOf("day")
+                .toDate();
             })(),
             endDate: (() => {
               const currentDate = new Date();
 
-              return moment(currentDate).endOf('day').toDate();
+              return moment(currentDate).endOf("day").toDate();
             })(),
-            key: 'selection',
+            key: "selection",
           },
         ];
   };
@@ -85,7 +97,7 @@ const DateFilterModal = (props: IDateFilterModalProps) => {
         setIsModalOpen={setOpenModal}
         useModalCloseButton={true}
         modalWrapperStyle={{
-          width: '100%',
+          width: "100%",
         }}
         modalButtonElement={
           <CardContent
@@ -93,24 +105,29 @@ const DateFilterModal = (props: IDateFilterModalProps) => {
               setOpenModal(true);
             }}
             sx={{
-              p: '0 !important',
-              pb: '0 !important',
-            }}>
+              p: "0 !important",
+              pb: "0 !important",
+            }}
+          >
             <Box
               p={2}
               borderRight={{
-                xs: 'none',
-                md: '1px solid rgba(0,0,0,.1)',
+                xs: "none",
+                md: "1px solid rgba(0,0,0,.1)",
               }}
               borderBottom={{
-                xs: '1px solid rgba(0,0,0,.1)',
-                md: 'none',
+                xs: "1px solid rgba(0,0,0,.1)",
+                md: "none",
               }}
-              display={'flex'}
-              alignItems={'center'}>
+              display={"flex"}
+              alignItems={"center"}
+            >
               {/* 아이콘 영역 */}
-              <Box pr={2} display={'flex'}>
-                <CalendarMonthOutlinedIcon fontSize="small" htmlColor={theme.palette.grey['800']} />
+              <Box pr={2} display={"flex"}>
+                <CalendarMonthOutlinedIcon
+                  fontSize="small"
+                  htmlColor={theme.palette.grey["800"]}
+                />
               </Box>
 
               {/* 데이터 영역 */}
@@ -118,18 +135,24 @@ const DateFilterModal = (props: IDateFilterModalProps) => {
                 {/* 시작일 ~ 끝일 */}
                 <Box>
                   <Box mb={0.5}>
-                    <Typography variant={'h6'}>기간 선택</Typography>
+                    <Typography variant={"h6"}>기간 선택</Typography>
                   </Box>
 
                   <Box mb={0.5}>
-                    <Typography variant={'body1'} color={theme.palette.grey['800']}>
-                      {moment(props.startDate).format('YYYY년 MM월 DD일')} ~
+                    <Typography
+                      variant={"body1"}
+                      color={theme.palette.grey["800"]}
+                    >
+                      {moment(props.startDate).format("YYYY년 MM월 DD일")} ~
                     </Typography>
                   </Box>
 
                   <Box>
-                    <Typography variant={'body1'} color={theme.palette.grey['800']}>
-                      {moment(props.endDate).format('YYYY년 MM월 DD일')}
+                    <Typography
+                      variant={"body1"}
+                      color={theme.palette.grey["800"]}
+                    >
+                      {moment(props.endDate).format("YYYY년 MM월 DD일")}
                     </Typography>
                   </Box>
                 </Box>
@@ -138,12 +161,19 @@ const DateFilterModal = (props: IDateFilterModalProps) => {
           </CardContent>
         }
         titleElement={
-          <Typography variant={'h5'} fontWeight={'600'} textAlign={'center'}>
+          <Typography
+            variant={"h5"}
+            sx={{
+              fontWeight: "600",
+              textAlign: "center",
+            }}
+          >
             기간
           </Typography>
-        }>
+        }
+      >
         <Box>
-          <Box display={'flex'} justifyContent={'center'}>
+          <Box display={"flex"} justifyContent={"center"}>
             <DateRangePicker
               locale={ko}
               onChange={(item) => {

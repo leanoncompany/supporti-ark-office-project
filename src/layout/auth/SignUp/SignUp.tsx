@@ -1,59 +1,71 @@
-import { Box, Button, Typography } from '@mui/material';
-import { IUserInputStatus, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import React, { SetStateAction, useState, useEffect } from 'react';
-import { ISignUp } from '../../../@types/layout/auth/auth';
-import AuthController from '../../../controller/default/AuthController';
-import PhoneAuth from '../FindAccount/PhonAuth';
-import { useRouter } from 'next/router';
-import RegistBankAccount from '../../RegistBankAccount';
-import AccountLayout from '../../AccountLayout';
+import { Box, Button, Typography } from "@mui/material";
+import {
+  IUserInputStatus,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import React, { SetStateAction, useState, useEffect } from "react";
+import { ISignUp } from "../../../@types/layout/auth/auth";
+import AuthController from "../../../controller/default/AuthController";
+import PhoneAuth from "../FindAccount/PhonAuth";
+import { useRouter } from "next/router";
+import RegistBankAccount from "../../RegistBankAccount";
+import AccountLayout from "../../AccountLayout";
 
 // type Props = {};
 
 const SignUp = (props: ISignUp) => {
   const router = useRouter();
 
-  const [userName, setUserName] = useState<string>('');
-  const [userNameInputStatus, setUserNameInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [userName, setUserName] = useState<string>("");
+  const [userNameInputStatus, setUserNameInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
-  const [alreadyExistUserName, setAlreadyExistUserName] = useState<boolean>(false);
+  const [alreadyExistUserName, setAlreadyExistUserName] =
+    useState<boolean>(false);
 
-  const [password, setPassword] = useState<string>('');
-  const [passwordInputStatus, setPasswordInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [password, setPassword] = useState<string>("");
+  const [passwordInputStatus, setPasswordInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
-  const [passwordConfirmInputStatus, setPasswordConfirmInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  const [passwordConfirmInputStatus, setPasswordConfirmInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
-  const [fullName, setFullName] = useState<string>('');
-  const [fullNameInputStatus, setFullNameInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [fullName, setFullName] = useState<string>("");
+  const [fullNameInputStatus, setFullNameInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [phoneNumberInputStatus, setPhoneNumberInputStatus] = useState<{
     status: string;
-  }>({ status: 'default' });
+  }>({ status: "default" });
 
   const [verifyCodeInputStatus, setVerifyCodeInputStatus] = useState<{
     status: string;
-  }>({ status: 'default' });
-  const [authorizeStatus, setAuthorizeStatus] = React.useState<'default' | 'sended' | 'success'>('default');
+  }>({ status: "default" });
+  const [authorizeStatus, setAuthorizeStatus] = React.useState<
+    "default" | "sended" | "success"
+  >("default");
 
-  const [recommenderCode, setRecommenderCode] = useState<string>('');
-  const [recommenderCodeInputStatus, setRecommenderCodeInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [recommenderCode, setRecommenderCode] = useState<string>("");
+  const [recommenderCodeInputStatus, setRecommenderCodeInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
 
   const [bankType, setBankType] = useState<string | undefined>();
 
-  const [bankAccount, setBankAccount] = useState<string>('');
-  const [bankAccountInputStatus, setBankAccountInputStatus] = useState<IUserInputStatus>('default');
+  const [bankAccount, setBankAccount] = useState<string>("");
+  const [bankAccountInputStatus, setBankAccountInputStatus] =
+    useState<IUserInputStatus>("default");
 
   const renderTextTypeInput = (renderData: {
     placeholder: string;
@@ -64,7 +76,7 @@ const SignUp = (props: ISignUp) => {
     setValue: React.Dispatch<SetStateAction<string>>;
     inputStatus: IUserInputStatus;
     setInputStatus: React.Dispatch<SetStateAction<IUserInputStatus>>;
-    adornmentPosition?: 'start' | 'end';
+    adornmentPosition?: "start" | "end";
     adornmentElement?: JSX.Element;
     requiredMessage?: string;
     types?: string;
@@ -75,29 +87,40 @@ const SignUp = (props: ISignUp) => {
       <Box mb={1.5}>
         <TextTypeInput
           fullWidth
-          maxLength={renderData.maxLength !== undefined ? renderData.maxLength : 20}
+          maxLength={
+            renderData.maxLength !== undefined ? renderData.maxLength : 20
+          }
           labelConfig={{
-            position: 'outer',
+            position: "outer",
             label: renderData.label,
-            typograhpyVariant: 'body1',
+            typograhpyVariant: "body1",
           }}
           placeholder={renderData.placeholder}
           value={renderData.value}
           setValue={renderData.setValue}
           inputCaptionConfig={{
             status: renderData.inputStatus,
-            errorMessage: renderData.errorMessage !== undefined ? renderData.errorMessage : '올바르게 입력해주세요',
-            secondErrorMessage: '이미 존재하는 아이디입니다.',
-            requiredMessage: renderData.requiredMessage !== undefined ? renderData.requiredMessage : '통과되었습니다.',
-            passedMessage: renderData.passedMessage !== undefined ? renderData.passedMessage : '통과되었습니다.',
+            errorMessage:
+              renderData.errorMessage !== undefined
+                ? renderData.errorMessage
+                : "올바르게 입력해주세요",
+            secondErrorMessage: "이미 존재하는 아이디입니다.",
+            requiredMessage:
+              renderData.requiredMessage !== undefined
+                ? renderData.requiredMessage
+                : "통과되었습니다.",
+            passedMessage:
+              renderData.passedMessage !== undefined
+                ? renderData.passedMessage
+                : "통과되었습니다.",
           }}
-          type={renderData.types !== undefined ? 'password' : 'text'}
+          type={renderData.types !== undefined ? "password" : "text"}
           adornmentElement={renderData.adornmentElement}
           adornmentPosition={renderData.adornmentPosition}
           onChangeCallback={(args: any) => {
             if (args.event.target.value.length > 0) {
               renderData.setInputStatus({
-                status: 'default',
+                status: "default",
               });
             }
           }}
@@ -111,8 +134,9 @@ const SignUp = (props: ISignUp) => {
    */
   // * 10자리 랜덤 스트링
   const generateRandomString = (length: number): string => {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
 
     for (let i = 0; i < length; i++) {
@@ -125,7 +149,7 @@ const SignUp = (props: ISignUp) => {
   //* 아이디 중복 확인 함수
   const onClickDoubleCheckUserNameButton = () => {
     if (/^[a-z0-9]{6,19}$/.test(userName) === false) {
-      setUserNameInputStatus({ status: 'error' });
+      setUserNameInputStatus({ status: "error" });
     } else {
       if (props.doubleCheckUserNameCallback !== undefined) {
         props.doubleCheckUserNameCallback({
@@ -139,9 +163,9 @@ const SignUp = (props: ISignUp) => {
           (response: any) => {
             if (response.data.result === true) {
               setAlreadyExistUserName(true);
-              setUserNameInputStatus({ status: 'passed' });
+              setUserNameInputStatus({ status: "passed" });
             } else {
-              setUserNameInputStatus({ status: 'required' });
+              setUserNameInputStatus({ status: "required" });
             }
           },
           (err: any) => {
@@ -157,51 +181,53 @@ const SignUp = (props: ISignUp) => {
 
     if (/^[a-z0-9]{5,19}$/.test(userName) === false) {
       isValidate = false;
-      setUserNameInputStatus({ status: 'error' });
+      setUserNameInputStatus({ status: "error" });
     } else {
       // 아이디 중복
       if (alreadyExistUserName === false) {
         isValidated = false;
-        setUserNameInputStatus({ status: 'required' });
+        setUserNameInputStatus({ status: "required" });
       }
     }
 
     if (password.length == 0) {
       isValidated = false;
-      setPasswordInputStatus({ status: 'error' });
+      setPasswordInputStatus({ status: "error" });
     }
 
     // 비밀번호, 비밀번호 확인 같은지
     if (password !== passwordConfirm) {
       isValidated = false;
-      setPasswordConfirmInputStatus({ status: 'required' });
+      setPasswordConfirmInputStatus({ status: "required" });
     }
 
     if (fullName.length == 0) {
       isValidated = false;
-      setFullNameInputStatus({ status: 'error' });
+      setFullNameInputStatus({ status: "error" });
     }
 
     if (props.usePhone === true) {
-      if (/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(phoneNumber) === false) {
+      if (
+        /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(phoneNumber) === false
+      ) {
         isValidated = false;
-        setPhoneNumberInputStatus({ status: 'error' });
+        setPhoneNumberInputStatus({ status: "error" });
       }
 
-      if (authorizeStatus !== 'success') {
+      if (authorizeStatus !== "success") {
         isValidated = false;
-        setVerifyCodeInputStatus({ status: 'error' });
+        setVerifyCodeInputStatus({ status: "error" });
       }
     }
 
     if (props.useBankAccount === true) {
       if (bankType === undefined) {
         isValidated = false;
-        alert('은행을 선택해주세요.');
+        alert("은행을 선택해주세요.");
       }
       if (bankAccount.length === 0) {
         isValidated = false;
-        alert('계좌번호를 확인해주세요');
+        alert("계좌번호를 확인해주세요");
       }
     }
 
@@ -233,23 +259,34 @@ const SignUp = (props: ISignUp) => {
 
       const signUpCallback = (customizedArgs?: { [key: string]: any }) => {
         if (props.signUpCallback !== undefined) {
-          props.signUpCallback(Object.assign(args, customizedArgs !== undefined ? customizedArgs : {}));
+          props.signUpCallback(
+            Object.assign(
+              args,
+              customizedArgs !== undefined ? customizedArgs : {}
+            )
+          );
         } else {
           const authController = new AuthController();
 
           const signUp = () => {
             authController.signUp(
-              Object.assign(args, customizedArgs !== undefined ? customizedArgs : {}),
+              Object.assign(
+                args,
+                customizedArgs !== undefined ? customizedArgs : {}
+              ),
               (response: any) => {
                 if (props.afterSignUpCallback !== undefined) {
                   props.afterSignUpCallback(
                     response.data.result,
-                    Object.assign(args, customizedArgs !== undefined ? customizedArgs : {})
+                    Object.assign(
+                      args,
+                      customizedArgs !== undefined ? customizedArgs : {}
+                    )
                   );
                 }
 
-                alert('회원가입 성공하셨습니다. 로그인 후 이용해주세요!');
-                router.push('/auth/sign_in');
+                alert("회원가입 성공하셨습니다. 로그인 후 이용해주세요!");
+                router.push("/auth/sign_in");
               }
             );
           };
@@ -261,7 +298,7 @@ const SignUp = (props: ISignUp) => {
                 if (response.data.result === true) {
                   signUp();
                 } else {
-                  alert('이미 사용중인 휴대폰 번호입니다.');
+                  alert("이미 사용중인 휴대폰 번호입니다.");
                 }
               },
               (err) => {
@@ -288,59 +325,75 @@ const SignUp = (props: ISignUp) => {
 
   return (
     <AccountLayout>
-      <Box display={'flex'} alignItems={'center'} justifyContent={'center'} width={'100%'}>
-        <Box width={'100%'}>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        width={"100%"}
+      >
+        <Box width={"100%"}>
           <Box>
-            <Typography variant={'h6'} fontWeight={'600'} mb={3} textAlign={'center'}>
+            <Typography
+              variant={"h6"}
+              sx={{
+                fontWeight: 600,
+                mb: 3,
+                textAlign: "center",
+              }}
+            >
               회원가입
             </Typography>
           </Box>
           {renderTextTypeInput({
-            placeholder: '아이디를 입력해주세요',
-            errorMessage: '올바른 아이디를 입력해주세요(6자 이상, 숫자,영문 )',
-            requiredMessage: '이미 사용중인 아이디입니다.',
-            passedMessage: '사용 가능한 아이디입니다.',
-            label: '아이디 (6자 이상, 숫자,소문자 영문)',
+            placeholder: "아이디를 입력해주세요",
+            errorMessage: "올바른 아이디를 입력해주세요(6자 이상, 숫자,영문 )",
+            requiredMessage: "이미 사용중인 아이디입니다.",
+            passedMessage: "사용 가능한 아이디입니다.",
+            label: "아이디 (6자 이상, 숫자,소문자 영문)",
             value: userName,
             setValue: setUserName,
             inputStatus: userNameInputStatus,
             setInputStatus: setUserNameInputStatus,
-            adornmentPosition: 'end',
+            adornmentPosition: "end",
             adornmentElement: (
               <Button variant="text" onClick={onClickDoubleCheckUserNameButton}>
-                <Typography variant="subtitle2" sx={{ textDecoration: 'underline' }} color={'black'}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{ textDecoration: "underline" }}
+                  color={"black"}
+                >
                   중복확인
                 </Typography>
               </Button>
             ),
           })}
           {renderTextTypeInput({
-            placeholder: '비밀번호를 입력해주세요',
-            errorMessage: '올바른 비밀번호를 입력해주세요',
-            requiredMessage: '비밀번호를 입력하셔야합니다.',
-            label: '비밀번호 (6자 이상, 숫자,소문자 영문)',
+            placeholder: "비밀번호를 입력해주세요",
+            errorMessage: "올바른 비밀번호를 입력해주세요",
+            requiredMessage: "비밀번호를 입력하셔야합니다.",
+            label: "비밀번호 (6자 이상, 숫자,소문자 영문)",
             value: password,
             setValue: setPassword,
             inputStatus: passwordInputStatus,
             setInputStatus: setPasswordInputStatus,
-            types: 'password',
+            types: "password",
           })}
           {renderTextTypeInput({
-            placeholder: '비밀번호 확인',
-            errorMessage: '올바른 비밀번호를 입력해주세요',
-            requiredMessage: '비밀번호가 서로 일치하지 않습니다',
-            label: '비밀번호 확인',
+            placeholder: "비밀번호 확인",
+            errorMessage: "올바른 비밀번호를 입력해주세요",
+            requiredMessage: "비밀번호가 서로 일치하지 않습니다",
+            label: "비밀번호 확인",
             value: passwordConfirm,
             setValue: setPasswordConfirm,
             inputStatus: passwordConfirmInputStatus,
             setInputStatus: setPasswordConfirmInputStatus,
-            types: 'password',
+            types: "password",
           })}
           {renderTextTypeInput({
-            placeholder: '이름을 입력해주세요',
-            errorMessage: '올바른 이름을 입력해주세요',
-            requiredMessage: '이름을 입력하셔야합니다.',
-            label: '이름',
+            placeholder: "이름을 입력해주세요",
+            errorMessage: "올바른 이름을 입력해주세요",
+            requiredMessage: "이름을 입력하셔야합니다.",
+            label: "이름",
             value: fullName,
             setValue: setFullName,
             inputStatus: fullNameInputStatus,
@@ -371,13 +424,13 @@ const SignUp = (props: ISignUp) => {
                     value={element.value}
                     setValue={element.setValue}
                     labelConfig={{
-                      position: 'outer',
+                      position: "outer",
                       label: element.label,
                     }}
                     inputCaptionConfig={{
                       status: element.inputStatus,
-                      errorMessage: '',
-                      requiredMessage: '올바르게 입력해주세요.',
+                      errorMessage: "",
+                      requiredMessage: "올바르게 입력해주세요.",
                     }}
                     adornmentElement={element.adornmentElement}
                     adornmentPosition={element.adornmentPosition}
@@ -385,7 +438,7 @@ const SignUp = (props: ISignUp) => {
                       if (args.event.target.value.length > 0) {
                         element.setInputStatus({
                           ...element.inputStatus,
-                          status: 'default',
+                          status: "default",
                         });
                       }
                     }}
@@ -408,15 +461,17 @@ const SignUp = (props: ISignUp) => {
           )}
 
           {/* Additional Data */}
-          <Box>{props.additionalInputs !== undefined && props.additionalInputs}</Box>
+          <Box>
+            {props.additionalInputs !== undefined && props.additionalInputs}
+          </Box>
 
           {/* </Box> */}
           {props.useRecommender === true &&
             renderTextTypeInput({
-              placeholder: '추천인 코드를 입력해주세요',
-              errorMessage: '올바른 추천인 코드를 입력해주세요',
-              requiredMessage: '추천인 코드를 입력하셔야합니다.',
-              label: '추천인 코드',
+              placeholder: "추천인 코드를 입력해주세요",
+              errorMessage: "올바른 추천인 코드를 입력해주세요",
+              requiredMessage: "추천인 코드를 입력하셔야합니다.",
+              label: "추천인 코드",
               value: recommenderCode,
               setValue: setRecommenderCode,
               inputStatus: recommenderCodeInputStatus,
@@ -424,8 +479,12 @@ const SignUp = (props: ISignUp) => {
             })}
           <Box mt={4}>
             <Button
-              onClick={() => (props.handleSignUp !== undefined ? props.handleSignUp(signUpClicked) : signUpClicked())}
-              variant={'contained'}
+              onClick={() =>
+                props.handleSignUp !== undefined
+                  ? props.handleSignUp(signUpClicked)
+                  : signUpClicked()
+              }
+              variant={"contained"}
               fullWidth
             >
               회원가입

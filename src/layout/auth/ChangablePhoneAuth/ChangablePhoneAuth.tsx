@@ -1,11 +1,12 @@
-import { Box, Typography, Button, Grid, useTheme } from '@mui/material';
-import { TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import { RegexManager } from '@leanoncompany/supporti-utility';
-import React from 'react';
+import { Box, Typography, Button, useTheme } from "@mui/material";
+import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
+import { RegexManager } from "@leanoncompany/supporti-utility";
+import React from "react";
 
-import { IUserInputCaption } from '../../../@types/external/qillieReactUi';
-import AuthController from '../../../controller/default/AuthController';
-import Timer from '../FindAccount/PhonAuth/Timer';
+import { IUserInputCaption } from "../../../@types/external/qillieReactUi";
+import AuthController from "../../../controller/default/AuthController";
+import Timer from "../FindAccount/PhonAuth/Timer";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 // type Props = {};
 
@@ -18,8 +19,10 @@ interface IPhoneAuthSection {
       status: string;
     }>
   >;
-  authorizeStatus: 'default' | 'sended' | 'success';
-  setAuthorizeStatus: React.Dispatch<React.SetStateAction<'default' | 'sended' | 'success'>>;
+  authorizeStatus: "default" | "sended" | "success";
+  setAuthorizeStatus: React.Dispatch<
+    React.SetStateAction<"default" | "sended" | "success">
+  >;
   setVerifyInputStatus: React.Dispatch<
     React.SetStateAction<{
       status: string;
@@ -40,22 +43,22 @@ interface IPhoneAuthSection {
     labelFontWeight: string;
     inputFontSize: string;
     labelFontSize:
-      | 'h1'
-      | 'h2'
-      | 'h3'
-      | 'h4'
-      | 'h5'
-      | 'h6'
-      | 'subtitle1'
-      | 'subtitle2'
-      | 'body1'
-      | 'body2'
-      | 'caption'
-      | 'button'
-      | 'overline'
-      | 'inherit'
+      | "h1"
+      | "h2"
+      | "h3"
+      | "h4"
+      | "h5"
+      | "h6"
+      | "subtitle1"
+      | "subtitle2"
+      | "body1"
+      | "body2"
+      | "caption"
+      | "button"
+      | "overline"
+      | "inherit"
       | undefined;
-    variant: 'standard' | 'filled' | 'outlined' | undefined;
+    variant: "standard" | "filled" | "outlined" | undefined;
     inputColor: string;
     // 라벨 간격
     labelMargin: string;
@@ -88,8 +91,8 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
   /**
    * 인증번호 정보 관련 상태값
    */
-  const [authCode, setAuthCode] = React.useState<string>('');
-  const [encryptedAuthCode, setEncryptedAuthCode] = React.useState<string>('');
+  const [authCode, setAuthCode] = React.useState<string>("");
+  const [encryptedAuthCode, setEncryptedAuthCode] = React.useState<string>("");
 
   const [authRemainedTime, setAuthRemainedTime] = React.useState<number>(0);
 
@@ -98,8 +101,11 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
    * 인증 요청 함수
    */
   const sendAuthNumber = () => {
-    if (/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(props.phoneNumber) === false) {
-      props.setPhoneNumberInputStatus({ status: 'error' });
+    if (
+      /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(props.phoneNumber) ===
+      false
+    ) {
+      props.setPhoneNumberInputStatus({ status: "error" });
     } else {
       setActiveTimer(false);
       setAuthRemainedTime(180000);
@@ -122,10 +128,10 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
    */
   const resendAuthNumber = () => {
     //* Reset auth status
-    props.setAuthorizeStatus('default');
+    props.setAuthorizeStatus("default");
 
     setTimeout(() => {
-      props.setAuthorizeStatus('sended');
+      props.setAuthorizeStatus("sended");
     }, 1000);
   };
 
@@ -137,9 +143,9 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
       { AUTH_CODE: authCode, ENCRYPTED_AUTH_CODE: encryptedAuthCode },
       (response: any) => {
         if (response.data.result === true) {
-          props.setAuthorizeStatus('success');
+          props.setAuthorizeStatus("success");
           props.setVerifyInputStatus({
-            status: 'passed',
+            status: "passed",
           });
         }
       },
@@ -154,7 +160,7 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
    * 메세지 전송을 위한 훅
    */
   React.useEffect(() => {
-    if (props.authorizeStatus === 'sended') {
+    if (props.authorizeStatus === "sended") {
       sendAuthNumber();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,15 +175,31 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
         props.phoneAuthStyle?.phoneAuthMarginBottom !== undefined
           ? undefined
           : 1
-      }>
+      }
+    >
       <Box
-        display={'flex'}
-        flexDirection={'column'}
-        mb={props.phoneAuthStyle?.inputMargin !== undefined ? props.phoneAuthStyle?.inputMargin : 1}>
-        <Box display={props.phoneNumberLabel !== undefined ? 'flex' : 'none'} mb={props.phoneAuthStyle?.labelMargin}>
-          <Typography variant={props.phoneAuthStyle?.labelFontSize} fontWeight={props.phoneAuthStyle?.labelFontWeight}>
-            {props.phoneNumberLabel !== undefined ? props.phoneNumberLabel : '전화번호'}{' '}
-            {props.phoneAuthStyle?.require === true ? '*' : ''}
+        display={"flex"}
+        flexDirection={"column"}
+        mb={
+          props.phoneAuthStyle?.inputMargin !== undefined
+            ? props.phoneAuthStyle?.inputMargin
+            : 1
+        }
+      >
+        <Box
+          display={props.phoneNumberLabel !== undefined ? "flex" : "none"}
+          mb={props.phoneAuthStyle?.labelMargin}
+        >
+          <Typography
+            variant={props.phoneAuthStyle?.labelFontSize}
+            sx={{
+              fontWeight: props.phoneAuthStyle?.labelFontWeight,
+            }}
+          >
+            {props.phoneNumberLabel !== undefined
+              ? props.phoneNumberLabel
+              : "전화번호"}{" "}
+            {props.phoneAuthStyle?.require === true ? "*" : ""}
           </Typography>
         </Box>
         <TextTypeInput
@@ -186,83 +208,108 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
           labelConfig={
             props.phoneNumberLabel === undefined
               ? {
-                  position: 'outer',
-                  label: '전화번호',
+                  position: "outer",
+                  label: "전화번호",
                 }
               : undefined
           }
-          placeholder={'핸드폰 번호를 입력해주세요(숫자만)'}
+          placeholder={"핸드폰 번호를 입력해주세요(숫자만)"}
           textFieldStyle={
             props.phoneAuthStyle !== undefined
               ? {
-                  backgroundColor: '#ffffff',
-                  '.MuiInput-input': {
+                  backgroundColor: "#ffffff",
+                  ".MuiInput-input": {
                     padding: props.phoneAuthStyle?.padding,
                     color: props.phoneAuthStyle?.inputColor,
                     fontSize: props.phoneAuthStyle?.inputFontSize,
                   },
-                  '.MuiInput-root:before': {
+                  ".MuiInput-root:before": {
                     borderBottom: props.phoneAuthStyle?.borderBottom,
                     borderLeft: props.phoneAuthStyle?.borderLeft,
                     borderRight: props.phoneAuthStyle?.borderRight,
                     borderTop: props.phoneAuthStyle?.borderTop,
                   },
-                  '.MuiInputBase-input-MuiInput-input': {
+                  ".MuiInputBase-input-MuiInput-input": {
                     borderBottom: 0,
                   },
                 }
               : undefined
           }
-          variant={props.phoneAuthStyle?.variant !== undefined ? props.phoneAuthStyle?.variant : undefined}
+          variant={
+            props.phoneAuthStyle?.variant !== undefined
+              ? props.phoneAuthStyle?.variant
+              : undefined
+          }
           value={props.phoneNumber}
           setValue={props.setPhoneNumber}
-          adornmentPosition={'end'}
+          adornmentPosition={"end"}
           adornmentElement={
-            <Button variant="text" onClick={encryptedAuthCode.length !== 0 ? resendAuthNumber : sendAuthNumber}>
-              <Typography variant="subtitle2" sx={{ textDecoration: 'underline' }} color={'black'}>
-                {encryptedAuthCode.length !== 0 ? '재요청' : '인증요청'}
+            <Button
+              variant="text"
+              onClick={
+                encryptedAuthCode.length !== 0
+                  ? resendAuthNumber
+                  : sendAuthNumber
+              }
+            >
+              <Typography
+                variant="subtitle2"
+                sx={{ textDecoration: "underline" }}
+                color={"black"}
+              >
+                {encryptedAuthCode.length !== 0 ? "재요청" : "인증요청"}
               </Typography>
             </Button>
           }
           inputCaptionConfig={{
             status: props.phoneNumberInputStatus,
-            errorMessage: '올바른 전화번호를 입력해주세요',
+            errorMessage: "올바른 전화번호를 입력해주세요",
           }}
           onChangeCallback={(args: any) => {
             if (args.event.target.value.length > 0) {
               props.setPhoneNumberInputStatus({
-                status: 'default',
+                status: "default",
               });
             }
-            props.setPhoneNumber(regexManager.filterNotNumber(args.event.target.value));
+            props.setPhoneNumber(
+              regexManager.filterNotNumber(args.event.target.value)
+            );
 
-            props.setAuthorizeStatus('default');
+            props.setAuthorizeStatus("default");
             props.setVerifyInputStatus({
-              status: 'default',
+              status: "default",
             });
 
-            setAuthCode('');
+            setAuthCode("");
           }}
         />
       </Box>
 
-      <Box display={props.phoneNumberLabel !== undefined ? 'flex' : 'none'} mb={props.phoneAuthStyle?.labelMargin}>
-        <Typography variant={props.phoneAuthStyle?.labelFontSize} fontWeight={props.phoneAuthStyle?.labelFontWeight}>
-          인증번호 {props.phoneAuthStyle?.require === true ? '*' : ''}
+      <Box
+        display={props.phoneNumberLabel !== undefined ? "flex" : "none"}
+        mb={props.phoneAuthStyle?.labelMargin}
+      >
+        <Typography
+          variant={props.phoneAuthStyle?.labelFontSize}
+          sx={{
+            fontWeight: props.phoneAuthStyle?.labelFontWeight,
+          }}
+        >
+          인증번호 {props.phoneAuthStyle?.require === true ? "*" : ""}
         </Typography>
       </Box>
 
-      <Grid container spacing={1} alignItems={'flex-start'}>
-        <Grid item md={9} xs={8} flexDirection={'column'}>
+      <Grid2 container spacing={1} alignItems={"flex-start"}>
+        <Grid2 item md={9} xs={8} flexDirection={"column"}>
           <TextTypeInput
             fullWidth
             maxLength={4}
-            placeholder={'인증번호 입력'}
+            placeholder={"인증번호 입력"}
             labelConfig={
               props.phoneNumberLabel === undefined
                 ? {
-                    position: 'outer',
-                    label: '인증번호',
+                    position: "outer",
+                    label: "인증번호",
                   }
                 : undefined
             }
@@ -270,41 +317,42 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
             value={authCode}
             inputCaptionConfig={{
               status: props.verifyInputStatus,
-              errorMessage: '올바른 인증번호를 입력해주세요',
-              passedMessage: '인증되었습니다.',
+              errorMessage: "올바른 인증번호를 입력해주세요",
+              passedMessage: "인증되었습니다.",
             }}
             variant={props.phoneAuthStyle?.variant}
             textFieldStyle={
               props.phoneAuthStyle !== undefined
                 ? {
-                    backgroundColor: '#ffffff',
-                    '.MuiInput-input': {
+                    backgroundColor: "#ffffff",
+                    ".MuiInput-input": {
                       padding: props.phoneAuthStyle?.padding,
                       color: props.phoneAuthStyle?.inputColor,
                       fontSize: props.phoneAuthStyle?.inputFontSize,
                     },
-                    '.MuiInput-root:before': {
+                    ".MuiInput-root:before": {
                       borderBottom: props.phoneAuthStyle?.borderBottom,
                       borderLeft: props.phoneAuthStyle?.borderLeft,
                       borderRight: props.phoneAuthStyle?.borderRight,
                       borderTop: props.phoneAuthStyle?.borderTop,
                     },
-                    '.MuiInputBase-input-MuiInput-input': {
+                    ".MuiInputBase-input-MuiInput-input": {
                       borderBottom: 0,
                     },
                   }
                 : undefined
             }
-            adornmentPosition={'end'}
+            adornmentPosition={"end"}
             adornmentElement={
               <Box
-                display={encryptedAuthCode.length !== 0 ? 'block' : 'block'}
+                display={encryptedAuthCode.length !== 0 ? "block" : "block"}
                 sx={{
                   borderRadius: 5,
                   backgroundColor: theme.palette.primary.main,
                 }}
                 px={1}
-                py={0.75}>
+                py={0.75}
+              >
                 <Timer
                   toggleTimer={activeTimer}
                   setToggleTimer={setActiveTimer}
@@ -315,37 +363,38 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
             }
             onChangeCallback={(args: any) => {
               props.setVerifyInputStatus({
-                status: 'default',
+                status: "default",
               });
             }}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid item md={3} xs={4}>
+        <Grid2 item md={3} xs={4}>
           <Button
             onClick={() => {
               validateAuthCode();
             }}
             fullWidth
-            variant={'outlined'}
-            color={'primary'}
+            variant={"outlined"}
+            color={"primary"}
             sx={{
-              backgroundColor: '#000',
-              fontSize: '11px !important',
-              py: '12px',
+              backgroundColor: "#000",
+              fontSize: "11px !important",
+              py: "12px",
               borderRadius: 1.5,
-              color: '#fff',
-              '.MuiButton-root:hover': {
-                backgroundColor: '#000',
+              color: "#fff",
+              ".MuiButton-root:hover": {
+                backgroundColor: "#000",
               },
-              '&:hover': {
-                backgroundColor: '#000',
+              "&:hover": {
+                backgroundColor: "#000",
               },
-            }}>
+            }}
+          >
             인증하기
           </Button>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Box>
   );
 };

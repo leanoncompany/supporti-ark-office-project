@@ -9,21 +9,21 @@ import {
   ToggleButtonGroup,
   Typography,
   useTheme,
-} from '@mui/material';
-import React, { useState, useEffect } from 'react';
-
-const GroupHeader = styled('div')(({ theme }) => ({
-  position: 'sticky',
-  top: '-8px',
-  padding: '4px 10px',
+} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Theme } from "@mui/material/styles";
+const GroupHeader = styled("div")(({ theme }: { theme: Theme }) => ({
+  position: "sticky",
+  top: "-8px",
+  padding: "4px 10px",
   color: theme.palette.primary.main,
   backgroundColor:
-    theme.palette.mode === 'light'
+    theme.palette.mode === "light"
       ? lighten(theme.palette.primary.light, 0.85)
       : darken(theme.palette.primary.main, 0.8),
 }));
 
-const GroupItems = styled('ul')({
+const GroupItems = styled("ul")({
   padding: 0,
 });
 
@@ -58,7 +58,7 @@ const AutoCompleteTypeFilter = (props: IAutoCompleteTypeFilterProps) => {
     <Box>
       {props.label !== undefined && (
         <Box mb={1.5}>
-          <Typography variant={'h6'}>{props.label}</Typography>
+          <Typography variant={"h6"}>{props.label}</Typography>
         </Box>
       )}
 
@@ -73,7 +73,10 @@ const AutoCompleteTypeFilter = (props: IAutoCompleteTypeFilterProps) => {
         groupBy={props.groupBy}
         fullWidth
         value={props.value}
-        onChange={(event: any, newValue: { label: string; value: any } | null) => {
+        onChange={(
+          event: any,
+          newValue: { label: string; value: any } | null
+        ) => {
           props.setValue(newValue);
         }}
         options={props.selectableOptionList}

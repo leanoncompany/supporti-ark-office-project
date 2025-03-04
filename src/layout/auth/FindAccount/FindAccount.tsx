@@ -1,13 +1,19 @@
-import { Box, BoxProps, Button, SxProps, Theme, Typography, useTheme } from '@mui/material';
-import { CSSSelectorObjectOrCssVariables, SystemCssProperties, SystemStyleObject } from '@mui/system';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { TabPanel } from '@leanoncompany/supporti-react-ui';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import FindUserName from './FindUserName';
-import FindPassword from './FindPassword';
-import Image from 'next/image';
-import AccountLayout from '../../AccountLayout';
+import {
+  Box,
+  BoxProps,
+  Button,
+  Theme,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { SxProps } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { TabPanel } from "@leanoncompany/supporti-react-ui";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import FindUserName from "./FindUserName";
+import FindPassword from "./FindPassword";
+import AccountLayout from "../../AccountLayout";
 
 interface IFindAccount {
   // 레이아웃
@@ -17,20 +23,20 @@ interface IFindAccount {
   disablePadding?: boolean;
 
   titleVariant?:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2'
-    | 'caption'
-    | 'button'
-    | 'overline'
-    | 'inherit'
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "subtitle1"
+    | "subtitle2"
+    | "body1"
+    | "body2"
+    | "caption"
+    | "button"
+    | "overline"
+    | "inherit"
     | undefined;
   titleFontWeight?: string;
   titleBoxStyle?: BoxProps;
@@ -40,32 +46,26 @@ interface IFindAccount {
 
   thirdText?: React.ReactElement;
 
-  textFieldStyle?:
-    | SystemCssProperties<Theme>
-    | CSSSelectorObjectOrCssVariables<Theme>
-    | ((theme: Theme) => SystemStyleObject<Theme>)
-    | readonly (boolean | SystemStyleObject<Theme> | ((theme: Theme) => SystemStyleObject<Theme>))[]
-    | null
-    | undefined;
+  textFieldStyle?: SxProps<Theme>;
 
-  textTypeInputVariant?: 'standard' | 'filled' | 'outlined' | undefined;
+  textTypeInputVariant?: "standard" | "filled" | "outlined" | undefined;
 
   typographyFontWeight?: string;
   typographyVariant?:
-    | 'button'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2'
-    | 'overline'
-    | 'inherit';
+    | "button"
+    | "caption"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "subtitle1"
+    | "subtitle2"
+    | "body1"
+    | "body2"
+    | "overline"
+    | "inherit";
   boxStyle?: BoxProps;
   labelBoxStyle?: BoxProps;
   // 인증번호 보내기 버튼 스타일
@@ -117,20 +117,20 @@ interface IFindAccount {
   };
 
   tabPanelFontSize?:
-    | 'button'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2'
-    | 'overline'
-    | 'inherit';
+    | "button"
+    | "caption"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "subtitle1"
+    | "subtitle2"
+    | "body1"
+    | "body2"
+    | "overline"
+    | "inherit";
 
   useEmailRegex?: boolean;
 }
@@ -139,9 +139,11 @@ const FindAccount = (props: IFindAccount) => {
   const router = useRouter();
   const theme = useTheme();
 
-  const [findIdResult, setFindIdResult] = useState<{ label: string; value: string }[]>([
-    { label: '가입일', value: '없음' },
-    { label: '아이디', value: '없음' },
+  const [findIdResult, setFindIdResult] = useState<
+    { label: string; value: string }[]
+  >([
+    { label: "가입일", value: "없음" },
+    { label: "아이디", value: "없음" },
   ]);
   const [showTab, setShowTab] = useState<boolean>(true);
   const [idStep, setIdStep] = useState<number>(0);
@@ -154,8 +156,8 @@ const FindAccount = (props: IFindAccount) => {
     setIdStep(0);
     setPasswordStep(0);
     setFindIdResult([
-      { label: '가입일', value: '없음' },
-      { label: '아이디', value: '없음' },
+      { label: "가입일", value: "없음" },
+      { label: "아이디", value: "없음" },
     ]);
   }, [selectedTabIndex]);
 
@@ -169,17 +171,28 @@ const FindAccount = (props: IFindAccount) => {
   }, [router.asPath]);
   return (
     <AccountLayout
-      disablePadding={props.disablePadding !== undefined ? props.disablePadding : false}
-      disableShadow={props.disableShadow !== undefined ? props.disableShadow : false}
+      disablePadding={
+        props.disablePadding !== undefined ? props.disablePadding : false
+      }
+      disableShadow={
+        props.disableShadow !== undefined ? props.disableShadow : false
+      }
       maxWidth={props.maxWidth !== undefined ? props.maxWidth : undefined}
-      containerStyle={props.containerStyle !== undefined ? { ...props.containerStyle } : {}}>
-      <Box width={'100%'}>
+      containerStyle={
+        props.containerStyle !== undefined ? { ...props.containerStyle } : {}
+      }
+    >
+      <Box width={"100%"}>
         {/* {props.secondTitle !== undefined && passwordStep === 1  ? (
 					props.secondTitle
 				) : ( */}
         <Box
-          display={props.useHideTitle === true && (passwordStep > 0 || idStep > 0) ? 'none' : 'block'}
-          width={'100%'}
+          display={
+            props.useHideTitle === true && (passwordStep > 0 || idStep > 0)
+              ? "none"
+              : "block"
+          }
+          width={"100%"}
           sx={
             props.titleBoxStyle !== undefined
               ? props.useHideTitle === true && passwordStep === 1
@@ -195,19 +208,26 @@ const FindAccount = (props: IFindAccount) => {
                     ...props.titleBoxStyle,
                   }
               : {
-                  mb: props.useHideTitle === true && passwordStep === 1 ? 10 : 1,
+                  mb:
+                    props.useHideTitle === true && passwordStep === 1 ? 10 : 1,
                 }
-          }>
+          }
+        >
           <Typography
-            variant={props.titleVariant !== undefined ? props.titleVariant : 'h6'}
-            fontWeight={'700'}
-            textAlign={'center'}>
+            variant={
+              props.titleVariant !== undefined ? props.titleVariant : "h6"
+            }
+            sx={{
+              textAlign: "center",
+              fontWeight: 700,
+            }}
+          >
             {(() => {
-              let mainTitle: string = '';
+              let mainTitle: string = "";
               if (passwordStep === 1) {
-                mainTitle = '비밀번호 재설정';
+                mainTitle = "비밀번호 재설정";
               } else {
-                mainTitle = '계정 찾기';
+                mainTitle = "계정 찾기";
               }
               return mainTitle;
             })()}
@@ -215,21 +235,29 @@ const FindAccount = (props: IFindAccount) => {
           </Typography>
         </Box>
         {/* )} */}
-        {props.secondText !== undefined && passwordStep === 0 && idStep === 0 && props.secondText}
+        {props.secondText !== undefined &&
+          passwordStep === 0 &&
+          idStep === 0 &&
+          props.secondText}
         {showTab === true ? (
           <TabPanel
-            hideTab={passwordStep !== 0 && props.useHideTitle === true ? true : false}
+            hideTab={
+              passwordStep !== 0 && props.useHideTitle === true ? true : false
+            }
             tabSelectionSectionConfig={{
               tabLabelTypographyProps: {
-                color: theme.palette.grey['500'],
-                variant: props.tabPanelFontSize !== undefined ? props.tabPanelFontSize : 'subtitle1',
+                color: theme.palette.grey["500"],
+                variant:
+                  props.tabPanelFontSize !== undefined
+                    ? props.tabPanelFontSize
+                    : "subtitle1",
                 sx: {
-                  whiteSpace: 'nowrap',
+                  whiteSpace: "nowrap",
                 },
               },
               boxProps: {
                 sx: {
-                  borderBottom: `1px solid ${theme.palette.grey['300']}`,
+                  borderBottom: `1px solid ${theme.palette.grey["300"]}`,
                 },
               },
             }}
@@ -239,7 +267,7 @@ const FindAccount = (props: IFindAccount) => {
             }}
             tabContents={[
               {
-                title: '아이디 찾기',
+                title: "아이디 찾기",
                 element: (
                   <FindUserName
                     findIdResult={findIdResult}
@@ -247,37 +275,89 @@ const FindAccount = (props: IFindAccount) => {
                     setShowTab={setShowTab}
                     idStep={idStep}
                     setIdStep={setIdStep}
-                    textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
+                    textFieldStyle={
+                      props.textFieldStyle !== undefined
+                        ? props.textFieldStyle
+                        : {}
+                    }
                     phoneNumberPlaceholder={
-                      props.phoneNumberPlaceholder !== undefined ? props.phoneNumberPlaceholder : undefined
+                      props.phoneNumberPlaceholder !== undefined
+                        ? props.phoneNumberPlaceholder
+                        : undefined
                     }
                     textTypeInputVariant={
-                      props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined
+                      props.textTypeInputVariant !== undefined
+                        ? props.textTypeInputVariant
+                        : undefined
                     }
-                    goToLogin={props.goToLogin !== undefined ? props.goToLogin : undefined}
-                    thirdText={props.thirdText !== undefined ? props.thirdText : undefined}
+                    goToLogin={
+                      props.goToLogin !== undefined
+                        ? props.goToLogin
+                        : undefined
+                    }
+                    thirdText={
+                      props.thirdText !== undefined
+                        ? props.thirdText
+                        : undefined
+                    }
                     typographyFontWeight={
-                      props.typographyFontWeight !== undefined ? props.typographyFontWeight : undefined
+                      props.typographyFontWeight !== undefined
+                        ? props.typographyFontWeight
+                        : undefined
                     }
-                    typographyVariant={props.typographyVariant !== undefined ? props.typographyVariant : undefined}
-                    boxStyle={props.boxStyle !== undefined ? props.boxStyle : undefined}
-                    labelBoxStyle={props.labelBoxStyle !== undefined ? props.labelBoxStyle : undefined}
+                    typographyVariant={
+                      props.typographyVariant !== undefined
+                        ? props.typographyVariant
+                        : undefined
+                    }
+                    boxStyle={
+                      props.boxStyle !== undefined ? props.boxStyle : undefined
+                    }
+                    labelBoxStyle={
+                      props.labelBoxStyle !== undefined
+                        ? props.labelBoxStyle
+                        : undefined
+                    }
                     sendVerifyCodeButtonStyle={
-                      props.sendVerifyCodeButtonStyle !== undefined ? props.sendVerifyCodeButtonStyle : undefined
+                      props.sendVerifyCodeButtonStyle !== undefined
+                        ? props.sendVerifyCodeButtonStyle
+                        : undefined
                     }
-                    buttonStyle={props.buttonStyle !== undefined ? props.buttonStyle : undefined}
-                    disableButton={props.disableButton !== undefined ? props.disableButton : undefined}
-                    phoneNumberLabel={props.phoneNumberLabel !== undefined ? props.phoneNumberLabel : undefined}
+                    buttonStyle={
+                      props.buttonStyle !== undefined
+                        ? props.buttonStyle
+                        : undefined
+                    }
+                    disableButton={
+                      props.disableButton !== undefined
+                        ? props.disableButton
+                        : undefined
+                    }
+                    phoneNumberLabel={
+                      props.phoneNumberLabel !== undefined
+                        ? props.phoneNumberLabel
+                        : undefined
+                    }
                     sendVerifyCodeButtonText={
-                      props.sendVerifyCodeButtonText !== undefined ? props.sendVerifyCodeButtonText : undefined
+                      props.sendVerifyCodeButtonText !== undefined
+                        ? props.sendVerifyCodeButtonText
+                        : undefined
                     }
-                    setBtnColor={props.setEmailBtnColor !== undefined ? props.setEmailBtnColor : undefined}
-                    emailConfirmBtn={props.emailConfirmBtn !== undefined ? props.emailConfirmBtn : undefined}
+                    setBtnColor={
+                      props.setEmailBtnColor !== undefined
+                        ? props.setEmailBtnColor
+                        : undefined
+                    }
+                    emailConfirmBtn={
+                      props.emailConfirmBtn !== undefined
+                        ? props.emailConfirmBtn
+                        : undefined
+                    }
                   />
                 ),
               },
               {
-                title: '비밀번호 찾기',
+                title: "비밀번호 찾기",
                 element: (
                   <FindPassword
                     findIdResult={findIdResult}
@@ -285,52 +365,134 @@ const FindAccount = (props: IFindAccount) => {
                     setPasswordStep={setPasswordStep}
                     setShowTab={setShowTab}
                     setFindIdResult={setFindIdResult}
-                    textFieldStyle={props.textFieldStyle !== undefined ? props.textFieldStyle : {}}
+                    textFieldStyle={
+                      props.textFieldStyle !== undefined
+                        ? props.textFieldStyle
+                        : {}
+                    }
                     phoneNumberPlaceholder={
-                      props.phoneNumberPlaceholder !== undefined ? props.phoneNumberPlaceholder : undefined
+                      props.phoneNumberPlaceholder !== undefined
+                        ? props.phoneNumberPlaceholder
+                        : undefined
                     }
                     textTypeInputVariant={
-                      props.textTypeInputVariant !== undefined ? props.textTypeInputVariant : undefined
+                      props.textTypeInputVariant !== undefined
+                        ? props.textTypeInputVariant
+                        : undefined
                     }
-                    goToLogin={props.goToLogin !== undefined ? props.goToLogin : undefined}
-                    thirdText={props.thirdText !== undefined ? props.thirdText : undefined}
+                    goToLogin={
+                      props.goToLogin !== undefined
+                        ? props.goToLogin
+                        : undefined
+                    }
+                    thirdText={
+                      props.thirdText !== undefined
+                        ? props.thirdText
+                        : undefined
+                    }
                     typographyFontWeight={
-                      props.typographyFontWeight !== undefined ? props.typographyFontWeight : undefined
+                      props.typographyFontWeight !== undefined
+                        ? props.typographyFontWeight
+                        : undefined
                     }
-                    typographyVariant={props.typographyVariant !== undefined ? props.typographyVariant : undefined}
-                    boxStyle={props.boxStyle !== undefined ? props.boxStyle : undefined}
-                    labelBoxStyle={props.labelBoxStyle !== undefined ? props.labelBoxStyle : undefined}
+                    typographyVariant={
+                      props.typographyVariant !== undefined
+                        ? props.typographyVariant
+                        : undefined
+                    }
+                    boxStyle={
+                      props.boxStyle !== undefined ? props.boxStyle : undefined
+                    }
+                    labelBoxStyle={
+                      props.labelBoxStyle !== undefined
+                        ? props.labelBoxStyle
+                        : undefined
+                    }
                     sendVerifyCodeButtonStyle={
-                      props.sendVerifyCodeButtonStyle !== undefined ? props.sendVerifyCodeButtonStyle : undefined
+                      props.sendVerifyCodeButtonStyle !== undefined
+                        ? props.sendVerifyCodeButtonStyle
+                        : undefined
                     }
-                    buttonStyle={props.buttonStyle !== undefined ? props.buttonStyle : undefined}
-                    disableButton={props.disableButton !== undefined ? props.disableButton : undefined}
-                    phoneNumberLabel={props.phoneNumberLabel !== undefined ? props.phoneNumberLabel : undefined}
+                    buttonStyle={
+                      props.buttonStyle !== undefined
+                        ? props.buttonStyle
+                        : undefined
+                    }
+                    disableButton={
+                      props.disableButton !== undefined
+                        ? props.disableButton
+                        : undefined
+                    }
+                    phoneNumberLabel={
+                      props.phoneNumberLabel !== undefined
+                        ? props.phoneNumberLabel
+                        : undefined
+                    }
                     sendVerifyCodeButtonText={
-                      props.sendVerifyCodeButtonText !== undefined ? props.sendVerifyCodeButtonText : undefined
+                      props.sendVerifyCodeButtonText !== undefined
+                        ? props.sendVerifyCodeButtonText
+                        : undefined
                     }
-                    passwordConfirmBtn={props.passwordConfirmBtn !== undefined ? props.passwordConfirmBtn : undefined}
-                    setBtnColor={props.setPasswordBtnColor !== undefined ? props.setPasswordBtnColor : undefined}
+                    passwordConfirmBtn={
+                      props.passwordConfirmBtn !== undefined
+                        ? props.passwordConfirmBtn
+                        : undefined
+                    }
+                    setBtnColor={
+                      props.setPasswordBtnColor !== undefined
+                        ? props.setPasswordBtnColor
+                        : undefined
+                    }
                     setPasswordChangeBtnColor={
-                      props.setPasswordChangeBtnColor !== undefined ? props.setPasswordChangeBtnColor : undefined
+                      props.setPasswordChangeBtnColor !== undefined
+                        ? props.setPasswordChangeBtnColor
+                        : undefined
                     }
-                    passwordChangeBtn={props.passwordChangeBtn !== undefined ? props.passwordChangeBtn : undefined}
-                    emailLabel={props.emailLabel !== undefined ? props.emailLabel : undefined}
-                    fourthText={props.fourthText !== undefined ? props.fourthText : undefined}
+                    passwordChangeBtn={
+                      props.passwordChangeBtn !== undefined
+                        ? props.passwordChangeBtn
+                        : undefined
+                    }
+                    emailLabel={
+                      props.emailLabel !== undefined
+                        ? props.emailLabel
+                        : undefined
+                    }
+                    fourthText={
+                      props.fourthText !== undefined
+                        ? props.fourthText
+                        : undefined
+                    }
                     passwordChangeMarginBottom={
-                      props.passwordChangeMarginBottom !== undefined ? props.passwordChangeMarginBottom : undefined
+                      props.passwordChangeMarginBottom !== undefined
+                        ? props.passwordChangeMarginBottom
+                        : undefined
                     }
-                    newPasswordLabel={props.newPasswordLabel !== undefined ? props.newPasswordLabel : undefined}
+                    newPasswordLabel={
+                      props.newPasswordLabel !== undefined
+                        ? props.newPasswordLabel
+                        : undefined
+                    }
                     newPasswordPlaceholder={
-                      props.newPasswordPlaceholder !== undefined ? props.newPasswordPlaceholder : undefined
+                      props.newPasswordPlaceholder !== undefined
+                        ? props.newPasswordPlaceholder
+                        : undefined
                     }
                     newPasswordCheckLabel={
-                      props.newPasswordCheckLabel !== undefined ? props.newPasswordCheckLabel : undefined
+                      props.newPasswordCheckLabel !== undefined
+                        ? props.newPasswordCheckLabel
+                        : undefined
                     }
                     newPasswordCheckPlaceholder={
-                      props.newPasswordCheckPlaceholder !== undefined ? props.newPasswordCheckPlaceholder : undefined
+                      props.newPasswordCheckPlaceholder !== undefined
+                        ? props.newPasswordCheckPlaceholder
+                        : undefined
                     }
-                    useEmailRegex={props.useEmailRegex !== undefined ? props.useEmailRegex : undefined}
+                    useEmailRegex={
+                      props.useEmailRegex !== undefined
+                        ? props.useEmailRegex
+                        : undefined
+                    }
                   />
                 ),
               },
@@ -339,31 +501,58 @@ const FindAccount = (props: IFindAccount) => {
         ) : idStep > 0 ? (
           props.emailSuccessPage !== true ? (
             <Box>
-              <Box mt={24} display={'flex'} alignItems={'center'} flexDirection={'column'} justifyContent={'center'}>
+              <Box
+                mt={24}
+                display={"flex"}
+                alignItems={"center"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+              >
                 <Typography
-                  mb={'12px'}
                   variant="h5"
                   sx={{
-                    whiteSpace: 'pre-wrap',
-                    textAlign: 'center',
-                  }}>
+                    whiteSpace: "pre-wrap",
+                    textAlign: "center",
+                    mb: "12px",
+                  }}
+                >
                   아이디 찾기에 성공하셨습니다!
                 </Typography>
-                <Typography mb={'35px'} variant="body1" color={'#7A7A7A'}>
+                <Typography
+                  sx={{
+                    mb: "35px",
+                    color: "#7A7A7A",
+                  }}
+                  variant="body1"
+                >
                   고객님의 가입 정보입니다.
                 </Typography>
               </Box>
-              <Box border={`1px solid ${theme.palette.grey['100']} `} borderRadius={'10px'} p={'20px'}>
+              <Box
+                border={`1px solid ${theme.palette.grey["100"]} `}
+                borderRadius={"10px"}
+                p={"20px"}
+              >
                 {findIdResult.map((element, index) => (
                   <Box
-                    display={'flex'}
-                    justifyContent={'space-between'}
+                    display={"flex"}
+                    justifyContent={"space-between"}
                     key={JSON.stringify(index)}
-                    mt={index === 0 ? 0 : 0.666}>
-                    <Typography variant="subtitle2" color={theme.palette.grey[900]}>
+                    mt={index === 0 ? 0 : 0.666}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      color={theme.palette.grey[900]}
+                    >
                       {element.label}
                     </Typography>
-                    <Typography variant="subtitle2" color={theme.palette.grey[900]} fontWeight={600}>
+                    <Typography
+                      sx={{
+                        fontWeight: 600,
+                      }}
+                      variant="subtitle2"
+                      color={theme.palette.grey[900]}
+                    >
                       {element.value}
                     </Typography>
                   </Box>
@@ -371,25 +560,29 @@ const FindAccount = (props: IFindAccount) => {
               </Box>
               <Box mt={3}>
                 <Button
-                  color={'primary'}
-                  variant={'contained'}
+                  color={"primary"}
+                  variant={"contained"}
                   fullWidth
                   onClick={() => {
-                    router.push('/auth/sign_in');
+                    router.push("/auth/sign_in");
                   }}
-                  endIcon={<NavigateNextIcon />}>
+                  endIcon={<NavigateNextIcon />}
+                >
                   로그인 페이지로 이동
                 </Button>
               </Box>
               <Box mt={1.5}>
                 <Button
-                  color={'primary'}
-                  variant={'outlined'}
+                  color={"primary"}
+                  variant={"outlined"}
                   fullWidth
                   onClick={() => {
-                    router.push(`/auth/find_account?tab=find_password&timestamp=${new Date().getTime()}`);
+                    router.push(
+                      `/auth/find_account?tab=find_password&timestamp=${new Date().getTime()}`
+                    );
                   }}
-                  endIcon={<NavigateNextIcon />}>
+                  endIcon={<NavigateNextIcon />}
+                >
                   비밀번호 찾기로 이동
                 </Button>
               </Box>
@@ -397,11 +590,11 @@ const FindAccount = (props: IFindAccount) => {
           ) : (
             (() => {
               if (props.customCallbackDict !== undefined) {
-                if (props.customCallbackDict['success'] !== undefined) {
+                if (props.customCallbackDict["success"] !== undefined) {
                   let item: any = {
                     email: findIdResult[1].value,
                   };
-                  return props.customCallbackDict['success'](item);
+                  return props.customCallbackDict["success"](item);
                 }
               }
             })()
@@ -411,123 +604,59 @@ const FindAccount = (props: IFindAccount) => {
           (props.passwordSuccessPage !== undefined ? (
             props.passwordSuccessPage
           ) : (
-            // <Box
-            // 	width={'100%'}
-            // 	display={'flex'}
-            // 	flexDirection={'column'}
-            // >
-            // 	<Box
-            // 		display={'flex'}
-            // 		alignItems={'center'}
-            // 		justifyContent={'center'}
-            // 		mb={8}
-            // 	>
-            // 		{/* <Image
-            // 			src={'images/icons/mail.png'}
-            // 			width={120}
-            // 			height={120}
-            // 			alt={'이메일'}
-            // 		/> */}
-            // 	</Box>
-            // 	<Box
-            // 		display={'flex'}
-            // 		alignItems={'center'}
-            // 		justifyContent={'center'}
-            // 		mb={5}
-            // 	>
-            // 		<Typography
-            // 			variant={'h1'}
-            // 			fontWeight={'700'}
-            // 			color={'var(--primary-blue, #4C70FF)'}
-            // 		>
-            // 			비밀번호 변경 완료
-            // 		</Typography>
-            // 	</Box>
-            // 	<Box
-            // 		display={'flex'}
-            // 		flexDirection={'column'}
-            // 		justifyContent={'center'}
-            // 		alignItems={'center'}
-            // 	>
-            // 		{[
-            // 			'비밀번호 변경이 완료되었습니다.',
-            // 			'새로운 비밀번호로 로그인해주세요',
-            // 		].map((text, index) => (
-            // 			<Typography
-            // 				variant={'h6'}
-            // 				lineHeight={'32px'}
-            // 			>
-            // 				{text}
-            // 			</Typography>
-            // 		))}
-            // 	</Box>
-            // 	<Box>
-            // 		<Button
-            // 			variant={'contained'}
-            // 			sx={{
-            // 				backgroundColor: '#000',
-            // 				fontSize: '16px !important',
-            // 				py: '17px',
-            // 				borderRadius: 1.5,
-            // 				color: '#fff',
-            // 				'.MuiButton-root:hover': {
-            // 					backgroundColor: '#000',
-            // 				},
-            // 				'&:hover': {
-            // 					backgroundColor: '#000',
-            // 				},
-            // 			}}
-            // 			fullWidth
-            // 			onClick={() => {
-            // 				router.push('/auth/sign_in');
-            // 			}}
-            // 		>
-            // 			로그인하러 가기
-            // 		</Button>
-            // 	</Box>
-            // 	<Box
-            // 		display={'flex'}
-            // 		alignItems={'center'}
-            // 		justifyContent={'center'}
-            // 		mt={'10px'}
-            // 	>
-            // 		<Typography
-            // 			variant={'body1'}
-            // 			color={'var(--gray-06, #868E96)'}
-            // 			sx={{
-            // 				textDecoration: 'underline',
-            // 			}}
-            // 		>
-            // 			비밀번호 찾기
-            // 		</Typography>
-            // 	</Box>
-            // </Box>
             <Box>
-              <Box display={'flex'} mt={24} alignItems={'center'} flexDirection={'column'} justifyContent={'center'}>
+              <Box
+                display={"flex"}
+                mt={24}
+                alignItems={"center"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+              >
                 <Typography
-                  mb={'12px'}
                   variant="h5"
                   sx={{
-                    whiteSpace: 'pre-wrap',
-                    textAlign: 'center',
-                  }}>
+                    whiteSpace: "pre-wrap",
+                    textAlign: "center",
+                    mb: "12px",
+                  }}
+                >
                   비밀번호 변경이 완료되었습니다.
                 </Typography>
-                <Typography mb={'35px'} variant="body1" color={'#7A7A7A'}>
+                <Typography
+                  sx={{
+                    mb: "35px",
+                    color: "#7A7A7A",
+                  }}
+                  variant="body1"
+                >
                   변경된 비밀번호로 로그인이 가능합니다.
                 </Typography>
               </Box>
-              <Box border={`1px solid ${theme.palette.grey['100']} `} borderRadius={'10px'} p={'20px'}>
+              <Box
+                border={`1px solid ${theme.palette.grey["100"]} `}
+                borderRadius={"10px"}
+                p={"20px"}
+              >
                 {findIdResult.map((element, index) => (
                   <Box
-                    display={'flex'}
-                    justifyContent={'space-between'}
+                    display={"flex"}
+                    justifyContent={"space-between"}
                     key={JSON.stringify(index)}
-                    mt={index === 0 ? 0 : 0.666}>
-                    <Typography variant="subtitle2" color={theme.palette.grey[900]}>
+                    mt={index === 0 ? 0 : 0.666}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      color={theme.palette.grey[900]}
+                    >
                       {element.label}
                     </Typography>
-                    <Typography variant="subtitle2" color={theme.palette.grey[900]} fontWeight={600}>
+                    <Typography
+                      variant="subtitle2"
+                      color={theme.palette.grey[900]}
+                      sx={{
+                        fontWeight: 600,
+                      }}
+                    >
                       {element.value}
                     </Typography>
                   </Box>
@@ -535,13 +664,14 @@ const FindAccount = (props: IFindAccount) => {
               </Box>
               <Box mt={3}>
                 <Button
-                  color={'primary'}
-                  variant={'contained'}
+                  color={"primary"}
+                  variant={"contained"}
                   fullWidth
                   onClick={() => {
-                    router.push('/auth/sign_in');
+                    router.push("/auth/sign_in");
                   }}
-                  endIcon={<NavigateNextIcon />}>
+                  endIcon={<NavigateNextIcon />}
+                >
                   로그인 페이지로 이동
                 </Button>
               </Box>

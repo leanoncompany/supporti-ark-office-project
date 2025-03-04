@@ -1,8 +1,17 @@
-import { Box, ToggleButton, ToggleButtonGroup, Typography, useTheme } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import { Button } from '@mui/material';
-import { useWhatChanged, setUseWhatChange } from '@simbathesailor/use-what-changed';
+import {
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import { Button } from "@mui/material";
+import {
+  useWhatChanged,
+  setUseWhatChange,
+} from "@simbathesailor/use-what-changed";
 
 interface IBadgeFilterProps {
   label: string;
@@ -28,7 +37,7 @@ const BadgeFilter = (props: IBadgeFilterProps) => {
    * 필터 클릭 시
    */
   const onClickFilterElement = (selectableFilter: string) => {
-    if (selectableFilter === '전체') {
+    if (selectableFilter === "전체") {
       props.setSelectedFilter([]);
     } else {
       if (props.selectedFilter.includes(selectableFilter)) {
@@ -47,8 +56,8 @@ const BadgeFilter = (props: IBadgeFilterProps) => {
   const getSelectableFilterWithDefaultList = () => {
     return [
       {
-        label: '전체',
-        value: '전체',
+        label: "전체",
+        value: "전체",
       },
     ].concat(props.selectableFilterList);
   };
@@ -66,7 +75,7 @@ const BadgeFilter = (props: IBadgeFilterProps) => {
    */
   const dev = [props.selectedFilter, props.sourceList, props.filterKey];
 
-  useWhatChanged(dev, 'a, b, c, d');
+  useWhatChanged(dev, "a, b, c, d");
 
   useEffect(() => {
     const filteredItemList =
@@ -83,16 +92,19 @@ const BadgeFilter = (props: IBadgeFilterProps) => {
   return (
     <Box p={2}>
       <Box mb={1.5}>
-        <Typography variant={'h6'}>{props.label}</Typography>
+        <Typography variant={"h6"}>{props.label}</Typography>
       </Box>
 
       {props.isToggleGroup === true ? (
         <ToggleButtonGroup
           size="large"
           value={props.selectableFilterList}
-          onChange={(event: React.MouseEvent<HTMLElement>, value: any[] | null) => {
+          onChange={(
+            event: React.MouseEvent<HTMLElement>,
+            value: any[] | null
+          ) => {
             if (value !== null) {
-              if (value.includes('전체')) {
+              if (value.includes("전체")) {
                 props.setSelectedFilter([]);
               } else {
                 props.setSelectedFilter(value);
@@ -100,44 +112,52 @@ const BadgeFilter = (props: IBadgeFilterProps) => {
             }
           }}
           exclusive={false}
-          aria-label="Large sizes">
+          aria-label="Large sizes"
+        >
           {getSelectableFilterWithDefaultList().map((selectableFilter) => (
             <ToggleButton
               value={selectableFilter.value}
               key={selectableFilter.value}
               sx={{
-                display: 'block',
-                height: '50px',
+                display: "block",
+                height: "50px",
                 borderLeft: `1px solid #e5e5e5 !important`,
                 backgroundColor: (
-                  selectableFilter.value === '전체'
+                  selectableFilter.value === "전체"
                     ? props.selectedFilter.length == 0
                     : props.selectedFilter.includes(selectableFilter.value)
                 )
                   ? `${theme.palette.primary.main} !important`
-                  : 'white',
-                '&:hover': {
+                  : "white",
+                "&:hover": {
                   backgroundColor: (
-                    selectableFilter.value === '전체'
+                    selectableFilter.value === "전체"
                       ? props.selectedFilter.length == 0
                       : props.selectedFilter.includes(selectableFilter.value)
                   )
                     ? `${theme.palette.primary.dark} !important`
-                    : '#e0e0e0',
+                    : "#e0e0e0",
                 },
-              }}>
-              <Box display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
+              }}
+            >
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                flexDirection={"column"}
+              >
                 <Typography
-                  variant={'h6'}
+                  variant={"h6"}
                   color={
                     (
-                      selectableFilter.value === '전체'
+                      selectableFilter.value === "전체"
                         ? props.selectedFilter.length == 0
                         : props.selectedFilter.includes(selectableFilter.value)
                     )
-                      ? '#ffffff'
+                      ? "#ffffff"
                       : theme.palette.grey[800]
-                  }>
+                  }
+                >
                   {selectableFilter.label}
                 </Typography>
               </Box>
@@ -145,66 +165,75 @@ const BadgeFilter = (props: IBadgeFilterProps) => {
           ))}
         </ToggleButtonGroup>
       ) : (
-        <Box width={'100%'} display={'flex'} justifyContent={'flex-start'} alignItems={'center'} flexWrap={'wrap'}>
-          {getSelectableFilterWithDefaultList().map((selectableFilter, index) => (
-            <Box
-              key={index}
-              mr={0.5}
-              mb={0.5}
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              px={1.5}
-              py={1}
-              borderRadius={2}
-              sx={{
-                cursor: 'pointer',
-                backgroundColor: (
-                  selectableFilter.value === '전체'
-                    ? props.selectedFilter.length == 0
-                    : props.selectedFilter.includes(selectableFilter.value)
-                )
-                  ? `${theme.palette.primary.main}`
-                  : 'white',
-                '&:hover': {
+        <Box
+          width={"100%"}
+          display={"flex"}
+          justifyContent={"flex-start"}
+          alignItems={"center"}
+          flexWrap={"wrap"}
+        >
+          {getSelectableFilterWithDefaultList().map(
+            (selectableFilter, index) => (
+              <Box
+                key={index}
+                mr={0.5}
+                mb={0.5}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                px={1.5}
+                py={1}
+                borderRadius={2}
+                sx={{
+                  cursor: "pointer",
                   backgroundColor: (
-                    selectableFilter.value === '전체'
+                    selectableFilter.value === "전체"
                       ? props.selectedFilter.length == 0
                       : props.selectedFilter.includes(selectableFilter.value)
                   )
-                    ? `${theme.palette.primary.dark}`
-                    : '#e0e0e0',
-                },
-              }}
-              borderColor={theme.palette.primary.main}
-              border={`1px solid ${
-                (
-                  selectableFilter.value === '전체'
-                    ? props.selectedFilter.length == 0
-                    : props.selectedFilter.includes(selectableFilter.value)
-                )
-                  ? theme.palette.primary.main
-                  : 'rgb(126, 128, 130)'
-              }`}
-              onClick={() => {
-                onClickFilterElement(selectableFilter.value);
-              }}>
-              <Typography
-                fontWeight={500}
-                variant={'body1'}
-                color={
+                    ? `${theme.palette.primary.main}`
+                    : "white",
+                  "&:hover": {
+                    backgroundColor: (
+                      selectableFilter.value === "전체"
+                        ? props.selectedFilter.length == 0
+                        : props.selectedFilter.includes(selectableFilter.value)
+                    )
+                      ? `${theme.palette.primary.dark}`
+                      : "#e0e0e0",
+                  },
+                }}
+                borderColor={theme.palette.primary.main}
+                border={`1px solid ${
                   (
-                    selectableFilter.value === '전체'
+                    selectableFilter.value === "전체"
                       ? props.selectedFilter.length == 0
                       : props.selectedFilter.includes(selectableFilter.value)
                   )
-                    ? 'white'
-                    : 'rgb(126, 128, 130)'
-                }>
-                {selectableFilter.label}
-              </Typography>
-            </Box>
-          ))}
+                    ? theme.palette.primary.main
+                    : "rgb(126, 128, 130)"
+                }`}
+                onClick={() => {
+                  onClickFilterElement(selectableFilter.value);
+                }}
+              >
+                <Typography
+                  variant={"body1"}
+                  color={
+                    (
+                      selectableFilter.value === "전체"
+                        ? props.selectedFilter.length == 0
+                        : props.selectedFilter.includes(selectableFilter.value)
+                    )
+                      ? "white"
+                      : "rgb(126, 128, 130)"
+                  }
+                >
+                  {selectableFilter.label}
+                </Typography>
+              </Box>
+            )
+          )}
         </Box>
       )}
     </Box>

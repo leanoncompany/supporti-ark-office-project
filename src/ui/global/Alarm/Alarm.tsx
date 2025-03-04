@@ -11,19 +11,19 @@ import {
   Tooltip,
   Typography,
   useTheme,
-} from '@mui/material';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import React, { useEffect, useRef, useState } from 'react';
-import { IAlarm, IAlarmList } from '../../../@types/ui/global/alarm';
-import NotificationController from '../../../controller/default/NotificationController';
-import useNotification from '../../../hooks/data/useNotification';
-import { useRouter } from 'next/router';
-import moment from 'moment';
-import useCheckLogin from '../../../hooks/data/useCheckLogin';
-import { CookieManager } from '@leanoncompany/supporti-utility';
-import useSound from 'use-sound';
+} from "@mui/material";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import React, { useEffect, useRef, useState } from "react";
+import { IAlarm, IAlarmList } from "../../../@types/ui/global/alarm";
+import NotificationController from "../../../controller/default/NotificationController";
+import useNotification from "../../../hooks/data/useNotification";
+import { useRouter } from "next/router";
+import moment from "moment";
+import useCheckLogin from "../../../hooks/data/useCheckLogin";
+import { CookieManager } from "@leanoncompany/supporti-utility";
+import useSound from "use-sound";
 
-import { Howl, Howler } from 'howler';
+import { Howl, Howler } from "howler";
 
 // type Props = {};
 
@@ -38,7 +38,9 @@ const Alarm = (props: IAlarm) => {
   const [maxPage, setMaxPage] = useState<number>(1);
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const countMaxPage = (count: number, selectedContentPerPage: number) => {
-    return count < selectedContentPerPage ? 1 : Math.ceil(count / selectedContentPerPage);
+    return count < selectedContentPerPage
+      ? 1
+      : Math.ceil(count / selectedContentPerPage);
   };
 
   const ref = useRef<HTMLDivElement>(null);
@@ -92,7 +94,7 @@ const Alarm = (props: IAlarm) => {
             html5: true,
             loop: false,
 
-            format: ['m4a', 'webm', 'opus', 'mp3', 'aac'],
+            format: ["m4a", "webm", "opus", "mp3", "aac"],
             onload: () => {},
           });
         }
@@ -109,7 +111,7 @@ const Alarm = (props: IAlarm) => {
     //* Howl dict 설정
     setHowlDict();
 
-    const accessToken = cookieManager.getItemInCookies('ACCESS_TOKEN');
+    const accessToken = cookieManager.getItemInCookies("ACCESS_TOKEN");
 
     if (accessToken !== undefined) {
       notificationController.getNotificationList(
@@ -121,7 +123,8 @@ const Alarm = (props: IAlarm) => {
         (response: any) => {
           let clonedList: IAlarmList[] = [];
           // let firstArrayData: date = response.data.result[0].CREATED_AT;
-          let tempFirstAlarm: undefined | IAlarmList = firstAlarm !== undefined ? { ...firstAlarm } : undefined;
+          let tempFirstAlarm: undefined | IAlarmList =
+            firstAlarm !== undefined ? { ...firstAlarm } : undefined;
 
           // eslint-disable-next-line array-callback-return
           //* 알림 데이터 가져옴
@@ -129,8 +132,9 @@ const Alarm = (props: IAlarm) => {
           response.data.result.map((resEl: any, resIndex: number) => {
             clonedList.push({
               title: resEl.TITLE !== undefined ? resEl.TITLE : undefined,
-              description: resEl.CONTENT !== undefined ? resEl.CONTENT : undefined,
-              hoverColor: 'skyblue',
+              description:
+                resEl.CONTENT !== undefined ? resEl.CONTENT : undefined,
+              hoverColor: "skyblue",
               date: timeAgo(new Date(resEl.CREATED_AT)),
               link: resEl.WEB_LINK !== undefined ? resEl.WEB_LINK : undefined,
               createdAt: new Date(resEl.CREATED_AT),
@@ -240,7 +244,10 @@ const Alarm = (props: IAlarm) => {
             }
           } else {
             for (const element of clonedList) {
-              if (tempFirstAlarm !== undefined && element.createdAt > tempFirstAlarm.createdAt) {
+              if (
+                tempFirstAlarm !== undefined &&
+                element.createdAt > tempFirstAlarm.createdAt
+              ) {
                 tempFirstAlarm = { ...element };
                 isFirstAlarmUpdated = true;
 
@@ -272,14 +279,14 @@ const Alarm = (props: IAlarm) => {
             html5: true,
             loop: false,
 
-            format: ['m4a', 'webm', 'opus', 'mp3', 'aac'],
+            format: ["m4a", "webm", "opus", "mp3", "aac"],
             onload: () => {},
           });
         });
       }
     }
 
-    const accessToken = cookieManager.getItemInCookies('ACCESS_TOKEN');
+    const accessToken = cookieManager.getItemInCookies("ACCESS_TOKEN");
 
     if (accessToken !== undefined) {
       notificationController.getNotificationList(
@@ -291,7 +298,8 @@ const Alarm = (props: IAlarm) => {
         (response: any) => {
           let clonedList: IAlarmList[] = [];
           // let firstArrayData: date = response.data.result[0].CREATED_AT;
-          let tempFirstAlarm: undefined | IAlarmList = firstAlarm !== undefined ? { ...firstAlarm } : undefined;
+          let tempFirstAlarm: undefined | IAlarmList =
+            firstAlarm !== undefined ? { ...firstAlarm } : undefined;
 
           // eslint-disable-next-line array-callback-return
           //* 알림 데이터 가져옴
@@ -299,8 +307,9 @@ const Alarm = (props: IAlarm) => {
           response.data.result.map((resEl: any, resIndex: number) => {
             clonedList.push({
               title: resEl.TITLE !== undefined ? resEl.TITLE : undefined,
-              description: resEl.CONTENT !== undefined ? resEl.CONTENT : undefined,
-              hoverColor: 'skyblue',
+              description:
+                resEl.CONTENT !== undefined ? resEl.CONTENT : undefined,
+              hoverColor: "skyblue",
               date: timeAgo(new Date(resEl.CREATED_AT)),
               link: resEl.WEB_LINK !== undefined ? resEl.WEB_LINK : undefined,
               createdAt: resEl.CREATED_AT,
@@ -410,7 +419,10 @@ const Alarm = (props: IAlarm) => {
             }
           } else {
             for (const element of clonedList) {
-              if (tempFirstAlarm !== undefined && element.createdAt > tempFirstAlarm.createdAt) {
+              if (
+                tempFirstAlarm !== undefined &&
+                element.createdAt > tempFirstAlarm.createdAt
+              ) {
                 tempFirstAlarm = { ...element };
                 isFirstAlarmUpdated = true;
 
@@ -434,7 +446,7 @@ const Alarm = (props: IAlarm) => {
 
     // 초 단위로 차이를 계산하여 적절한 문자열을 반환합니다.
     if (seconds < 10) {
-      return '방금 전';
+      return "방금 전";
     } else if (seconds < 60) {
       return `${seconds}초 전`;
     } else {
@@ -449,7 +461,7 @@ const Alarm = (props: IAlarm) => {
           const days = Math.floor(hours / 24);
           return `${days}일 전`;
         } else {
-          return moment(date).format('YYYY-MM-DD');
+          return moment(date).format("YYYY-MM-DD");
         }
       }
     }
@@ -460,7 +472,7 @@ const Alarm = (props: IAlarm) => {
   });
 
   useEffect(() => {
-    const accessToken = cookieManager.getItemInCookies('ACCESS_TOKEN');
+    const accessToken = cookieManager.getItemInCookies("ACCESS_TOKEN");
 
     if (accessToken !== undefined) {
       setIsInitiated(true);
@@ -484,7 +496,7 @@ const Alarm = (props: IAlarm) => {
 
   return (
     <Box>
-      <Box display={'none'} ref={ref} id="alarms"></Box>
+      <Box display={"none"} ref={ref} id="alarms"></Box>
       <Box>
         <Tooltip title="알림">
           <Box>
@@ -498,20 +510,22 @@ const Alarm = (props: IAlarm) => {
               }}
               size="small"
               sx={{}}
-              aria-controls={open ? 'alarm' : undefined}
+              aria-controls={open ? "alarm" : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}>
+              aria-expanded={open ? "true" : undefined}
+            >
               <Badge
-                badgeContent={alarmList.length > 9 ? '9+' : alarmList.length}
+                badgeContent={alarmList.length > 9 ? "9+" : alarmList.length}
                 // badgeContent={'9+'}
                 color="primary"
                 overlap="circular"
                 sx={{
-                  '& .MuiBadge-badge': {
+                  "& .MuiBadge-badge": {
                     fontSize: 6,
                     width: 10,
                   },
-                }}>
+                }}
+              >
                 {/* <Avatar sx={{ width: 32, height: 32 }}> */}
                 <NotificationsNoneIcon fontSize="medium" />
                 {/* </Avatar> */}
@@ -539,70 +553,75 @@ const Alarm = (props: IAlarm) => {
           PaperProps={{
             elevation: 0,
             sx: {
-              height: 'auto',
+              height: "auto",
               // props.height !== undefined
               // 	? props.height
               // 	: 'auto',
-              width: '350px',
+              width: "350px",
               // props.width !== undefined
               // 	? props.width
               // 	: 'auto',
               // overflowY:
               // 	props.height !== undefined ? 'auto' : 'visible',
               // overflowX: 'auto',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
               mt: 1,
-              '& li': {
-                whiteSpace: 'break-spaces',
+              "& li": {
+                whiteSpace: "break-spaces",
               },
-              position: 'relative',
+              position: "relative",
             },
           }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
           <Box
             py={1.5}
             borderBottom={`1px solid ${theme.palette.grey[300]}`}
-            position={'sticky'}
+            position={"sticky"}
             top={0}
             sx={{
-              backgroundColor: 'white',
-              zIndex: '1000',
-            }}>
+              backgroundColor: "white",
+              zIndex: "1000",
+            }}
+          >
             <Typography
-              variant={'body1'}
-              fontWeight={600}
+              variant={"body1"}
               sx={{
                 pl: 2.5,
-              }}>
+                fontWeight: 600,
+              }}
+            >
               알림
             </Typography>
           </Box>
           <Box
             sx={{
-              height: '250px',
-              overflowY: 'auto',
-            }}>
+              height: "250px",
+              overflowY: "auto",
+            }}
+          >
             {alarmList.map((alarm, index) => (
               <Box key={index}>
                 <MenuItem onClick={() => router.push(alarm.link)}>
-                  <Box display={'flex'} pt={'5px'}>
-                    <Box position={'relative'}>
+                  <Box display={"flex"} pt={"5px"}>
+                    <Box position={"relative"}>
                       <Box
-                        position={'relative'}
-                        top={'3px'}
-                        left={'-5px'}
-                        width={'5px'}
-                        height={'5px'}
-                        borderRadius={'50%'}
+                        position={"relative"}
+                        top={"3px"}
+                        left={"-5px"}
+                        width={"5px"}
+                        height={"5px"}
+                        borderRadius={"50%"}
                         sx={{
                           backgroundColor: theme.palette.primary.main,
-                        }}></Box>
+                        }}
+                      ></Box>
                     </Box>
                     <Box
-                      display={'flex'}
-                      flexDirection={'column'}
-                      justifyContent={'center'}
+                      display={"flex"}
+                      flexDirection={"column"}
+                      justifyContent={"center"}
                       // sx={{
                       // 	overFlowX: 'auto',
                       // }}
@@ -612,26 +631,36 @@ const Alarm = (props: IAlarm) => {
                           variant={
                             props.titleSize !== undefined
                               ? (props.titleSize as
-                                  | 'button'
-                                  | 'caption'
-                                  | 'h1'
-                                  | 'h2'
-                                  | 'h3'
-                                  | 'h4'
-                                  | 'h5'
-                                  | 'h6'
-                                  | 'inherit'
-                                  | 'subtitle1'
-                                  | 'subtitle2'
-                                  | 'body1'
-                                  | 'body2'
-                                  | 'overline'
+                                  | "button"
+                                  | "caption"
+                                  | "h1"
+                                  | "h2"
+                                  | "h3"
+                                  | "h4"
+                                  | "h5"
+                                  | "h6"
+                                  | "inherit"
+                                  | "subtitle1"
+                                  | "subtitle2"
+                                  | "body1"
+                                  | "body2"
+                                  | "overline"
                                   | undefined)
-                              : 'h6'
+                              : "h6"
                           }
-                          fontWeight={props.titleWeight !== undefined ? props.titleWeight : '600'}
-                          color={props.titleColor !== undefined ? props.titleColor : '#000000'}
-                          lineHeight={'1'}>
+                          sx={{
+                            fontWeight:
+                              props.titleWeight !== undefined
+                                ? props.titleWeight
+                                : "600",
+                            lineHeight: "1",
+                          }}
+                          color={
+                            props.titleColor !== undefined
+                              ? props.titleColor
+                              : "#000000"
+                          }
+                        >
                           {alarm.title}
                         </Typography>
                       </Box>
@@ -641,30 +670,45 @@ const Alarm = (props: IAlarm) => {
                           variant={
                             props.descriptionSize !== undefined
                               ? (props.descriptionSize as
-                                  | 'button'
-                                  | 'caption'
-                                  | 'h1'
-                                  | 'h2'
-                                  | 'h3'
-                                  | 'h4'
-                                  | 'h5'
-                                  | 'h6'
-                                  | 'inherit'
-                                  | 'subtitle1'
-                                  | 'subtitle2'
-                                  | 'body1'
-                                  | 'body2'
-                                  | 'overline'
+                                  | "button"
+                                  | "caption"
+                                  | "h1"
+                                  | "h2"
+                                  | "h3"
+                                  | "h4"
+                                  | "h5"
+                                  | "h6"
+                                  | "inherit"
+                                  | "subtitle1"
+                                  | "subtitle2"
+                                  | "body1"
+                                  | "body2"
+                                  | "overline"
                                   | undefined)
-                              : 'h6'
+                              : "h6"
                           }
-                          fontWeight={props.descriptionWeight !== undefined ? props.descriptionWeight : '400'}
-                          color={props.descriptionColor !== undefined ? props.descriptionColor : '#000000'}>
-                          {alarm.description.length > 15 ? alarm.description.slice(0, 20) + '...' : alarm.description}
+                          sx={{
+                            fontWeight:
+                              props.descriptionWeight !== undefined
+                                ? props.descriptionWeight
+                                : "400",
+                          }}
+                          color={
+                            props.descriptionColor !== undefined
+                              ? props.descriptionColor
+                              : "#000000"
+                          }
+                        >
+                          {alarm.description.length > 15
+                            ? alarm.description.slice(0, 20) + "..."
+                            : alarm.description}
                         </Typography>
                       </Box>
                       <Box mt={0.25}>
-                        <Typography variant={'body1'} color={theme.palette.grey[600]}>
+                        <Typography
+                          variant={"body1"}
+                          color={theme.palette.grey[600]}
+                        >
                           {alarm.date}
                         </Typography>
                       </Box>
@@ -674,9 +718,9 @@ const Alarm = (props: IAlarm) => {
                 {/* {index !== alarmList.length - 1 && ( */}
                 <Divider
                   sx={{
-                    '&.MuiDivider-root': {
-                      marginTop: '0 !important',
-                      marginBottom: '0 !important',
+                    "&.MuiDivider-root": {
+                      marginTop: "0 !important",
+                      marginBottom: "0 !important",
                     },
                   }}
                 />
@@ -684,7 +728,12 @@ const Alarm = (props: IAlarm) => {
               </Box>
             ))}
           </Box>
-          <Box display={'flex'} alignItems={'center'} justifyContent={'center'} mt={1.5}>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            mt={1.5}
+          >
             <Pagination
               count={maxPage}
               page={selectedPage}

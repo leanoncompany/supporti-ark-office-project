@@ -70,7 +70,12 @@ const MultiFileUploader = (props: IMultiFileUploader) => {
               >
                 {/* 파일명 */}
                 <Box>
-                  <Typography variant={"h6"} fontWeight={"bold"}>
+                  <Typography
+                    variant={"h6"}
+                    sx={{
+                      fontWeight: "bold",
+                    }}
+                  >
                     {attachedFile.FILE_NAME}
                   </Typography>
                 </Box>

@@ -242,6 +242,7 @@ export class InputRenderer {
                     labelConfig={{
                       position: "outer",
                       label: data.label,
+                      typograhpyVariant: "body1",
                     }}
                     inputCaptionConfig={Object.assign(
                       {
@@ -279,7 +280,7 @@ export class InputRenderer {
                     labelConfig={{
                       position: "outer",
                       label: data.label,
-                      typograhpyVariant: "body2"
+                      typograhpyVariant: "body1",
                     }}
                     inputCaptionConfig={Object.assign(
                       {
@@ -313,6 +314,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -338,6 +340,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -365,6 +368,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -391,6 +395,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -416,6 +421,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -442,6 +448,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -469,6 +476,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -497,6 +505,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -530,6 +539,7 @@ export class InputRenderer {
               labelConfig={{
                 position: "outer",
                 label: data.label,
+                typograhpyVariant: "body1",
               }}
               inputCaptionConfig={Object.assign(
                 { status: wrappedDatas[0].inputStatus },
@@ -571,6 +581,7 @@ export class InputRenderer {
                   labelConfig={{
                     position: "outer",
                     label: data.label,
+                    typograhpyVariant: "body1",
                   }}
                   inputCaptionConfig={Object.assign(
                     { status: wrappedDatas[0].inputStatus },

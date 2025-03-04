@@ -1,11 +1,17 @@
-import { Box, Typography, Grid, Button } from '@mui/material';
-import { DeletableBadge, InputCore, SelectTypeInput, TextTypeInput } from '@leanoncompany/supporti-react-ui';
-import CloseIcon from '@mui/icons-material/Close';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import SaveIcon from '@mui/icons-material/Save';
-import React, { useEffect, useState, useRef } from 'react';
-import { RegexManager } from '@leanoncompany/supporti-utility';
-import { IInputCore_EXTENDED } from '../../../../@types/external/qillieReactUi';
+import { Box, Typography, Grid, Button } from "@mui/material";
+import {
+  DeletableBadge,
+  InputCore,
+  SelectTypeInput,
+  TextTypeInput,
+} from "@leanoncompany/supporti-react-ui";
+import CloseIcon from "@mui/icons-material/Close";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SaveIcon from "@mui/icons-material/Save";
+import React, { useEffect, useState, useRef } from "react";
+import { RegexManager } from "@leanoncompany/supporti-utility";
+import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IKeyLabelEditorProps extends IInputCore_EXTENDED {
   value: any;
@@ -24,16 +30,17 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
   const [key, setKey] = useState<string | undefined>(undefined);
   const [data, setData] = useState<string | undefined>(undefined);
 
-  const [keyLabelList, setKeyLabelList] = useState<{ key: string; label: string; data?: string }[] | undefined>(
-    undefined
-  );
+  const [keyLabelList, setKeyLabelList] = useState<
+    { key: string; label: string; data?: string }[] | undefined
+  >(undefined);
 
   //* Functions
 
   //* Hooks
   useEffect(() => {
     if (isInitiated.current == false) {
-      const targetValue = typeof props.value == 'string' ? JSON.parse(props.value) : props.value;
+      const targetValue =
+        typeof props.value == "string" ? JSON.parse(props.value) : props.value;
 
       setKeyLabelList(targetValue);
 
@@ -52,10 +59,16 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
       <InputCore
         labelConfig={props.labelConfig}
         inputCaptionConfig={props.inputCaptionConfig}
-        inputStatus={props.inputStatus}>
+        inputStatus={props.inputStatus}
+      >
         {keyLabelList !== undefined && (
-          <Box mb={1} p={1.75} borderRadius={1.5} sx={{ background: '#e6e6e6' }}>
-            <Box p={1.5} borderRadius={1.5} sx={{ background: '#fff' }}>
+          <Box
+            mb={1}
+            p={1.75}
+            borderRadius={1.5}
+            sx={{ background: "#e6e6e6" }}
+          >
+            <Box p={1.5} borderRadius={1.5} sx={{ background: "#fff" }}>
               <Box
                 borderRadius={3}
                 sx={{
@@ -63,21 +76,23 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                   pl: 2,
                   pr: 2,
                   pb: 1,
-                  position: 'relative',
-                  background: 'rgb(242, 242, 243)',
-                  height: '100%',
-                  width: '100%',
-                  minHeight: '64px',
-                }}>
+                  position: "relative",
+                  background: "rgb(242, 242, 243)",
+                  height: "100%",
+                  width: "100%",
+                  minHeight: "64px",
+                }}
+              >
                 {keyLabelList.length == 0 ? (
                   <Box
                     sx={{
-                      position: 'absolute;',
-                      top: '50%;',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%);',
-                    }}>
-                    <Typography variant="body1" sx={{ color: '#9f9f9f' }}>
+                      position: "absolute;",
+                      top: "50%;",
+                      left: "50%",
+                      transform: "translate(-50%, -50%);",
+                    }}
+                  >
+                    <Typography variant="body1" sx={{ color: "#9f9f9f" }}>
                       Empty
                     </Typography>
                   </Box>
@@ -87,13 +102,14 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                       <Box
                         key={index}
                         sx={{
-                          display: 'inline',
+                          display: "inline",
                         }}
-                        mr={1}>
+                        mr={1}
+                      >
                         <DeletableBadge
-                          badgeKey={`${optionElement.label} : ${optionElement.key} ${
-                            props.useData ? `/ ${optionElement.data}` : ''
-                          }`}
+                          badgeKey={`${optionElement.label} : ${
+                            optionElement.key
+                          } ${props.useData ? `/ ${optionElement.data}` : ""}`}
                           deleteCallback={() => {
                             const clonedList = [...keyLabelList];
 
@@ -110,66 +126,68 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
 
               <Box mt={1.5}>
                 <Box>
-                  <Grid container spacing={2} alignItems={'flex-end'}>
-                    <Grid item xs={6} md={props.useData ? 6 : 4.5}>
+                  <Grid2 container spacing={2} alignItems={"flex-end"}>
+                    <Grid2 item xs={6} md={props.useData ? 6 : 4.5}>
                       <TextTypeInput
                         labelConfig={{
-                          position: 'outer',
-                          label: '라벨',
+                          position: "outer",
+                          label: "라벨",
                         }}
                         fullWidth
                         maxLength={20}
-                        placeholder={'라벨을 입력하세요.'}
+                        placeholder={"라벨을 입력하세요."}
                         value={label}
                         setValue={setLabel}
                       />
-                    </Grid>
+                    </Grid2>
 
-                    <Grid item xs={6} md={props.useData ? 6 : 4.5}>
+                    <Grid2 item xs={6} md={props.useData ? 6 : 4.5}>
                       <TextTypeInput
                         labelConfig={{
-                          position: 'outer',
-                          label: '키값',
+                          position: "outer",
+                          label: "키값",
                         }}
                         fullWidth
                         maxLength={20}
-                        placeholder={'키값을 입력하세요.'}
+                        placeholder={"키값을 입력하세요."}
                         value={key}
                         setValue={setKey}
                       />
-                    </Grid>
+                    </Grid2>
 
                     {props.useData && (
-                      <Grid item xs={12} md={12}>
+                      <Grid2 item xs={12} md={12}>
                         <TextTypeInput
                           multiLine={true}
                           labelConfig={{
-                            position: 'outer',
-                            label: '값',
+                            position: "outer",
+                            label: "값",
                           }}
                           fullWidth
                           rows={6}
-                          placeholder={'값을 입력하세요.'}
+                          placeholder={"값을 입력하세요."}
                           value={data}
                           setValue={setData}
                         />
-                      </Grid>
+                      </Grid2>
                     )}
 
-                    <Grid item xs={12} md={props.useData ? 12 : 3}>
+                    <Grid2 item xs={12} md={props.useData ? 12 : 3}>
                       <Button
                         fullWidth
                         sx={{
-                          height: '100%',
-                          minHeight: '53px',
-                          maxWidth: '100%',
+                          height: "100%",
+                          minHeight: "53px",
+                          maxWidth: "100%",
                         }}
                         disabled={
                           label === undefined ||
-                          label === '' ||
+                          label === "" ||
                           key === undefined ||
-                          key === '' ||
-                          (props.useData ? data === undefined || data === '' : false)
+                          key === "" ||
+                          (props.useData
+                            ? data === undefined || data === ""
+                            : false)
                             ? true
                             : false
                         }
@@ -179,14 +197,17 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                             let isAlreadyIn = false;
 
                             for (const keyLabel of keyLabelList) {
-                              if (keyLabel.key == key || keyLabel.label == label) {
+                              if (
+                                keyLabel.key == key ||
+                                keyLabel.label == label
+                              ) {
                                 isAlreadyIn = true;
                                 break;
                               }
                             }
 
                             if (isAlreadyIn) {
-                              alert('같은 키나 라벨은 추가할 수 없습니다!');
+                              alert("같은 키나 라벨은 추가할 수 없습니다!");
                             } else {
                               const clonedList = [...keyLabelList];
 
@@ -200,10 +221,10 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                               };
 
                               if (props.useData) {
-                                if (data !== undefined || data !== '') {
+                                if (data !== undefined || data !== "") {
                                   value.data = data;
                                 } else {
-                                  alert('값을 입력해주세요!');
+                                  alert("값을 입력해주세요!");
                                 }
                               }
 
@@ -212,15 +233,16 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                               setKeyLabelList(clonedList);
                             }
 
-                            setKey('');
-                            setData('');
-                            setLabel('');
+                            setKey("");
+                            setData("");
+                            setLabel("");
                           }
-                        }}>
+                        }}
+                      >
                         <AddCircleIcon />
                       </Button>
-                    </Grid>
-                  </Grid>
+                    </Grid2>
+                  </Grid2>
                 </Box>
               </Box>
             </Box>

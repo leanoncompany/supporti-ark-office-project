@@ -1,12 +1,12 @@
-import { Box, Typography, IconButton } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import BaseList from '../List/base/BaseList/BaseList';
-import { useRouter } from 'next/router';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DataUtil from '../../utils/data/DataUtil';
-import { IListHeader } from '../../@types/layout/list/list';
-import Memory from '../../utils/data/Memory';
-import DefaultController from '../../controller/default/DefaultController';
+import { Box, Typography, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import BaseList from "../List/base/BaseList/BaseList";
+import { useRouter } from "next/router";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DataUtil from "../../utils/data/DataUtil";
+import { IListHeader } from "../../@types/layout/list/list";
+import Memory from "../../utils/data/Memory";
+import DefaultController from "../../controller/default/DefaultController";
 
 interface IDependentListProps {
   dependentModelName: string;
@@ -24,7 +24,10 @@ interface IDependentListProps {
   disablePeriodSetter?: boolean;
   customFilter?: any;
   setCustomFilter?: React.Dispatch<any>;
-  customFilterRender?: (filter?: string, setFilter?: React.Dispatch<any>) => React.ReactElement;
+  customFilterRender?: (
+    filter?: string,
+    setFilter?: React.Dispatch<any>
+  ) => React.ReactElement;
   setAllData?: React.Dispatch<any>;
   allData?: any;
   disableRoute?: boolean;
@@ -41,47 +44,60 @@ const DependentList = (props: IDependentListProps) => {
     <Box>
       {props.modelData !== undefined && (
         <Box>
-          <Box width={'100%'} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+          <Box
+            width={"100%"}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
             {/* 제목 */}
             <Box mr={{ md: 1, xs: 0 }} mb={{ md: 0, xs: 1 }}>
               <Typography
                 variant="h5"
-                fontWeight={500}
                 sx={{
-                  display: 'inline-block',
-                }}>
+                  display: "inline-block",
+                  fontWeight: 500,
+                }}
+              >
                 {props.title}
               </Typography>
             </Box>
 
             {props.disableWriteBtn !== true && (
-              <Box display={'flex'} alignItems={'center'}>
-                <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+              <Box display={"flex"} alignItems={"center"}>
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  alignItems={"center"}
+                >
                   <IconButton
-                    color={'primary'}
+                    color={"primary"}
                     onClick={() => {
                       router.push(
                         `${props.linkDomain}/write?${
-                          dataUtil.convertToUpperCasedUnderbarSeparated(props.dependentModelName) +
-                          '_IDENTIFICATION_CODE'
+                          dataUtil.convertToUpperCasedUnderbarSeparated(
+                            props.dependentModelName
+                          ) + "_IDENTIFICATION_CODE"
                         }=${
                           props.modelData[
-                            dataUtil.convertToUpperCasedUnderbarSeparated(props.dependentModelName) +
-                              '_IDENTIFICATION_CODE'
+                            dataUtil.convertToUpperCasedUnderbarSeparated(
+                              props.dependentModelName
+                            ) + "_IDENTIFICATION_CODE"
                           ].state
                         }`
                       );
                     }}
                     size="small"
-                    sx={{}}>
+                    sx={{}}
+                  >
                     <AddCircleOutlineIcon
                       style={{
-                        fontSize: 'larger',
+                        fontSize: "larger",
                       }}
                     />
                   </IconButton>
-                  <Box mt={'-10px'}>
-                    <Typography variant={'caption'}>생성</Typography>
+                  <Box mt={"-10px"}>
+                    <Typography variant={"caption"}>생성</Typography>
                   </Box>
                 </Box>
               </Box>
@@ -90,21 +106,30 @@ const DependentList = (props: IDependentListProps) => {
 
           <BaseList
             injectedParams={
-              props.injectedParamsCallback !== undefined ? props.injectedParamsCallback(props.modelData) : undefined
+              props.injectedParamsCallback !== undefined
+                ? props.injectedParamsCallback(props.modelData)
+                : undefined
             }
             disableTotal={true}
             disableWriteBtn={true}
             disableLabel={true}
             contentChild={props.contentChild}
             disableSearchArea={true}
-            modelIdKey={dataUtil.convertToUpperCasedUnderbarSeparated(props.modelName) + '_IDENTIFICATION_CODE'}
+            modelIdKey={
+              dataUtil.convertToUpperCasedUnderbarSeparated(props.modelName) +
+              "_IDENTIFICATION_CODE"
+            }
             memory={props.memory}
             getAllCallback={(args, successCallback, failCallback) => {
               controller.getAllItems(
                 Object.assign(args, {
-                  [dataUtil.convertToUpperCasedUnderbarSeparated(props.dependentModelName) + '_IDENTIFICATION_CODE']:
+                  [dataUtil.convertToUpperCasedUnderbarSeparated(
+                    props.dependentModelName
+                  ) + "_IDENTIFICATION_CODE"]:
                     props.modelData[
-                      dataUtil.convertToUpperCasedUnderbarSeparated(props.dependentModelName) + '_IDENTIFICATION_CODE'
+                      dataUtil.convertToUpperCasedUnderbarSeparated(
+                        props.dependentModelName
+                      ) + "_IDENTIFICATION_CODE"
                     ].state,
                 }),
                 successCallback,
@@ -116,7 +141,11 @@ const DependentList = (props: IDependentListProps) => {
             linkCallback={(item) => {
               router.push(
                 `${props.linkDomain}/${
-                  item[dataUtil.convertToUpperCasedUnderbarSeparated(props.modelName) + '_IDENTIFICATION_CODE']
+                  item[
+                    dataUtil.convertToUpperCasedUnderbarSeparated(
+                      props.modelName
+                    ) + "_IDENTIFICATION_CODE"
+                  ]
                 }`
               );
             }}

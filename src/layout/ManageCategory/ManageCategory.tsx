@@ -9,23 +9,26 @@ import {
   Tooltip,
   Typography,
   useTheme,
-} from '@mui/material';
-import { AccordionPanel } from '@leanoncompany/supporti-react-ui';
-import React, { useEffect, useState } from 'react';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
-import { ICategory, ISubCategory } from '../../@types/layout/product/category/category';
-import CategoryController from '../../controller/default/CategoryController';
-import useCategory, { ICategoryTree } from '../../hooks/ecommerce/useCategory';
-import { IUserInputStatus } from '@leanoncompany/supporti-react-ui';
-import CreateCategoryModal from './CreateCategoryModal';
-import DefaultController from '../../controller/default/DefaultController';
-import CreateSubCategoryModal from './CreateSubCategoryModal';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import { useRouter } from 'next/router';
-import { v4 as uuidv4 } from 'uuid';
+} from "@mui/material";
+import { AccordionPanel } from "@leanoncompany/supporti-react-ui";
+import React, { useEffect, useState } from "react";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import LinkRoundedIcon from "@mui/icons-material/LinkRounded";
+import {
+  ICategory,
+  ISubCategory,
+} from "../../@types/layout/product/category/category";
+import CategoryController from "../../controller/default/CategoryController";
+import useCategory, { ICategoryTree } from "../../hooks/ecommerce/useCategory";
+import { IUserInputStatus } from "@leanoncompany/supporti-react-ui";
+import CreateCategoryModal from "./CreateCategoryModal";
+import DefaultController from "../../controller/default/DefaultController";
+import CreateSubCategoryModal from "./CreateSubCategoryModal";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {};
 
@@ -33,26 +36,30 @@ const ManageCategory = (props: Props) => {
   const theme = useTheme();
 
   const router = useRouter();
-  const categoryController = new DefaultController('ProductPrimaryCategory');
-  const subCategoryController = new DefaultController('ProductSubCategory');
+  const categoryController = new DefaultController("ProductPrimaryCategory");
+  const subCategoryController = new DefaultController("ProductSubCategory");
 
   const [categoryList, setCategoryList] = useState<ICategory[]>([]);
 
   // 카테고리 생성 모달 오픈
   const [openCategoryModal, setOpenCategoryModal] = useState<boolean>(false);
-  const [categoryName, setCategoryName] = useState<string>('');
-  const [categoryNameInputStatus, setCategoryNameInputStatus] = useState<IUserInputStatus>({
-    status: 'default',
-  });
+  const [categoryName, setCategoryName] = useState<string>("");
+  const [categoryNameInputStatus, setCategoryNameInputStatus] =
+    useState<IUserInputStatus>({
+      status: "default",
+    });
   // 카테고리 수정 모달 오픈
-  const [openCategoryEditModal, setOpenCategoryEditModal] = useState<boolean>(false);
+  const [openCategoryEditModal, setOpenCategoryEditModal] =
+    useState<boolean>(false);
 
   const [clickedCategoryId, setClickedCategoryId] = useState<number>();
   const [clickedSubCategoryId, setClickedSubCategoryId] = useState<number>();
 
   // 서브카테고리 생성 모달 오픈
-  const [openSubCategoryModal, setOpenSubCategoryModal] = useState<boolean>(false);
-  const [openSubCategoryEditModal, setOpenSubCategoryEditModal] = useState<boolean>(false);
+  const [openSubCategoryModal, setOpenSubCategoryModal] =
+    useState<boolean>(false);
+  const [openSubCategoryEditModal, setOpenSubCategoryEditModal] =
+    useState<boolean>(false);
 
   const { categoryTree, setCategoryTree } = useCategory();
 
@@ -70,11 +77,12 @@ const ManageCategory = (props: Props) => {
         let clonedCategoryTree: ICategory[] = [...categoryList];
         clonedCategoryTree.push({
           name: res.data.result.NAME,
-          primaryCategoryId: res.data.result.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
+          primaryCategoryId:
+            res.data.result.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
         });
         setCategoryList(clonedCategoryTree);
         setOpenCategoryModal(false);
-        setCategoryName('');
+        setCategoryName("");
         routerChange();
       },
       (err: any) => {
@@ -96,15 +104,20 @@ const ManageCategory = (props: Props) => {
             if (el.children) {
               el.children.push({
                 name: res.data.result.NAME,
-                parentPrimaryCategoryId: res.data.result.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
-                subCategoryId: res.data.result.PRODUCT_SUB_CATEGORY_IDENTIFICATION_CODE,
+                parentPrimaryCategoryId:
+                  res.data.result.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
+                subCategoryId:
+                  res.data.result.PRODUCT_SUB_CATEGORY_IDENTIFICATION_CODE,
               });
             } else {
               el.children = [
                 {
                   name: res.data.result.NAME,
-                  parentPrimaryCategoryId: res.data.result.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
-                  subCategoryId: res.data.result.PRODUCT_SUB_CATEGORY_IDENTIFICATION_CODE,
+                  parentPrimaryCategoryId:
+                    res.data.result
+                      .PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
+                  subCategoryId:
+                    res.data.result.PRODUCT_SUB_CATEGORY_IDENTIFICATION_CODE,
                 },
               ];
             }
@@ -112,7 +125,7 @@ const ManageCategory = (props: Props) => {
         });
         setCategoryList(clonedCategoryTree);
         setOpenSubCategoryModal(false);
-        setCategoryName('');
+        setCategoryName("");
         setClickedCategoryId(undefined);
         routerChange();
       },
@@ -138,7 +151,7 @@ const ManageCategory = (props: Props) => {
         setCategoryList(clonedCategoryTree);
         setClickedCategoryId(undefined);
         setOpenCategoryEditModal(false);
-        setCategoryName('');
+        setCategoryName("");
         routerChange();
       },
       (err: any) => {
@@ -167,7 +180,7 @@ const ManageCategory = (props: Props) => {
           }
         });
         setCategoryList(clonedCategoryTree);
-        setCategoryName('');
+        setCategoryName("");
         setClickedSubCategoryId(undefined);
         setOpenSubCategoryEditModal(false);
         routerChange();
@@ -185,7 +198,9 @@ const ManageCategory = (props: Props) => {
       },
       (res: any) => {
         let clonedCategoryTree: ICategory[] = [...categoryList];
-        clonedCategoryTree = clonedCategoryTree.filter((el) => el.primaryCategoryId !== primaryId);
+        clonedCategoryTree = clonedCategoryTree.filter(
+          (el) => el.primaryCategoryId !== primaryId
+        );
         setCategoryList(clonedCategoryTree);
         routerChange();
       },
@@ -204,7 +219,9 @@ const ManageCategory = (props: Props) => {
         let clonedCategoryTree: ICategory[] = [...categoryList];
         clonedCategoryTree.map((el, index) => {
           if (el.primaryCategoryId === primaryId) {
-            el.children = el.children?.filter((el) => el.subCategoryId !== subId);
+            el.children = el.children?.filter(
+              (el) => el.subCategoryId !== subId
+            );
           }
         });
         setCategoryList(clonedCategoryTree);
@@ -224,13 +241,15 @@ const ManageCategory = (props: Props) => {
       cateEl.children.map((el) => {
         clonedSubCate.push({
           name: el.NAME,
-          parentPrimaryCategoryId: el.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
+          parentPrimaryCategoryId:
+            el.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
           subCategoryId: el.PRODUCT_SUB_CATEGORY_IDENTIFICATION_CODE,
         });
       });
       clonedCategory.push({
         name: cateEl.category.NAME,
-        primaryCategoryId: cateEl.category.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
+        primaryCategoryId:
+          cateEl.category.PRODUCT_PRIMARY_CATEGORY_IDENTIFICATION_CODE,
         children: clonedSubCate.length > 0 ? clonedSubCate : undefined,
       });
     });
@@ -238,20 +257,34 @@ const ManageCategory = (props: Props) => {
   }, [categoryTree]);
 
   useEffect(() => {
-    setCategoryName('');
-  }, [openCategoryModal, openCategoryEditModal, openSubCategoryModal, openSubCategoryEditModal]);
+    setCategoryName("");
+  }, [
+    openCategoryModal,
+    openCategoryEditModal,
+    openSubCategoryModal,
+    openSubCategoryEditModal,
+  ]);
 
   return (
-    <Box width={'100%'} display={'flex'} flexDirection={'column'}>
+    <Box width={"100%"} display={"flex"} flexDirection={"column"}>
       {/* 위에 제목, 추가버튼 */}
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
         <Box>
-          <Typography variant={'h5'} fontWeight={'600'}>
+          <Typography
+            variant={"h5"}
+            sx={{
+              fontWeight: "600",
+            }}
+          >
             카테고리 관리
           </Typography>
         </Box>
         <CreateCategoryModal
-          headerLabel={'생성'}
+          headerLabel={"생성"}
           isModal={openCategoryModal}
           setIsModal={setOpenCategoryModal}
           categoryName={categoryName}
@@ -265,10 +298,11 @@ const ManageCategory = (props: Props) => {
               sx={{
                 py: 1,
                 px: 1,
-              }}>
+              }}
+            >
               <AddCircleRoundedIcon
                 style={{
-                  fontSize: 'larger',
+                  fontSize: "larger",
                 }}
                 sx={{
                   color: theme.palette.primary.main,
@@ -279,83 +313,106 @@ const ManageCategory = (props: Props) => {
         />
       </Box>
       {/* 리스트 */}
-      <Box display={'flex'} flexDirection={'column'}>
+      <Box display={"flex"} flexDirection={"column"}>
         {categoryList.map((categoryEl, categoryIndex) => (
           <Accordion
             key={categoryIndex}
             elevation={0}
             sx={{
-              '&:before': {
-                display: 'none',
+              "&:before": {
+                display: "none",
               },
               borderTop: `1px solid ${theme.palette.grey[100]}`,
-              borderBottom: categoryList.length - 1 == categoryIndex ? `1px solid ${theme.palette.grey[100]}` : 'none',
+              borderBottom:
+                categoryList.length - 1 == categoryIndex
+                  ? `1px solid ${theme.palette.grey[100]}`
+                  : "none",
             }}
-            disableGutters={true}>
+            disableGutters={true}
+          >
             <AccordionSummary
               aria-controls="panel1a-content"
               id="panel1a-header"
               sx={{
-                paddingLeft: '20px',
-                paddingRight: '20px',
-                borderRadius: '0',
-                py: '10px',
-                display: 'flex',
-              }}>
-              <Box width={'100%'} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-                <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                paddingLeft: "20px",
+                paddingRight: "20px",
+                borderRadius: "0",
+                py: "10px",
+                display: "flex",
+              }}
+            >
+              <Box
+                width={"100%"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                >
                   <Box
-                    width={'48px'}
-                    height={'48px'}
-                    display={'flex'}
-                    alignItems={'center'}
-                    justifyContent={'center'}
+                    width={"48px"}
+                    height={"48px"}
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
                     mr={2.5}
-                    borderRadius={'4px'}
+                    borderRadius={"4px"}
                     sx={{
-                      backgroundColor: '#ec4c7c',
-                    }}>
+                      backgroundColor: "#ec4c7c",
+                    }}
+                  >
                     <LocalOfferIcon
                       fontSize="small"
                       style={{
-                        color: 'white',
+                        color: "white",
                       }}
                     />
                   </Box>
-                  <Box display={'flex'} alignItems={'center'}>
+                  <Box display={"flex"} alignItems={"center"}>
                     <Box mr={1}></Box>
-                    <Box display={'flex'} flexDirection={'column'}>
+                    <Box display={"flex"} flexDirection={"column"}>
                       <Box>
-                        <Typography variant={'body1'}>{categoryEl.name}</Typography>
+                        <Typography variant={"body1"}>
+                          {categoryEl.name}
+                        </Typography>
                       </Box>
                       <Box>
-                        <Typography variant={'subtitle1'} color={theme.palette.grey[700]}>
-                          {categoryEl.children !== undefined && categoryEl.children.length !== 0
-                            ? categoryEl.children.length + '개의 서브카테고리'
-                            : '서브카테고리 없음'}
+                        <Typography
+                          variant={"subtitle1"}
+                          color={theme.palette.grey[700]}
+                        >
+                          {categoryEl.children !== undefined &&
+                          categoryEl.children.length !== 0
+                            ? categoryEl.children.length + "개의 서브카테고리"
+                            : "서브카테고리 없음"}
                         </Typography>
                       </Box>
                     </Box>
                   </Box>
                 </Box>
-                <Box display={'flex'}>
+                <Box display={"flex"}>
                   <ButtonGroup
                     size="small"
                     aria-label="small button group"
                     sx={{
-                      backgroundColor: '#f0f0f5',
+                      backgroundColor: "#f0f0f5",
                       borderRadius: 2,
-                    }}>
+                    }}
+                  >
                     <Tooltip title="추가">
                       <IconButton
                         onClick={() => {
                           setOpenSubCategoryModal(true);
                           setClickedCategoryId(categoryEl.primaryCategoryId);
-                        }}>
+                        }}
+                      >
                         <AddCircleRoundedIcon
                           sx={{
                             color: theme.palette.primary.main,
-                            fontSize: 'large',
+                            fontSize: "large",
                           }}
                         />
                       </IconButton>
@@ -366,11 +423,12 @@ const ManageCategory = (props: Props) => {
                           setOpenCategoryEditModal(true);
                           setClickedCategoryId(categoryEl.primaryCategoryId);
                           setCategoryName(categoryEl.name);
-                        }}>
+                        }}
+                      >
                         <EditRoundedIcon
                           sx={{
                             color: theme.palette.primary.main,
-                            fontSize: 'large',
+                            fontSize: "large",
                           }}
                         />
                       </IconButton>
@@ -379,11 +437,12 @@ const ManageCategory = (props: Props) => {
                       <IconButton
                         onClick={() => {
                           deleteCategory(categoryEl.primaryCategoryId);
-                        }}>
+                        }}
+                      >
                         <DeleteForeverRoundedIcon
                           sx={{
                             color: theme.palette.primary.main,
-                            fontSize: 'large',
+                            fontSize: "large",
                           }}
                         />
                       </IconButton>
@@ -393,24 +452,30 @@ const ManageCategory = (props: Props) => {
               </Box>
             </AccordionSummary>
             {categoryEl.children !== undefined && (
-              <AccordionDetails sx={{ borderRadius: '0', width: '100%' }}>
+              <AccordionDetails sx={{ borderRadius: "0", width: "100%" }}>
                 {categoryEl.children?.map((el, index) => (
                   <Box
                     key={index}
                     pl={5}
                     mt={index !== 0 ? 2 : 0}
                     py={0.5}
-                    width={'100%'}
-                    display={'flex'}
-                    alignItems={'center'}
-                    justifyContent={'space-between'}
+                    width={"100%"}
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
                     sx={{
-                      '&:hover': {
-                        backgroundColor: '#e2e2e2',
+                      "&:hover": {
+                        backgroundColor: "#e2e2e2",
                       },
-                    }}>
-                    <Box display={'flex'} alignItems={'center'}>
-                      <Box mr={1} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                    }}
+                  >
+                    <Box display={"flex"} alignItems={"center"}>
+                      <Box
+                        mr={1}
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                      >
                         <LinkRoundedIcon
                           fontSize="medium"
                           sx={{
@@ -419,7 +484,7 @@ const ManageCategory = (props: Props) => {
                         />
                       </Box>
                       <Box>
-                        <Typography variant={'body2'}>{el.name}</Typography>
+                        <Typography variant={"body2"}>{el.name}</Typography>
                       </Box>
                     </Box>
                     <Box>
@@ -427,22 +492,26 @@ const ManageCategory = (props: Props) => {
                         size="small"
                         aria-label="small button group"
                         sx={{
-                          backgroundColor: '#f0f0f5',
+                          backgroundColor: "#f0f0f5",
                           borderRadius: 2,
                           marginRight: 0.6,
-                        }}>
+                        }}
+                      >
                         <Tooltip title="수정">
                           <IconButton
                             onClick={() => {
                               setClickedSubCategoryId(el.subCategoryId);
-                              setClickedCategoryId(categoryEl.primaryCategoryId);
+                              setClickedCategoryId(
+                                categoryEl.primaryCategoryId
+                              );
                               setCategoryName(el.name);
                               setOpenSubCategoryEditModal(true);
-                            }}>
+                            }}
+                          >
                             <EditRoundedIcon
                               sx={{
                                 color: theme.palette.primary.main,
-                                fontSize: 'large',
+                                fontSize: "large",
                               }}
                             />
                           </IconButton>
@@ -450,12 +519,16 @@ const ManageCategory = (props: Props) => {
                         <Tooltip title="삭제">
                           <IconButton
                             onClick={() => {
-                              deleteSubCategory(categoryEl.primaryCategoryId, el.subCategoryId);
-                            }}>
+                              deleteSubCategory(
+                                categoryEl.primaryCategoryId,
+                                el.subCategoryId
+                              );
+                            }}
+                          >
                             <DeleteForeverRoundedIcon
                               sx={{
                                 color: theme.palette.primary.main,
-                                fontSize: 'large',
+                                fontSize: "large",
                               }}
                             />
                           </IconButton>
@@ -471,7 +544,7 @@ const ManageCategory = (props: Props) => {
       </Box>
 
       <CreateSubCategoryModal
-        headLabel={'생성'}
+        headLabel={"생성"}
         categoryId={clickedCategoryId}
         isModal={openSubCategoryModal}
         setIsModal={setOpenSubCategoryModal}
@@ -482,7 +555,7 @@ const ManageCategory = (props: Props) => {
         createSubCategory={createSubCategory}
       />
       <CreateSubCategoryModal
-        headLabel={'수정'}
+        headLabel={"수정"}
         categoryId={clickedCategoryId}
         subCategoryId={clickedSubCategoryId}
         isModal={openSubCategoryEditModal}
@@ -494,7 +567,7 @@ const ManageCategory = (props: Props) => {
         updateSubCategory={updateSubCategory}
       />
       <CreateCategoryModal
-        headerLabel={'수정'}
+        headerLabel={"수정"}
         isModal={openCategoryEditModal}
         setIsModal={setOpenCategoryEditModal}
         categoryName={categoryName}

@@ -14,7 +14,6 @@ import Rating from "@mui/material/Rating";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import DefaultController from "../../../../controller/default/DefaultController";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IReviewEditFormProps {
   element: { [key: string]: any };
@@ -172,8 +171,8 @@ const ReviewEditForm = (props: IReviewEditFormProps) => {
       }
     >
       <Box mb={1.5}>
-        <Grid2 container spacing={1}>
-          <Grid2 item xs={12} md={3}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={3}>
             {/* Reviewer nickname */}
             <Box mb={0.6}>
               <Typography variant={"h5"}>
@@ -206,8 +205,8 @@ const ReviewEditForm = (props: IReviewEditFormProps) => {
                 </Typography>
               </Box>
             </Box>
-          </Grid2>
-          <Grid2 item xs={12} md={9}>
+          </Grid>
+          <Grid item xs={12} md={9}>
             <Box>
               <Typography
                 variant={"h6"}
@@ -225,15 +224,15 @@ const ReviewEditForm = (props: IReviewEditFormProps) => {
                   : props.element.REVIEW_CONTENT}
               </Typography>
             </Box>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
 
       {/* 리뷰 답변 섹션 */}
 
-      <Grid2 container spacing={1}>
-        <Grid2 item xs={12} md={3}></Grid2>
-        <Grid2 item xs={12} md={9}>
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={3}></Grid>
+        <Grid item xs={12} md={9}>
           <Box
             borderRadius={1.5}
             p={1.5}
@@ -324,8 +323,8 @@ const ReviewEditForm = (props: IReviewEditFormProps) => {
 
                   {canEdit == true && (
                     <Box mt={3}>
-                      <Grid2 container spacing={1}>
-                        <Grid2 item xs={6} md={6}>
+                      <Grid container spacing={1}>
+                        <Grid item xs={6} md={6}>
                           <Button
                             fullWidth
                             variant={isEditing ? "contained" : "outlined"}
@@ -344,8 +343,8 @@ const ReviewEditForm = (props: IReviewEditFormProps) => {
                           >
                             {isEditing ? "저장하기" : "수정하기"}
                           </Button>
-                        </Grid2>
-                        <Grid2 item xs={6} md={6}>
+                        </Grid>
+                        <Grid item xs={6} md={6}>
                           {isEditing == true && (
                             <Button
                               fullWidth
@@ -360,16 +359,16 @@ const ReviewEditForm = (props: IReviewEditFormProps) => {
                               취소하기
                             </Button>
                           )}
-                        </Grid2>
-                      </Grid2>
+                        </Grid>
+                      </Grid>
                     </Box>
                   )}
                 </Box>
               )}
             </Box>
           </Box>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

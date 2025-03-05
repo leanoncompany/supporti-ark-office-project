@@ -1,10 +1,9 @@
-import { Box, BoxProps, Button, Theme, Typography } from "@mui/material";
+import { Box, BoxProps, Button, Theme, Typography, Grid } from "@mui/material";
 import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import moment from "moment";
 import React, { cloneElement, Dispatch, useEffect, useState } from "react";
 import AuthController from "../../../../controller/default/AuthController";
 import PhoneAuth from "../PhonAuth";
-import Grid2 from "@mui/material/Unstable_Grid2";
 import { SxProps } from "@mui/material/styles";
 
 type Props = {
@@ -223,8 +222,8 @@ const FindPassword = (props: Props) => {
     <React.Fragment>
       {props.passwordStep === 0 ? (
         <Box mt={3}>
-          <Grid2 container>
-            <Grid2
+          <Grid container>
+            <Grid
               item
               md={12}
               xs={12}
@@ -245,8 +244,8 @@ const FindPassword = (props: Props) => {
               >
                 {props.emailLabel}
               </Typography>
-            </Grid2>
-            <Grid2 item md={12} xs={12} mb={1.5}>
+            </Grid>
+            <Grid item md={12} xs={12} mb={1.5}>
               <TextTypeInput
                 labelConfig={
                   props.emailLabel === undefined
@@ -283,8 +282,8 @@ const FindPassword = (props: Props) => {
                   }
                 }}
               />
-            </Grid2>
-            <Grid2 item md={12} xs={12}>
+            </Grid>
+            <Grid item md={12} xs={12}>
               <PhoneAuth
                 verifyInputStatus={verifyCodeInputStatus}
                 setVerifyInputStatus={setVerifyCodeInputStatus}
@@ -355,9 +354,9 @@ const FindPassword = (props: Props) => {
                 }
                 userName={userName}
               />
-            </Grid2>
+            </Grid>
             {props.thirdText !== undefined && props.thirdText}
-            <Grid2
+            <Grid
               item
               md={12}
               xs={12}
@@ -387,13 +386,13 @@ const FindPassword = (props: Props) => {
                     : "비밀번호 찾기"}
                 </Button>
               )}
-            </Grid2>
+            </Grid>
             {props.goToLogin !== undefined && props.goToLogin}
-          </Grid2>
+          </Grid>
         </Box>
       ) : (
-        <Grid2 container mt={3}>
-          <Grid2
+        <Grid container mt={3}>
+          <Grid
             item
             md={12}
             xs={12}
@@ -458,8 +457,8 @@ const FindPassword = (props: Props) => {
                 }
               }}
             />
-          </Grid2>
-          <Grid2
+          </Grid>
+          <Grid
             item
             md={12}
             xs={12}
@@ -528,9 +527,9 @@ const FindPassword = (props: Props) => {
                 }
               }}
             />
-          </Grid2>
+          </Grid>
           {props.fourthText !== undefined && props.fourthText}
-          <Grid2 item md={12} xs={12}>
+          <Grid item md={12} xs={12}>
             {props.passwordChangeBtn !== undefined ? (
               cloneElement(props.passwordChangeBtn, {
                 onClick: () => {
@@ -557,9 +556,9 @@ const FindPassword = (props: Props) => {
                 변경하기
               </Button>
             )}
-          </Grid2>
+          </Grid>
           {props.goToLogin !== undefined && props.goToLogin}
-        </Grid2>
+        </Grid>
       )}
     </React.Fragment>
   );

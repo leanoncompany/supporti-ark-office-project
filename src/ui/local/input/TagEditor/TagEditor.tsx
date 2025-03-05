@@ -12,7 +12,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { RegexManager } from "@leanoncompany/supporti-utility";
 import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
 import AutoCompleteSelector from "../AutoCompleteSelector";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface ITagEditorProps extends IInputCore_EXTENDED {
   value: any;
@@ -135,8 +134,8 @@ const TagEditor = (props: ITagEditorProps) => {
 
               <Box mt={1.5}>
                 <Box>
-                  <Grid2 container spacing={2} alignItems={"flex-end"}>
-                    <Grid2 item xs={12} md={8}>
+                  <Grid container spacing={2} alignItems={"flex-end"}>
+                    <Grid item xs={12} md={8}>
                       {props.directInput !== undefined &&
                       props.directInput == true ? (
                         <TextTypeInput
@@ -183,9 +182,9 @@ const TagEditor = (props: ITagEditorProps) => {
                           selectDataLabelKey={"label"}
                         />
                       )}
-                    </Grid2>
+                    </Grid>
 
-                    <Grid2 item xs={12} md={4}>
+                    <Grid item xs={12} md={4}>
                       <Button
                         fullWidth
                         sx={{
@@ -220,8 +219,8 @@ const TagEditor = (props: ITagEditorProps) => {
                       >
                         <AddCircleIcon />
                       </Button>
-                    </Grid2>
-                  </Grid2>
+                    </Grid>
+                  </Grid>
                 </Box>
               </Box>
             </Box>

@@ -10,7 +10,6 @@ import moment from "moment";
 import { DateFilterModal } from "./children/DateFilterModal";
 import { ShopFilterModal } from "./children/ShopFilterModal";
 import { ISelectedDeliveryShopFilterValue } from "./children/ShopFilterModal/ShopFilterModal";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IDeliveryAppItemFilterProps {
   memory: any;
@@ -89,9 +88,9 @@ const DeliveryAppItemFilter = (props: IDeliveryAppItemFilterProps) => {
     <Box>
       {/* 필터 */}
       <Box border={"1px solid rgba(0,0,0,.1)"} borderRadius={1}>
-        <Grid2 container>
+        <Grid container>
           {/* 시간 필터 */}
-          <Grid2 item xs={12} md={4}>
+          <Grid item xs={12} md={4}>
             <DateFilterModal
               memory={props.memory}
               startDate={startDate}
@@ -100,10 +99,10 @@ const DeliveryAppItemFilter = (props: IDeliveryAppItemFilterProps) => {
               setEndDate={setEndDate}
               injectedDateRange={props.injectedDateRange}
             />
-          </Grid2>
+          </Grid>
 
           {/* 데이터 필터 */}
-          <Grid2 item xs={12} md={8}>
+          <Grid item xs={12} md={8}>
             {shopFilterOption !== undefined && (
               <ShopFilterModal
                 value={shopFilterOption}
@@ -112,8 +111,8 @@ const DeliveryAppItemFilter = (props: IDeliveryAppItemFilterProps) => {
                 deliveryAppServiceMemberId={props.deliveryAppServiceMemberId}
               />
             )}
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );

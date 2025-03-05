@@ -8,7 +8,6 @@ import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { DateSelectPicker } from "../../../../ui/local/utils/DateSelectPicker";
 import moment from "moment";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 export interface IDeliveryAppCardSummary {
   label: string;
@@ -41,9 +40,9 @@ const DeliveryAppCardViewer = (props: IDeliveryAppCardViewerProps) => {
   //* Components
   return (
     <Box>
-      <Grid2 container spacing={1.5}>
+      <Grid container spacing={1.5}>
         {props.summaryList.map((summary, summaryIndex) => (
-          <Grid2 item xs={12} md={6}>
+          <Grid item xs={12} md={6}>
             <CardContent
               onClick={() => {
                 props.setActivatedSummaryIndex(summaryIndex);
@@ -129,9 +128,9 @@ const DeliveryAppCardViewer = (props: IDeliveryAppCardViewerProps) => {
                 </Box>
               </Box>
             </CardContent>
-          </Grid2>
+          </Grid>
         ))}
-      </Grid2>
+      </Grid>
     </Box>
   );
 };

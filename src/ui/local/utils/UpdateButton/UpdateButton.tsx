@@ -1,11 +1,11 @@
-import { IconButton, Button, Box, Typography } from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { IconButton, Button, Box, Typography } from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 
-import usePageRole from '../../../../hooks/pages/usePageRole';
-import DataUtil from '../../../../utils/data/DataUtil';
-import { IUpdateButtonProps } from '../../../../@types/ui/local/utils';
+import usePageRole from "../../../../hooks/pages/usePageRole";
+import DataUtil from "../../../../utils/data/DataUtil";
+import { IUpdateButtonProps } from "../../../../@types/ui/local/utils";
 
 const UpdateButton = (props: IUpdateButtonProps) => {
   //* Modules
@@ -14,12 +14,12 @@ const UpdateButton = (props: IUpdateButtonProps) => {
 
   //* States
   const { pageRole, pid } = usePageRole();
-  const [finalPageRole, setFinalPageRole] = React.useState<string>('');
+  const [finalPageRole, setFinalPageRole] = React.useState<string>("");
 
   const setFindOneOption = () => {
     const findOneOption: { [key: string]: any } = {};
 
-    if (finalPageRole === 'upsert') {
+    if (finalPageRole === "upsert") {
       findOneOption[props.modelIdKey] = 1;
     } else {
       if (props.data !== undefined) {
@@ -48,20 +48,21 @@ const UpdateButton = (props: IUpdateButtonProps) => {
     props.dataList.map((data) => {
       data.keys.map((key) => {
         let isValidated: boolean = true;
-        const setInputStatusCallback = props.wrappedDataDict[key].setInputStatus;
+        const setInputStatusCallback =
+          props.wrappedDataDict[key].setInputStatus;
 
-        console.log('키와 값 입니다.');
+        console.log("키와 값 입니다.");
         console.log(key);
         console.log(props.wrappedDataDict[key].state);
         console.log(typeof props.wrappedDataDict[key].state);
 
         if (data.isOptional !== true) {
           switch (typeof props.wrappedDataDict[key].state) {
-            case 'string':
+            case "string":
               if (props.wrappedDataDict[key].state.length === 0) {
                 if (setInputStatusCallback !== undefined) {
                   setInputStatusCallback({
-                    status: 'required',
+                    status: "required",
                   });
                 }
                 isValidated = false;
@@ -69,11 +70,11 @@ const UpdateButton = (props: IUpdateButtonProps) => {
 
               break;
 
-            case 'object':
+            case "object":
               if (props.wrappedDataDict[key].state === null) {
                 if (setInputStatusCallback !== undefined) {
                   setInputStatusCallback({
-                    status: 'required',
+                    status: "required",
                   });
 
                   isValidated = false;
@@ -82,7 +83,7 @@ const UpdateButton = (props: IUpdateButtonProps) => {
                 if (props.wrappedDataDict[key].state.length === 0) {
                   if (setInputStatusCallback !== undefined) {
                     setInputStatusCallback({
-                      status: 'required',
+                      status: "required",
                     });
 
                     isValidated = false;
@@ -96,7 +97,7 @@ const UpdateButton = (props: IUpdateButtonProps) => {
 
         if (isValidated) {
           switch (data.ui) {
-            case 'autoCompleteSelector':
+            case "autoCompleteSelector":
               if (props.wrappedDataDict[key].state !== null) {
                 if (props.wrappedDataDict[key].state === -999) {
                   if (data.isOptional === true) {
@@ -108,7 +109,7 @@ const UpdateButton = (props: IUpdateButtonProps) => {
                   } else {
                     if (setInputStatusCallback !== undefined) {
                       setInputStatusCallback({
-                        status: 'required',
+                        status: "required",
                       });
 
                       isValidated = false;
@@ -121,21 +122,25 @@ const UpdateButton = (props: IUpdateButtonProps) => {
           }
 
           switch (data.type) {
-            case 'password':
+            case "password":
               if (props.wrappedDataDict[key].state.length != 0) {
                 if (
-                  props.wrappedDataDict[key].state != props.wrappedDataDict[key]?.extendedStates?.passwordConfirm?.state
+                  props.wrappedDataDict[key].state !=
+                  props.wrappedDataDict[key]?.extendedStates?.passwordConfirm
+                    ?.state
                 ) {
-                  props.wrappedDataDict[key]?.extendedStates?.passwordConfirmInputStatus?.setter({
-                    status: 'required',
+                  props.wrappedDataDict[
+                    key
+                  ]?.extendedStates?.passwordConfirmInputStatus?.setter({
+                    status: "required",
                   });
                   isValidated = false;
                 }
               } else {
-                if (finalPageRole == 'write') {
+                if (finalPageRole == "write") {
                   if (setInputStatusCallback !== undefined) {
                     setInputStatusCallback({
-                      status: 'required',
+                      status: "required",
                     });
 
                     isValidated = false;
@@ -146,11 +151,14 @@ const UpdateButton = (props: IUpdateButtonProps) => {
           }
 
           switch (key) {
-            case 'USER_NAME':
-              if (props.wrappedDataDict[key]?.extendedStates?.doubleCheckPassed?.state == false) {
+            case "USER_NAME":
+              if (
+                props.wrappedDataDict[key]?.extendedStates?.doubleCheckPassed
+                  ?.state == false
+              ) {
                 if (setInputStatusCallback !== undefined) {
                   setInputStatusCallback({
-                    status: 'required',
+                    status: "required",
                   });
 
                   isValidated = false;
@@ -159,23 +167,28 @@ const UpdateButton = (props: IUpdateButtonProps) => {
 
               break;
 
-            case 'PASSWORD':
+            case "PASSWORD":
+              console.log(props.wrappedDataDict);
               if (props.wrappedDataDict[key].state.length != 0) {
                 if (
-                  props.wrappedDataDict[key].state != props.wrappedDataDict[key]?.extendedStates?.passwordConfirm?.state
+                  props.wrappedDataDict[key].state !=
+                  props.wrappedDataDict[key]?.extendedStates?.passwordConfirm
+                    ?.state
                 ) {
-                  props.wrappedDataDict[key]?.extendedStates?.passwordConfirmInputStatus?.setter({
-                    status: 'required',
+                  props.wrappedDataDict[
+                    key
+                  ]?.extendedStates?.passwordConfirmInputStatus?.setter({
+                    status: "required",
                   });
                   isValidated = false;
                 }
               } else {
-                if (finalPageRole == 'write') {
+                if (finalPageRole == "write") {
                   if (setInputStatusCallback !== undefined) {
                     setInputStatusCallback({
-                      status: 'required',
+                      status: "required",
                     });
-
+                    console.log("비밀번호가 비어있음");
                     isValidated = false;
                   }
                 }
@@ -197,14 +210,20 @@ const UpdateButton = (props: IUpdateButtonProps) => {
 
     //* Update or create data
     if (isAllValidated) {
-      const flattenDataDict = dataUtil.flatWrapedDataDict(props.wrappedDataDict);
+      const flattenDataDict = dataUtil.flatWrapedDataDict(
+        props.wrappedDataDict
+      );
 
-      if (finalPageRole === 'write' && props.createCallback !== undefined) {
+      if (finalPageRole === "write" && props.createCallback !== undefined) {
         const dependentModelData = props.dependentModelData;
 
-        if (props.dependentModelIdKey !== undefined && dependentModelData !== undefined) {
-          if (typeof props.dependentModelIdKey === 'string') {
-            flattenDataDict[props.dependentModelIdKey] = dependentModelData[props.dependentModelIdKey].state;
+        if (
+          props.dependentModelIdKey !== undefined &&
+          dependentModelData !== undefined
+        ) {
+          if (typeof props.dependentModelIdKey === "string") {
+            flattenDataDict[props.dependentModelIdKey] =
+              dependentModelData[props.dependentModelIdKey].state;
           } else {
             props.dependentModelIdKey.map((key) => {
               flattenDataDict[key] = dependentModelData[key].state;
@@ -214,7 +233,7 @@ const UpdateButton = (props: IUpdateButtonProps) => {
         props.createCallback(
           flattenDataDict,
           (response) => {
-            alert('생성되었습니다.');
+            alert("생성되었습니다.");
 
             if (props.disableNavigateAfterAction !== true) {
               router.back();
@@ -222,34 +241,37 @@ const UpdateButton = (props: IUpdateButtonProps) => {
           },
           (err) => {
             console.log(err);
-            alert('생성에 실패했습니다.');
+            alert("생성에 실패했습니다.");
           }
         );
-      } else if ((finalPageRole === 'edit' || finalPageRole === 'upsert') && props.updateCallback !== undefined) {
+      } else if (
+        (finalPageRole === "edit" || finalPageRole === "upsert") &&
+        props.updateCallback !== undefined
+      ) {
         const findOneOption: { [key: string]: any } = setFindOneOption();
-        if ('PASSWORD' in findOneOption) {
-          if (findOneOption['PASSWORD'].length === 0) {
-            delete findOneOption['PASSWORD'];
+        if ("PASSWORD" in findOneOption) {
+          if (findOneOption["PASSWORD"].length === 0) {
+            delete findOneOption["PASSWORD"];
           }
         }
 
         props.updateCallback(
           Object.assign(findOneOption, flattenDataDict),
           (response) => {
-            alert('업데이트되었습니다.');
+            alert("업데이트되었습니다.");
 
-            if (finalPageRole === 'edit') {
+            if (finalPageRole === "edit") {
               if (props.disableNavigateAfterAction !== true) {
                 router.back();
               }
             }
           },
           (err) => {
-            alert('업데이트에 실패했습니다.');
+            alert("업데이트에 실패했습니다.");
           }
         );
       } else {
-        throw new Error('pageRole is not defined');
+        throw new Error("pageRole is not defined");
       }
     } else {
       //* 에러
@@ -260,48 +282,56 @@ const UpdateButton = (props: IUpdateButtonProps) => {
   return (
     <React.Fragment>
       {props.disableUpdate === true ? (
-        finalPageRole === 'write' ? (
-          props.buttonType === 'icon' || props.buttonType === undefined ? (
-            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+        finalPageRole === "write" ? (
+          props.buttonType === "icon" || props.buttonType === undefined ? (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+            >
               <IconButton
-                color={'primary'}
+                color={"primary"}
                 onClick={async () => {
                   onClickButton();
-                }}>
+                }}
+              >
                 <SaveIcon />
               </IconButton>
-              <Box mt={'-10px'}>
-                <Typography variant={'caption'}>저장</Typography>
+              <Box mt={"-10px"}>
+                <Typography variant={"caption"}>저장</Typography>
               </Box>
             </Box>
           ) : (
             <Button
               onClick={async () => {
                 onClickButton();
-              }}>
-              {finalPageRole === 'write' ? '생성' : '업데이트'}
+              }}
+            >
+              {finalPageRole === "write" ? "생성" : "업데이트"}
             </Button>
           )
         ) : null
-      ) : props.buttonType === 'icon' || props.buttonType === undefined ? (
-        <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+      ) : props.buttonType === "icon" || props.buttonType === undefined ? (
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
           <IconButton
-            color={'primary'}
+            color={"primary"}
             onClick={async () => {
               onClickButton();
-            }}>
+            }}
+          >
             <SaveIcon />
           </IconButton>
-          <Box mt={'-10px'}>
-            <Typography variant={'caption'}>저장</Typography>
+          <Box mt={"-10px"}>
+            <Typography variant={"caption"}>저장</Typography>
           </Box>
         </Box>
       ) : (
         <Button
           onClick={async () => {
             onClickButton();
-          }}>
-          {finalPageRole === 'write' ? '생성' : '업데이트'}
+          }}
+        >
+          {finalPageRole === "write" ? "생성" : "업데이트"}
         </Button>
       )}
     </React.Fragment>

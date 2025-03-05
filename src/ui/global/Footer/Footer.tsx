@@ -6,7 +6,6 @@ import { useTheme } from "@mui/material";
 //* Import interfaces
 import { Link } from "@leanoncompany/supporti-react-ui";
 import IFooterProps from "../../../@types/ui/global/footer";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 const Footer = (props: IFooterProps) => {
   //* IFooterProps
@@ -21,9 +20,9 @@ const Footer = (props: IFooterProps) => {
       {...props.wrapperBoxProps}
     >
       <Container>
-        <Grid2 container rowSpacing={3}>
+        <Grid container rowSpacing={3}>
           {/* About */}
-          <Grid2 item xs={12} sm={6}>
+          <Grid item xs={12} sm={6}>
             {/* Term links */}
             {props.terms !== undefined && (
               <Box display={"flex"} mb={4}>
@@ -88,10 +87,10 @@ const Footer = (props: IFooterProps) => {
                 </Typography>
               </Box>
             )}
-          </Grid2>
+          </Grid>
 
           {/* Contacts */}
-          <Grid2 item display={{ xs: "none", sm: "block" }} sm={6}>
+          <Grid item display={{ xs: "none", sm: "block" }} sm={6}>
             {props.contact !== undefined && (
               <Box
                 display={"flex"}
@@ -165,8 +164,8 @@ const Footer = (props: IFooterProps) => {
                 </Box>
               </Box>
             )}
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

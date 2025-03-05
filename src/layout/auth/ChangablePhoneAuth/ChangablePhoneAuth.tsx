@@ -1,4 +1,4 @@
-import { Box, Typography, Button, useTheme } from "@mui/material";
+import { Box, Typography, Button, useTheme, Grid } from "@mui/material";
 import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import { RegexManager } from "@leanoncompany/supporti-utility";
 import React from "react";
@@ -6,7 +6,6 @@ import React from "react";
 import { IUserInputCaption } from "../../../@types/external/qillieReactUi";
 import AuthController from "../../../controller/default/AuthController";
 import Timer from "../FindAccount/PhonAuth/Timer";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 // type Props = {};
 
@@ -299,8 +298,8 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
         </Typography>
       </Box>
 
-      <Grid2 container spacing={1} alignItems={"flex-start"}>
-        <Grid2 item md={9} xs={8} flexDirection={"column"}>
+      <Grid container spacing={1} alignItems={"flex-start"}>
+        <Grid item md={9} xs={8} sx={{ flexDirection: "column" }}>
           <TextTypeInput
             fullWidth
             maxLength={4}
@@ -367,9 +366,9 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
               });
             }}
           />
-        </Grid2>
+        </Grid>
 
-        <Grid2 item md={3} xs={4}>
+        <Grid item md={3} xs={4}>
           <Button
             onClick={() => {
               validateAuthCode();
@@ -393,8 +392,8 @@ const ChangablePhoneAuth = (props: IPhoneAuthSection) => {
           >
             인증하기
           </Button>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

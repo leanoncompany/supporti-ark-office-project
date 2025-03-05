@@ -5,7 +5,6 @@ import {
 } from "@leanoncompany/supporti-react-ui";
 import React, { useState } from "react";
 import { IUserInputStatus } from "../../@types/external/qillieReactUi";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 type Props = {
   bankType: string | undefined;
@@ -160,8 +159,8 @@ const RegistBankAccount = (props: Props) => {
       )}
 
       <Box>
-        <Grid2 container spacing={1}>
-          <Grid2 item xs={4}>
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
             <SelectTypeInput
               disabled={props.disabled}
               placeHolderConfig={{
@@ -197,9 +196,9 @@ const RegistBankAccount = (props: Props) => {
               placeholder={"은행"}
               selectableList={bankName}
             ></SelectTypeInput>
-          </Grid2>
+          </Grid>
 
-          <Grid2 item xs={8}>
+          <Grid item xs={8}>
             <TextTypeInput
               disabled={props.disabled}
               fullWidth
@@ -221,8 +220,8 @@ const RegistBankAccount = (props: Props) => {
                 }
               }}
             />
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );

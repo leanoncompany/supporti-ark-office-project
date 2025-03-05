@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, Grid, useTheme } from "@mui/material";
 import {
   InputCore,
   IUserInputStatus,
@@ -9,7 +9,6 @@ import React, { useState, useEffect } from "react";
 import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
 import SearchArea from "../../../../layout/SearchArea";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface ISearchSelectorProps extends IInputCore_EXTENDED {
   value: any;
@@ -173,8 +172,8 @@ const SearchSelector = (props: ISearchSelectorProps) => {
                   >
                     {props.renderCallback !== undefined && (
                       <Box>
-                        <Grid2 container spacing={1.5}>
-                          <Grid2 item xs={2.5}>
+                        <Grid container spacing={1.5}>
+                          <Grid item xs={2.5}>
                             <Box
                               width={"100%"}
                               height={"100%"}
@@ -191,12 +190,12 @@ const SearchSelector = (props: ISearchSelectorProps) => {
                                 }}
                               />
                             </Box>
-                          </Grid2>
+                          </Grid>
 
-                          <Grid2 item xs={9.5}>
+                          <Grid item xs={9.5}>
                             {props.renderCallback(item, handleIsSelected(item))}
-                          </Grid2>
-                        </Grid2>
+                          </Grid>
+                        </Grid>
                       </Box>
                     )}
                   </Box>

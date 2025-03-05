@@ -8,8 +8,8 @@ import {
   ButtonProps,
   Theme,
   SxProps,
+  Grid,
 } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2";
 import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import { RegexManager } from "@leanoncompany/supporti-utility";
 import React from "react";
@@ -383,12 +383,12 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
           </Box>
         )}
 
-        <Grid2 container spacing={1} alignItems={"flex-start"}>
-          <Grid2
+        <Grid container spacing={1} alignItems={"flex-start"}>
+          <Grid
             item
             md={props.disableButton !== true ? 9 : 12}
             xs={8}
-            flexDirection={"column"}
+            sx={{ flexDirection: "column" }}
           >
             <TextTypeInput
               fullWidth
@@ -434,9 +434,9 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
                 });
               }}
             />
-          </Grid2>
+          </Grid>
 
-          <Grid2
+          <Grid
             item
             md={props.disableButton !== true ? 3 : 0}
             xs={props.disableButton !== true ? 4 : 0}
@@ -462,8 +462,8 @@ const PhoneAuth = (props: IPhoneAuthSection) => {
                 인증하기
               </Button>
             )}
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );

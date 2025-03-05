@@ -11,7 +11,6 @@ import SaveIcon from "@mui/icons-material/Save";
 import React, { useEffect, useState, useRef } from "react";
 import { RegexManager } from "@leanoncompany/supporti-utility";
 import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IKeyLabelEditorProps extends IInputCore_EXTENDED {
   value: any;
@@ -126,8 +125,8 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
 
               <Box mt={1.5}>
                 <Box>
-                  <Grid2 container spacing={2} alignItems={"flex-end"}>
-                    <Grid2 item xs={6} md={props.useData ? 6 : 4.5}>
+                  <Grid container spacing={2} alignItems={"flex-end"}>
+                    <Grid item xs={6} md={props.useData ? 6 : 4.5}>
                       <TextTypeInput
                         labelConfig={{
                           position: "outer",
@@ -139,9 +138,9 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                         value={label}
                         setValue={setLabel}
                       />
-                    </Grid2>
+                    </Grid>
 
-                    <Grid2 item xs={6} md={props.useData ? 6 : 4.5}>
+                    <Grid item xs={6} md={props.useData ? 6 : 4.5}>
                       <TextTypeInput
                         labelConfig={{
                           position: "outer",
@@ -153,10 +152,10 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                         value={key}
                         setValue={setKey}
                       />
-                    </Grid2>
+                    </Grid>
 
                     {props.useData && (
-                      <Grid2 item xs={12} md={12}>
+                      <Grid item xs={12} md={12}>
                         <TextTypeInput
                           multiLine={true}
                           labelConfig={{
@@ -169,10 +168,10 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                           value={data}
                           setValue={setData}
                         />
-                      </Grid2>
+                      </Grid>
                     )}
 
-                    <Grid2 item xs={12} md={props.useData ? 12 : 3}>
+                    <Grid item xs={12} md={props.useData ? 12 : 3}>
                       <Button
                         fullWidth
                         sx={{
@@ -241,8 +240,8 @@ const KeyLabelEditor = (props: IKeyLabelEditorProps) => {
                       >
                         <AddCircleIcon />
                       </Button>
-                    </Grid2>
-                  </Grid2>
+                    </Grid>
+                  </Grid>
                 </Box>
               </Box>
             </Box>

@@ -2,7 +2,6 @@ import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import { AddressPicker } from "@leanoncompany/supporti-react-ui";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IAddressProps {
   postCode: any;
@@ -26,14 +25,14 @@ const Address = (props: IAddressProps) => {
 
   return (
     <Box>
-      <Grid2 container mb={2.5}>
-        <Grid2 item md={12} xs={12} mb={1}>
+      <Grid container mb={2.5}>
+        <Grid item md={12} xs={12} mb={1}>
           <Box mb={1}>
             <Typography variant={"caption"}>{props.label}</Typography>
           </Box>
 
-          <Grid2 spacing={1} container alignItems={"flex-start"}>
-            <Grid2 item md={9} xs={8}>
+          <Grid spacing={1} container alignItems={"flex-start"}>
+            <Grid item md={9} xs={8}>
               <TextTypeInput
                 value={props.postCode}
                 setValue={props.setPostCode}
@@ -46,9 +45,9 @@ const Address = (props: IAddressProps) => {
                   errorMessage: "우편번호를 선택해주세요",
                 }}
               />
-            </Grid2>
+            </Grid>
 
-            <Grid2
+            <Grid
               item
               md={3}
               xs={4}
@@ -89,11 +88,11 @@ const Address = (props: IAddressProps) => {
                   props.setBasicAddress(fullAddress);
                 }}
               />
-            </Grid2>
-          </Grid2>
-        </Grid2>
+            </Grid>
+          </Grid>
+        </Grid>
 
-        <Grid2 item md={12} xs={12} mb={"8px"}>
+        <Grid item md={12} xs={12} mb={"8px"}>
           <TextTypeInput
             value={props.basicAddress}
             setValue={props.setBasicAddress}
@@ -106,8 +105,8 @@ const Address = (props: IAddressProps) => {
               errorMessage: "기본 주소를 선택해주세요",
             }}
           />
-        </Grid2>
-        <Grid2 item md={12} xs={12}>
+        </Grid>
+        <Grid item md={12} xs={12}>
           <TextTypeInput
             fullWidth
             maxLength={20}
@@ -126,8 +125,8 @@ const Address = (props: IAddressProps) => {
               }
             }}
           />
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

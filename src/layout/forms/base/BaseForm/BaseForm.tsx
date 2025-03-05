@@ -8,7 +8,6 @@ import usePageRole from "../../../../hooks/pages/usePageRole";
 import { IBaseFormProps } from "../../../../@types/layout/forms/base";
 import { IWrappedData } from "../../../../@types/base/data";
 import usePageLabel from "../../../../hooks/data/usePageLabel";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 const BaseForm = (props: IBaseFormProps) => {
   //* Modules
@@ -112,11 +111,11 @@ const BaseForm = (props: IBaseFormProps) => {
 
         {/* Contents */}
         <Box>
-          <Grid2 container spacing={1.5} alignItems={"flex-end"}>
+          <Grid container spacing={1.5} alignItems={"flex-end"}>
             {Object.keys(wrappedDataDict).length != 0 &&
               props.dataList.map((data) => {
                 return (
-                  <Grid2
+                  <Grid
                     item
                     {...data.grid}
                     key={JSON.stringify(data.keys)}
@@ -133,13 +132,13 @@ const BaseForm = (props: IBaseFormProps) => {
                       props.pageRole || pageRole,
                       props.disableUpdate
                     )}
-                  </Grid2>
+                  </Grid>
                 );
               })}
 
             {/* 커스텀 랜더링 */}
             {props.injectedComponent}
-          </Grid2>
+          </Grid>
         </Box>
       </Box>
     </Box>

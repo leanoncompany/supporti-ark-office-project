@@ -5,6 +5,7 @@ import {
   CircularProgress,
   Fade,
   FormControlLabel,
+  Grid,
   IconButton,
   Modal,
   Pagination,
@@ -35,7 +36,6 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import EmptyList from "../../../../ui/local/display/EmptyList";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IDeliveryAppAccountControlModalProps {
   memory: Memory;
@@ -717,9 +717,9 @@ const DeliveryAppAccountControlModal = (
                   <Box>
                     {/* 가게 기본 정보 */}
                     <Box mb={1.5}>
-                      <Grid2 container spacing={1.5}>
+                      <Grid container spacing={1.5}>
                         {createCardData(modelData).map((cardData) => (
-                          <Grid2 item xs={cardData.xs} md={cardData.md}>
+                          <Grid item xs={cardData.xs} md={cardData.md}>
                             <TextTypeInput
                               fullWidth
                               labelConfig={{
@@ -728,9 +728,9 @@ const DeliveryAppAccountControlModal = (
                               }}
                               value={cardData.value}
                             />
-                          </Grid2>
+                          </Grid>
                         ))}
-                      </Grid2>
+                      </Grid>
                     </Box>
                     {/* 하위 계정 리스트 */}
                     <Box mb={1}>
@@ -755,9 +755,9 @@ const DeliveryAppAccountControlModal = (
                       {shopList.length === 0 ? (
                         <EmptyList />
                       ) : (
-                        <Grid2 container spacing={1.75}>
+                        <Grid container spacing={1.75}>
                           {shopList.map((shop, index) => (
-                            <Grid2 item xs={12} md={6}>
+                            <Grid item xs={12} md={6}>
                               <Box
                                 key={index}
                                 onClick={() => {
@@ -787,12 +787,12 @@ const DeliveryAppAccountControlModal = (
                                   },
                                 }}
                               >
-                                <Grid2
+                                <Grid
                                   container
                                   alignItems={"center"}
                                   spacing={1.5}
                                 >
-                                  <Grid2 item xs={2.5}>
+                                  <Grid item xs={2.5}>
                                     <Box
                                       width={"100%"}
                                       height={"100%"}
@@ -811,9 +811,9 @@ const DeliveryAppAccountControlModal = (
                                         }}
                                       />
                                     </Box>
-                                  </Grid2>
+                                  </Grid>
 
-                                  <Grid2 item xs={9.5}>
+                                  <Grid item xs={9.5}>
                                     <Box>
                                       <Typography
                                         variant={"h6"}
@@ -842,12 +842,12 @@ const DeliveryAppAccountControlModal = (
                                           : "비활성화"}
                                       </Typography>
                                     </Box>
-                                  </Grid2>
-                                </Grid2>
+                                  </Grid>
+                                </Grid>
                               </Box>
-                            </Grid2>
+                            </Grid>
                           ))}
-                        </Grid2>
+                        </Grid>
                       )}
                     </Box>
                   </Box>

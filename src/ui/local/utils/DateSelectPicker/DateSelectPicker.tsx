@@ -15,7 +15,6 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import Select from "../../input/Select/Select";
 import { IUserInputStatus } from "../../../../@types/external/qillieReactUi";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IDateSelectPickerProps {
   startDate: Date | null;
@@ -195,7 +194,7 @@ const DateSelectPicker = (props: IDateSelectPickerProps) => {
 
   return (
     <Box>
-      <Grid2
+      <Grid
         container
         columnSpacing={{ xs: 0.5, md: 2 }}
         mt={1}
@@ -203,7 +202,7 @@ const DateSelectPicker = (props: IDateSelectPickerProps) => {
         alignItems={"center"}
         mb={1}
       >
-        <Grid2 item xs={6} md={6}>
+        <Grid item xs={6} md={6}>
           <Box>
             <Select
               labelConfig={{
@@ -216,9 +215,9 @@ const DateSelectPicker = (props: IDateSelectPickerProps) => {
               selectableItems={selectableYearList}
             />
           </Box>
-        </Grid2>
+        </Grid>
 
-        <Grid2 item xs={6} md={6}>
+        <Grid item xs={6} md={6}>
           <Box display={props.selectedDateUnit == "month" ? "none" : "block"}>
             <Select
               labelConfig={{
@@ -231,8 +230,8 @@ const DateSelectPicker = (props: IDateSelectPickerProps) => {
               selectableItems={selectableMonthList}
             />
           </Box>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

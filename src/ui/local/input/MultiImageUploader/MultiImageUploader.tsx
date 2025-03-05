@@ -4,7 +4,6 @@ import ImageUploader from "../ImageUploader";
 import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
 import { InputCore } from "@leanoncompany/supporti-react-ui";
 import { TUploadImageCallback } from "../ImageUploader/ImageUploader";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IMuiltiImageUploader extends IInputCore_EXTENDED {
   disabled?: boolean;
@@ -151,9 +150,9 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
         inputStatus={props.inputStatus}
       >
         <Box>
-          <Grid2 container spacing={1}>
+          <Grid container spacing={1}>
             {attachedFileList.map((attachedFile, index) => (
-              <Grid2
+              <Grid
                 key={index}
                 item
                 sx={{
@@ -189,9 +188,9 @@ const MultiImageUploader = (props: IMuiltiImageUploader) => {
                     }}
                   ></Box>
                 }
-              </Grid2>
+              </Grid>
             ))}
-          </Grid2>
+          </Grid>
         </Box>
       </InputCore>
 

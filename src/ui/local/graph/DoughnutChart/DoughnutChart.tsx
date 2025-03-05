@@ -22,7 +22,6 @@ import {
 // import DougnutLabelPlugin from "chartjs-plugin-doughnutlabel";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import useScreenChange from "../../../../hooks/ui/useScreenChange";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 ChartJS.register(
   ArcElement,
@@ -425,19 +424,19 @@ const DoughnutChart = (props: IDoughnutChartProps) => {
 
   return (
     <Box key={screenWidth}>
-      <Grid2 container spacing={1} alignItems={"flex-end"}>
+      <Grid container spacing={1} alignItems={"flex-end"}>
         {/* 원형 차트 영역 */}
-        <Grid2 item xs={12} md={props.useTable === true ? 6 : 12}>
+        <Grid item xs={12} md={props.useTable === true ? 6 : 12}>
           {graph}
-        </Grid2>
+        </Grid>
 
         {/* 표 차트 (순위, 메뉴명, 판매량, 판매 금액) 영역 */}
         {props.useTable === true && (
-          <Grid2 item xs={12} md={6}>
+          <Grid item xs={12} md={6}>
             {table}
-          </Grid2>
+          </Grid>
         )}
-      </Grid2>
+      </Grid>
     </Box>
   );
 };

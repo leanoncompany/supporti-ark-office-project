@@ -13,7 +13,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IPeriod {
   label: string;
@@ -123,7 +122,7 @@ const DateRangePicker = (props: IDateRangePickerProps) => {
 
   return (
     <Box>
-      <Grid2
+      <Grid
         container
         columnSpacing={{ xs: 0.5, md: 2 }}
         mt={1}
@@ -133,7 +132,7 @@ const DateRangePicker = (props: IDateRangePickerProps) => {
         mb={1}
         {...props.gridConfig?.container}
       >
-        <Grid2 item md={4} xs={12} display={"flex"} {...props.gridConfig?.left}>
+        <Grid item md={4} xs={12} display={"flex"} {...props.gridConfig?.left}>
           <ToggleButtonGroup
             size="small"
             value={selectedIndex}
@@ -187,9 +186,9 @@ const DateRangePicker = (props: IDateRangePickerProps) => {
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
-        </Grid2>
+        </Grid>
 
-        <Grid2
+        <Grid
           item
           md={6}
           xs={12}
@@ -205,8 +204,8 @@ const DateRangePicker = (props: IDateRangePickerProps) => {
                 : "none"
             }
           >
-            <Grid2 container spacing={{ xs: 0.5, md: 1.5 }}>
-              <Grid2 item xs={6} md={6}>
+            <Grid container spacing={{ xs: 0.5, md: 1.5 }}>
+              <Grid item xs={6} md={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     disableFuture
@@ -234,8 +233,8 @@ const DateRangePicker = (props: IDateRangePickerProps) => {
                     )}
                   />
                 </LocalizationProvider>
-              </Grid2>
-              <Grid2 item xs={6} md={6}>
+              </Grid>
+              <Grid item xs={6} md={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     disableFuture
@@ -263,11 +262,11 @@ const DateRangePicker = (props: IDateRangePickerProps) => {
                     )}
                   />
                 </LocalizationProvider>
-              </Grid2>
-            </Grid2>
+              </Grid>
+            </Grid>
           </Box>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

@@ -11,7 +11,6 @@ import { TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import { AddressPicker } from "@leanoncompany/supporti-react-ui";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IPasswordInputProps {
   commonTextAreaConfigs: any;
@@ -34,8 +33,8 @@ const PasswordInput = (props: IPasswordInputProps) => {
 
   return (
     <Box>
-      <Grid2 container spacing={1}>
-        <Grid2 item xs={12} md={6}>
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={6}>
           <TextTypeInput
             {...props.commonTextAreaConfigs}
             type={showPassword ? "text" : "password"}
@@ -78,9 +77,9 @@ const PasswordInput = (props: IPasswordInputProps) => {
               </IconButton>
             }
           />
-        </Grid2>
+        </Grid>
 
-        <Grid2 item xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           <TextTypeInput
             {...props.commonTextAreaConfigs}
             value={props.passwordConfirm}
@@ -119,8 +118,8 @@ const PasswordInput = (props: IPasswordInputProps) => {
               </IconButton>
             }
           />
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

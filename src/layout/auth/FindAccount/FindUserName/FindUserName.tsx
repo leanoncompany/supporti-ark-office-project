@@ -1,11 +1,10 @@
 import React, { cloneElement } from "react";
-import { Box, BoxProps, Button, SxProps, Theme } from "@mui/material";
+import { Box, BoxProps, Button, SxProps, Theme, Grid } from "@mui/material";
 import { Dispatch, useState } from "react";
 
 import PhoneAuth from "../PhonAuth";
 import AuthController from "../../../../controller/default/AuthController";
 import moment from "moment";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IFindUserName {
   setShowTab: Dispatch<React.SetStateAction<boolean>>;
@@ -145,8 +144,8 @@ const FindUserName = (props: IFindUserName) => {
     <React.Fragment>
       {props.idStep === 0 && (
         <Box mt={3}>
-          <Grid2 container>
-            <Grid2 item md={12} xs={12}>
+          <Grid container>
+            <Grid item md={12} xs={12}>
               <PhoneAuth
                 phoneNumber={phoneNumber}
                 setPhoneNumber={setPhoneNumber}
@@ -219,11 +218,11 @@ const FindUserName = (props: IFindUserName) => {
                 }
                 useDuplicate={false}
               />
-            </Grid2>
+            </Grid>
 
             {props.thirdText !== undefined && props.thirdText}
 
-            <Grid2
+            <Grid
               item
               md={12}
               xs={12}
@@ -258,9 +257,9 @@ const FindUserName = (props: IFindUserName) => {
                   </Button>
                 )}
               </Box>
-            </Grid2>
+            </Grid>
             {props.goToLogin !== undefined && props.goToLogin}
-          </Grid2>
+          </Grid>
         </Box>
       )}
     </React.Fragment>

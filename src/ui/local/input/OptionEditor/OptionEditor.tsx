@@ -18,7 +18,6 @@ import React, { useEffect, useState, useRef } from "react";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import { RegexManager } from "@leanoncompany/supporti-utility";
 import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IOptionEditorProps extends IInputCore_EXTENDED {
   value: any;
@@ -146,8 +145,8 @@ const OptionEditor = (props: IOptionEditorProps) => {
                   </IconButton>
                 </Box>
 
-                <Grid2 container spacing={2} alignItems="flex-end">
-                  <Grid2 item xs={12} sm={6}>
+                <Grid container spacing={2} alignItems="flex-end">
+                  <Grid item xs={12} sm={6}>
                     <Box
                       borderRadius={3}
                       sx={{
@@ -208,14 +207,14 @@ const OptionEditor = (props: IOptionEditorProps) => {
                         </Box>
                       )}
                     </Box>
-                  </Grid2>
+                  </Grid>
 
-                  <Grid2 item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6}>
                     <Box>
-                      <Grid2 container spacing={2} alignItems={"flex-end"}>
-                        <Grid2 item xs={12} md={8}>
-                          <Grid2 container spacing={1}>
-                            <Grid2 item xs={6}>
+                      <Grid container spacing={2} alignItems={"flex-end"}>
+                        <Grid item xs={12} md={8}>
+                          <Grid container spacing={1}>
+                            <Grid item xs={6}>
                               <Box mb={1}>
                                 <Typography variant={"caption"}>
                                   선택 가능한 옵션명
@@ -233,9 +232,9 @@ const OptionEditor = (props: IOptionEditorProps) => {
                                   setOptionList(clonedList);
                                 }}
                               />
-                            </Grid2>
+                            </Grid>
 
-                            <Grid2 item xs={6}>
+                            <Grid item xs={6}>
                               <Box mb={1}>
                                 <Typography variant={"caption"}>
                                   추가 금액
@@ -255,11 +254,11 @@ const OptionEditor = (props: IOptionEditorProps) => {
                                   setOptionList(clonedList);
                                 }}
                               />
-                            </Grid2>
-                          </Grid2>
-                        </Grid2>
+                            </Grid>
+                          </Grid>
+                        </Grid>
 
-                        <Grid2 item xs={12} md={4}>
+                        <Grid item xs={12} md={4}>
                           <Button
                             fullWidth
                             sx={{
@@ -301,11 +300,11 @@ const OptionEditor = (props: IOptionEditorProps) => {
                           >
                             <AddCircleIcon />
                           </Button>
-                        </Grid2>
-                      </Grid2>
+                        </Grid>
+                      </Grid>
                     </Box>
-                  </Grid2>
-                </Grid2>
+                  </Grid>
+                </Grid>
               </Box>
             ))}
 
@@ -315,8 +314,8 @@ const OptionEditor = (props: IOptionEditorProps) => {
             borderRadius={1.5}
             sx={{ background: "#fff" }}
           >
-            <Grid2 container spacing={1.5} alignItems={"flex-end"}>
-              <Grid2 item xs={12} md={9}>
+            <Grid container spacing={2} alignItems={"flex-end"}>
+              <Grid item xs={12} md={9}>
                 <TextTypeInput
                   labelConfig={{
                     position: "outer",
@@ -337,9 +336,9 @@ const OptionEditor = (props: IOptionEditorProps) => {
                     });
                   }}
                 />
-              </Grid2>
+              </Grid>
 
-              <Grid2 item xs={12} md={3}>
+              <Grid item xs={12} md={3}>
                 <Button
                   disabled={optionName.length == 0}
                   fullWidth
@@ -352,8 +351,8 @@ const OptionEditor = (props: IOptionEditorProps) => {
                 >
                   <PlaylistAddIcon />
                 </Button>
-              </Grid2>
-            </Grid2>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </InputCore>

@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme, Grid } from "@mui/material";
 import React from "react";
 import { IList } from "../../@types/layout/list/list";
 import { useRouter } from "next/router";
@@ -7,7 +7,6 @@ import moment from "moment";
 import "moment/locale/ko";
 import { IRendering } from "../../@types/layout/list/list";
 import DataUtil from "../../utils/data/DataUtil";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 // type Props = {};
 
@@ -110,7 +109,7 @@ const List = (props: IList) => {
         minWidth={props.minWidth !== undefined ? props.minWidth : "1000px"}
       >
         <Box mt={1}>
-          <Grid2
+          <Grid
             container
             spacing={1}
             sx={{
@@ -119,7 +118,7 @@ const List = (props: IList) => {
             }}
           >
             {props.listHeader.map((item, index) => (
-              <Grid2 item md={item.gridMd} xs={item.gridXs} key={index}>
+              <Grid item md={item.gridMd} xs={item.gridXs} key={index}>
                 <Box
                   pl={index == 0 ? 1 : 0}
                   pb={1}
@@ -165,9 +164,9 @@ const List = (props: IList) => {
                     </Typography>
                   </Box>
                 </Box>
-              </Grid2>
+              </Grid>
             ))}
-          </Grid2>
+          </Grid>
         </Box>
         {props.fixedData !== undefined &&
           props.fixedData.map((fixedEl: any, fixedIndex: number) => {
@@ -207,11 +206,11 @@ const List = (props: IList) => {
                   }
                 }}
               >
-                <Grid2 container spacing={1} key={fixedIndex}>
+                <Grid container spacing={1} key={fixedIndex}>
                   {props.listHeader.map(
                     (listFixedHeaderElement: any, i: number) => {
                       return (
-                        <Grid2
+                        <Grid
                           item
                           pr={1}
                           key={JSON.stringify(i)}
@@ -226,11 +225,11 @@ const List = (props: IList) => {
                               true
                             )}
                           </Box>
-                        </Grid2>
+                        </Grid>
                       );
                     }
                   )}
-                </Grid2>
+                </Grid>
               </Box>
             );
           })}
@@ -312,11 +311,11 @@ const List = (props: IList) => {
                     }
                   }}
                 >
-                  <Grid2 container spacing={1} key={index}>
+                  <Grid container spacing={1} key={index}>
                     {props.listHeader.map(
                       (listHeaderElement: any, index: number) => {
                         return (
-                          <Grid2
+                          <Grid
                             item
                             md={listHeaderElement.gridMd}
                             display={"flex"}
@@ -331,11 +330,11 @@ const List = (props: IList) => {
                                 element
                               )}
                             </Box>
-                          </Grid2>
+                          </Grid>
                         );
                       }
                     )}
-                  </Grid2>
+                  </Grid>
                 </Box>
               );
             })}

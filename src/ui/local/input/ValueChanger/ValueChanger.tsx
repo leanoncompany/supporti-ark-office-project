@@ -3,7 +3,6 @@ import { InputCore, TextTypeInput } from "@leanoncompany/supporti-react-ui";
 import { RegexManager } from "@leanoncompany/supporti-utility";
 import React, { useState } from "react";
 import { IInputCore_EXTENDED } from "../../../../@types/external/qillieReactUi";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface IPointChangerProps extends IInputCore_EXTENDED {
   value: any;
@@ -72,8 +71,8 @@ const PointChanger = (props: IPointChangerProps) => {
       </Box>
 
       {/*  카드 , 핸드폰, 가상 , 실시간 이체 */}
-      <Grid2 container>
-        <Grid2 item md={12} xs={12}>
+      <Grid container>
+        <Grid item md={12} xs={12}>
           <ButtonGroup
             // size="large"
             color="info"
@@ -123,8 +122,8 @@ const PointChanger = (props: IPointChangerProps) => {
               +100만
             </Button>
           </ButtonGroup>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </InputCore>
   );
 };

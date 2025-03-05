@@ -254,7 +254,7 @@ const Entry = (props: IEntryProps) => {
           <Box height={"auto"} minHeight={"100%"}>
             <Grid2 container>
               <Grid2
-                item
+                component="div"
                 display={{
                   xs: "none",
                   md:
@@ -271,7 +271,7 @@ const Entry = (props: IEntryProps) => {
               </Grid2>
 
               <Grid2
-                item
+                component="div"
                 xs={12}
                 md={
                   mustRedirectToLoginPage || props.disableSideBar === true
